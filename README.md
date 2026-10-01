@@ -73,7 +73,7 @@ The signup form lives in one place, `src/components/SubscribeForm.astro`, and is
 
 **Buttondown:** use `https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME`. The form already sends an `email` field.
 
-**Beehiiv:** use the form-post URL from Beehiiv's embeddable subscribe form for your publication, if your plan offers it. If it doesn't, Beehiiv's API needs a secret key, which must run server-side (for example a small Cloudflare Pages Function) and not in this static site. That function isn't included.
+**Beehiiv:** use the form-post URL from Beehiiv's embeddable subscribe form for your publication, if your plan offers it. If it doesn't, Beehiiv's API needs a secret key, which must run server-side (for example a small Vercel serverless function) and not in this static site. That function isn't included.
 
 Behaviour: the form validates the address in the browser, then posts it with `fetch`. Most providers don't return CORS headers, so the browser can't read the response. A resolved request shows the success message, and a network failure shows the error message. If you want strict confirmation, use the provider's hosted "thanks" page by posting the form normally (remove the script in `SubscribeForm.astro`).
 
@@ -81,28 +81,23 @@ If `PUBLIC_NEWSLETTER_ACTION` is empty, the form still validates but reports "Si
 
 ---
 
-## Deploy to Cloudflare Pages (with aifounderfiles.com)
+## Deploy to Vercel (with aifounderfiles.com)
 
-1. Put this folder in a Git repository (GitHub or GitLab) and push it.
-2. In the Cloudflare dashboard go to **Workers & Pages → Create → Pages → Connect to Git** and pick the repository.
-3. Build settings:
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Environment variables: `NODE_VERSION` = `22` and `PUBLIC_NEWSLETTER_ACTION` = your endpoint.
-4. Deploy. You'll get a `*.pages.dev` URL to check first.
-5. Add the domain: in the Pages project open **Custom domains → Set up a custom domain** and add `aifounderfiles.com`, then add `www.aifounderfiles.com` too.
-6. DNS:
-   - If the domain's DNS is on Cloudflare, it creates the records for you. Accept them.
-   - If DNS is elsewhere, either move the nameservers to Cloudflare (recommended), or add a `CNAME` for `www` → `<your-project>.pages.dev`. An apex (`aifounderfiles.com`) CNAME needs a DNS provider that supports CNAME flattening or ALIAS records, which is why Cloudflare nameservers are easiest.
-7. Redirect `www` to the apex (or the reverse) with a Cloudflare **Redirect Rule**, so there is one canonical hostname. The site's canonical URLs and sitemap use `https://aifounderfiles.com`.
-8. After going live, submit `https://aifounderfiles.com/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
+The repo is at `github.com/davidphilipstark1993/aifounderfiles`. `vercel.json` already sets the build command, output folder and trailing-slash URLs, and `package.json` pins Node 22.12+. No adapter is needed because the site is fully static.
 
-Every push to the production branch redeploys automatically, so publishing a file is: add the Markdown, commit, push.
+1. In Vercel choose **Add New → Project**, import the GitHub repo and leave the detected settings (Framework: Astro, Build: `npm run build`, Output: `dist`).
+2. Under **Environment Variables** add `PUBLIC_NEWSLETTER_ACTION` with your provider's endpoint (see above). It's read at build time, so redeploy after changing it.
+3. Deploy. You'll get a `*.vercel.app` URL to check first.
+4. **Settings → Domains → Add** `aifounderfiles.com`, and add `www.aifounderfiles.com` too. Vercel shows the exact DNS records to create.
+5. Create those records where the domain is registered (or wherever its DNS is managed). Use the values Vercel displays, typically an `A` record for the apex and a `CNAME` for `www`. DNS changes can take from a few minutes to a few hours.
+6. In **Domains**, set one of the two to redirect to the other, so there is a single canonical hostname. The site's canonical URLs and sitemap use `https://aifounderfiles.com`, so make the apex the primary.
+7. After it's live, submit `https://aifounderfiles.com/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
 
-### Netlify instead
+Every push to `main` redeploys automatically, so publishing a file is: add the Markdown, commit, push. Pull requests get their own preview URLs, which is a good way to proof an article first. (Drafts never appear in any Vercel build.)
 
-New site → import from Git → build command `npm run build`, publish directory `dist`, set `NODE_VERSION=22` and `PUBLIC_NEWSLETTER_ACTION`. Under **Domain management** add `aifounderfiles.com`. Use Netlify DNS, or point an `ALIAS`/`ANAME` (apex) and a `CNAME` (`www`) at the Netlify site.
+### Other hosts
+
+The output is plain static files in `dist/`, so Netlify and Cloudflare Pages work too: build command `npm run build`, output directory `dist`, `NODE_VERSION=22`, and the same `PUBLIC_NEWSLETTER_ACTION` variable. On Cloudflare Pages the trailing-slash behaviour is the default, and on Netlify enable "Pretty URLs".
 
 ---
 
@@ -111,7 +106,7 @@ New site → import from Git → build command `npm run build`, publish director
 - [ ] Replace the placeholders on `/privacy/` (marked `[DRAFT — review before launch]`), have it reviewed, then remove `noindex` from `src/pages/privacy.astro` and the `/privacy/` filter in the sitemap config in `astro.config.mjs`.
 - [ ] Set up the mailboxes in `src/lib/site.ts` (`hello@` and `corrections@aifounderfiles.com`), or change them.
 - [ ] Read `/editorial-policy/` and `/about/` and edit the wording to match how you actually work. The fact-checking section is a draft. Add the "Who's behind it" paragraph on `/about/`.
-- [ ] Set `PUBLIC_NEWSLETTER_ACTION` in the host's environment variables.
+- [ ] Set `PUBLIC_NEWSLETTER_ACTION` in Vercel's environment variables.
 - [ ] Publish file #001 (`draft: false`). Until then the home page, archive and indexes show "coming soon" empty states.
 
 ---
