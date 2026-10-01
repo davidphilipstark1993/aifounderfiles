@@ -1,0 +1,118 @@
+---
+/**
+ * AI Founder Files logo — Option A, "The Folder".
+ * variant: "stacked" (primary lockup), "horizontal" (header/email/social), "mark" (icon only)
+ * theme:   "light" (for paper/white backgrounds) | "dark" (for ink backgrounds)
+ * Size is controlled by font-size: set --logo-size on the element or a parent.
+ */
+interface Props {
+  variant?: 'stacked' | 'horizontal' | 'mark';
+  theme?: 'light' | 'dark';
+  tagline?: boolean;
+  class?: string;
+}
+const { variant = 'horizontal', theme = 'light', tagline = variant === 'stacked', class: className } = Astro.props;
+
+const c =
+  theme === 'light'
+    ? { body: '#0E1A2B', text: '#F7F5F0', accent: '#C7431D' }
+    : { body: '#F7F5F0', text: '#0E1A2B', accent: '#F06A3F' };
+---
+<span class:list={['logo', `logo--${variant}`, `logo--${theme}`, className]}>
+  <svg
+    class="logo__mark"
+    viewBox="0 0 64 56"
+    role={variant === 'mark' ? 'img' : undefined}
+    aria-label={variant === 'mark' ? 'AI Founder Files' : undefined}
+    aria-hidden={variant === 'mark' ? undefined : 'true'}
+    focusable="false"
+  >
+    <path d="M4 9.5 A3.5 3.5 0 0 1 7.5 6 H24 L29 11 H4 Z" fill={c.accent} />
+    <rect x="2" y="10" width="60" height="44" rx="5" fill={c.body} />
+    <text x="32" y="40" text-anchor="middle" font-family="'Archivo Variable', Archivo, sans-serif" font-weight="900" font-stretch="100%" font-size="25" fill={c.text}>AI</text>
+    <rect x="19" y="45" width="26" height="3" fill={c.accent} />
+  </svg>
+  {variant !== 'mark' && (
+    <span class="logo__text">
+      <span class="logo__words">
+        {variant === 'stacked' ? (
+          <>
+            <span class="logo__ink">AI</span>
+            <span class="logo__ink">FOUNDER</span>
+          </>
+        ) : (
+          <span class="logo__ink">AI FOUNDER</span>
+        )}
+        <span class="logo__signal">FILES</span>
+      </span>
+      {tagline && <span class="logo__tagline">One Founder · One Company · One File</span>}
+    </span>
+  )}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--logo-size, 1.5rem);
+    line-height: 1;
+    gap: 0.4em;
+    color: var(--ink);
+  }
+  .logo__mark {
+    flex: none;
+    height: auto;
+  }
+  .logo--horizontal .logo__mark {
+    width: 1.5em;
+  }
+  .logo--stacked .logo__mark {
+    width: 1.9em;
+    margin-right: 0.15em;
+  }
+  .logo--mark .logo__mark {
+    width: 1.5em;
+  }
+  .logo__words {
+    display: flex;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 85%;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .logo--horizontal .logo__words {
+    gap: 0.16em;
+  }
+  .logo--stacked .logo__words {
+    flex-direction: column;
+    font-size: 1.5em;
+    line-height: 0.86;
+  }
+  .logo__ink {
+    color: var(--ink);
+  }
+  .logo__signal {
+    color: var(--signal);
+  }
+  .logo--dark .logo__ink {
+    color: var(--paper);
+  }
+  .logo--dark .logo__signal {
+    color: var(--signal-light);
+  }
+  .logo__tagline {
+    display: block;
+    margin-top: 0.9em;
+    font-family: var(--font-mono);
+    font-size: 0.42em;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+    white-space: nowrap;
+  }
+  .logo--dark .logo__tagline {
+    color: var(--ink-muted);
+  }
+</style>

@@ -1,0 +1,269 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FactBox from '../../components/FactBox.astro';
+import FileCard from '../../components/FileCard.astro';
+import NewsletterBand from '../../components/NewsletterBand.astro';
+import {
+  factFields,
+  fileNumberLabel,
+  formatDate,
+  getPublishedFiles,
+  isoDate,
+  readingTime,
+  relatedFiles,
+  type FileEntry,
+} from '../../lib/files';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const files = await getPublishedFiles();
+  return files.map((entry) => ({ params: { slug: entry.id }, props: { entry, files } }));
+}
+
+interface Props {
+  entry: FileEntry;
+  files: FileEntry[];
+}
+const { entry, files } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const minutes = readingTime(entry.body);
+const related = relatedFiles(entry, files, 3);
+const ogPath = `/og/${entry.id}.png`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+
+const isRealYear = (v?: string) => (v && /^\d{4}$/.test(v.trim()) ? v.trim() : undefined);
+const isNamed = (v?: string) => (v && !/^undisclosed$/i.test(v.trim()) ? v : undefined);
+
+const founderLd = {
+  '@type': 'Person',
+  name: data.founder.name,
+  jobTitle: data.founder.role,
+  ...(data.founder.linkedin && { sameAs: [data.founder.linkedin] }),
+  worksFor: { '@type': 'Organization', name: data.company.name },
+};
+const companyLd = {
+  '@type': 'Organization',
+  name: data.company.name,
+  ...(data.company.website && { url: data.company.website }),
+  ...(isRealYear(data.company.founded) && { foundingDate: isRealYear(data.company.founded) }),
+  ...(isNamed(data.company.hq) && { location: { '@type': 'Place', name: data.company.hq } }),
+  founder: { '@type': 'Person', name: data.founder.name },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: data.title,
+  description: data.standfirst,
+  image: [new URL(ogPath, SITE.url).href],
+  datePublished: data.publishDate.toISOString(),
+  dateModified: (data.updatedDate ?? data.publishDate).toISOString(),
+  author: { '@type': 'Person', name: data.author },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  about: [founderLd, companyLd],
+  keywords: data.tags.join(', '),
+  articleSection: data.company.sector,
+  inLanguage: 'en-GB',
+  isAccessibleForFree: true,
+  citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
+};
+---
+<BaseLayout
+  title={data.title}
+  description={data.standfirst}
+  type="article"
+  image={ogPath}
+  imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
+  noindex={data.draft}
+  jsonLd={jsonLd}
+  article={{ published: data.publishDate, modified: data.updatedDate, author: data.author, section: data.company.sector, tags: data.tags }}
+>
+  {data.draft && (
+    <div class="draft-banner">
+      <p class="label">Draft · visible in dev only · excluded from production builds</p>
+    </div>
+  )}
+
+  <article>
+    <header class="file-head">
+      <div class="wrap file-head__grid">
+        <div>
+          <p class="label label--signal">Founder File {fileNumberLabel(data.fileNumber)}</p>
+          <h1 class="display file-title">{data.title}</h1>
+          <p class="file-standfirst">{data.standfirst}</p>
+          <p class="byline label label--muted">
+            <span>By {data.author}</span>
+            <span aria-hidden="true">·</span>
+            <time datetime={isoDate(data.publishDate)}>{formatDate(data.publishDate)}</time>
+            <span aria-hidden="true">·</span>
+            <span>{minutes} min read</span>
+            {data.updatedDate && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>Updated <time datetime={isoDate(data.updatedDate)}>{formatDate(data.updatedDate)}</time></span>
+              </>
+            )}
+          </p>
+        </div>
+        <div class="file-head__fact">
+          <FactBox id="file-fact" fields={factFields(data)} />
+        </div>
+      </div>
+    </header>
+
+    {data.heroImage && (
+      <figure class="wrap file-hero">
+        <Image src={data.heroImage.src} alt={data.heroImage.alt} widths={[640, 960, 1200]} sizes="(min-width: 1232px) 1200px, 100vw" loading="eager" fetchpriority="high" />
+      </figure>
+    )}
+
+    <div class="file-body">
+      <div class="wrap">
+        <div class="prose file-prose">
+          <Content />
+        </div>
+
+        <section class="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title" class="label">Sources</h2>
+          <ol>
+            {data.sources.map((s) => (
+              <li>
+                <a href={s.url} rel="noopener noreferrer" target="_blank">{s.title}<span class="visually-hidden"> (opens in a new tab)</span></a>
+                <span class="sources__host label label--muted">{hostOf(s.url)}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <NewsletterBand id="file-subscribe" heading="Get next week’s file" text="One founder, one company, one deep dive, in your inbox every week." />
+
+  {related.length > 0 && (
+    <section class="section" aria-labelledby="related-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="related-title">Related files</h2></div>
+        <ul class="related" role="list">
+          {related.map((r) => <li><FileCard entry={r} /></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .file-head {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
+  }
+  .file-head__grid {
+    display: grid;
+    gap: 2.5rem 4rem;
+    align-items: start;
+  }
+  .file-title {
+    margin-top: 1rem;
+    font-size: clamp(2.25rem, 7.4vw, 4.5rem);
+  }
+  .file-standfirst {
+    margin-top: 1.4rem;
+    max-width: 46ch;
+    font-size: 1.3125rem;
+    line-height: 1.5;
+    color: var(--slate);
+  }
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.65rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    max-width: 46ch;
+  }
+  .file-head__fact {
+    max-width: 28rem;
+  }
+  @media (min-width: 900px) {
+    .file-head__grid {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+    }
+    .file-head__fact {
+      margin-top: 0.4rem;
+    }
+  }
+  @media (min-width: 1100px) {
+    .file-head__grid {
+      grid-template-columns: minmax(0, 1fr) 25rem;
+    }
+  }
+  .file-hero {
+    margin-bottom: 2.5rem;
+  }
+  .file-hero :global(img) {
+    width: 100%;
+    border-radius: var(--radius);
+  }
+  .file-body {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .file-prose,
+  .sources {
+    margin-inline: auto;
+  }
+  .sources {
+    max-width: var(--measure);
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+  }
+  .sources ol {
+    margin: 1rem 0 0;
+    padding-left: 1.6em;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .sources li {
+    padding-block: 0.4rem;
+    padding-left: 0.4rem;
+  }
+  .sources li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--graphite);
+  }
+  .sources a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+  .sources a:hover {
+    color: var(--signal);
+  }
+  .sources__host {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+  .related {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>

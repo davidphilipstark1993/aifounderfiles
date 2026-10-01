@@ -1,0 +1,38 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { fileNumberLabel, fileUrl, getFounders } from '../lib/files';
+const founders = await getFounders();
+---
+<PageLayout
+  title="Founders"
+  description="Every founder profiled in an AI Founder Files deep dive, one file each."
+  label="The index"
+  heading="Founders"
+  lede="Every founder we’ve profiled, with a link to their file."
+  prose={false}
+>
+  {founders.length > 0 ? (
+    <ul class="index" role="list">
+      {founders.map((f) => (
+        <li>
+          <a class="index__row" href={fileUrl(f.entry)}>
+            <span class="index__num label label--muted">{fileNumberLabel(f.entry.data.fileNumber)}</span>
+            <span class="index__main">
+              <span class="index__title">{f.name}</span>
+              <span class="index__sub">{f.role}</span>
+            </span>
+            <span class="index__meta label label--muted">{f.company} · {f.entry.data.company.sector}</span>
+            <span class="index__go" aria-hidden="true"><Arrow /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div class="empty-state">
+      <p class="label label--signal">Nothing filed yet</p>
+      <p><strong>No founders yet.</strong> The first founder is announced with file #001. Each one we cover will be listed here.</p>
+      <a class="link-arrow" href="/subscribe/"><span>Subscribe to hear first</span><Arrow /></a>
+    </div>
+  )}
+</PageLayout>

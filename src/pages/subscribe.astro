@@ -1,0 +1,63 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+---
+<PageLayout
+  title="Subscribe"
+  description="Get one founder, one company and one deep dive in your inbox every week."
+  label="The weekly file"
+  heading="Get the file"
+  lede="One founder. One company. One deep dive. Delivered to your inbox every week."
+  prose={false}
+>
+  <div class="subscribe-grid">
+    <div>
+      <SubscribeForm id="subscribe-page" />
+    </div>
+    <aside class="on-manila inside" aria-labelledby="inside-title">
+      <h2 id="inside-title" class="label">What’s in each file</h2>
+      <ul role="list">
+        <li>The founder: who they are and why they built this.</li>
+        <li>The product: what it does, in plain English.</li>
+        <li>The funding: who backed it, where that’s public.</li>
+        <li>The business model: how it makes money.</li>
+        <li>Sources for every claim, listed at the end.</li>
+      </ul>
+    </aside>
+  </div>
+</PageLayout>
+
+<style>
+  .subscribe-grid {
+    display: grid;
+    gap: 3rem 4rem;
+    align-items: start;
+  }
+  .inside {
+    background: var(--manila);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 30rem;
+  }
+  .inside h2 {
+    font-weight: 700;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  }
+  .inside ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .inside li {
+    padding-block: 0.45rem;
+    font-size: 1.0625rem;
+    line-height: 1.45;
+  }
+  @media (min-width: 900px) {
+    .subscribe-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+  }
+</style>

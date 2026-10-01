@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FactBox from '../components/FactBox.astro';
+import FileCard from '../components/FileCard.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { factFields, fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
+import { SITE } from '../lib/site';
+
+const files = await getPublishedFiles();
+const [latest, ...rest] = files;
+const previous = rest.slice(0, 6);
+
+const daysOld = latest ? (Date.now() - latest.data.publishDate.getTime()) / 86_400_000 : 0;
+const eyebrow = latest
+  ? `Founder File ${fileNumberLabel(latest.data.fileNumber)} · ${daysOld <= 8 ? 'This week' : 'Latest file'}${latest.data.draft ? ' · Draft' : ''}`
+  : 'Founder File #001 · Coming soon';
+
+const tbc = 'To be announced';
+const emptyFields = ['Founder', 'Company', 'Founded', 'HQ', 'Sector', 'Funding'].map((label) => ({ label, value: tbc }));
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE.url}/#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/icon-512.png`,
+    description: SITE.description,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: 'en-GB',
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
+];
+---
+<BaseLayout
+  fullTitle
+  title={`${SITE.name} — ${SITE.tagline}`}
+  description={SITE.description}
+  jsonLd={jsonLd}
+>
+  <h1 class="visually-hidden">{SITE.name}: {SITE.tagline}</h1>
+
+  <section id="latest" class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="label label--signal">{eyebrow}</p>
+        {latest ? (
+          <>
+            <h2 id="hero-title" class="display hero__title">{latest.data.title}</h2>
+            <p class="hero__standfirst">{latest.data.standfirst}</p>
+            <a class="link-arrow" href={fileUrl(latest)}>
+              <span>Read the file<span class="visually-hidden">: {latest.data.title}</span></span><Arrow />
+            </a>
+          </>
+        ) : (
+          <>
+            <h2 id="hero-title" class="display hero__title">One founder. One company. One deep dive.</h2>
+            <p class="hero__standfirst">
+              Every week we open one file: the founder, the product, the funding and the business model behind a new AI company, told in full.
+            </p>
+            <a class="link-arrow" href="/subscribe/"><span>Get file #001 in your inbox</span><Arrow /></a>
+          </>
+        )}
+      </div>
+      <div class="hero__fact">
+        <FactBox id="hero-fact" fields={latest ? factFields(latest.data, true) : emptyFields} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--rule" aria-labelledby="previous-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="previous-title">Previous files</h2>
+        {files.length > 0 && <a class="link-arrow" href="/archive/"><span>All files</span><Arrow /></a>}
+      </div>
+      {previous.length > 0 ? (
+        <ul class="grid" role="list">
+          {previous.map((entry) => (
+            <li><FileCard entry={entry} /></li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <p class="label label--signal">Archive</p>
+          <p><strong>No earlier files yet.</strong> {latest ? 'This is the first one.' : 'File #001 is on its way.'} Each week’s file will be added here and to the archive.</p>
+          <a class="link-arrow" href="/subscribe/"><span>Subscribe</span><Arrow /></a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <NewsletterBand id="home-subscribe" />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 7vw, 5rem);
+  }
+  .hero__grid {
+    display: grid;
+    gap: 2.5rem 4rem;
+    align-items: start;
+  }
+  .hero__title {
+    margin-top: 1rem;
+    font-size: clamp(2.5rem, 7.5vw, 4.75rem);
+  }
+  .hero__standfirst {
+    margin-top: 1.5rem;
+    max-width: 44ch;
+    font-size: 1.3125rem;
+    line-height: 1.5;
+    color: var(--slate);
+  }
+  .hero__copy .link-arrow {
+    margin-top: 1rem;
+  }
+  .hero__fact {
+    max-width: 28rem;
+  }
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+    }
+    .hero__fact {
+      margin-top: 0.4rem;
+    }
+  }
+  @media (min-width: 1100px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) 25rem;
+    }
+  }
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>

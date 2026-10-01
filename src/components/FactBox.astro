@@ -1,0 +1,94 @@
+---
+import type { FactField } from '../lib/files';
+interface Props {
+  fields: FactField[];
+  id: string;
+  heading?: string;
+}
+const { fields, id, heading = 'The File' } = Astro.props;
+const isUndisclosed = (v: string) => /^(undisclosed|to be announced)$/i.test(v);
+---
+<section class="factbox on-manila" aria-labelledby={id}>
+  <h2 id={id} class="factbox__title">{heading}</h2>
+  <dl class="factbox__list">
+    {fields.map((f) => (
+      <div class="factbox__row">
+        <dt><span>{f.label}</span><span class="factbox__dots" aria-hidden="true">{'.'.repeat(40)}</span></dt>
+        <dd class:list={{ 'is-undisclosed': isUndisclosed(f.value) }}>{f.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .factbox {
+    --tab: 1.25rem;
+    position: relative;
+    margin-top: var(--tab);
+    background: var(--manila);
+    color: var(--ink);
+    border-radius: 0 var(--radius) var(--radius) var(--radius);
+    padding: 1.5rem 1.5rem 1.35rem;
+    font-family: var(--font-mono);
+  }
+  /* The folder tab — same cut as the logo's tab: a diagonal right edge. */
+  .factbox::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--tab) * -1 + 1px);
+    width: 38%;
+    max-width: 11rem;
+    height: var(--tab);
+    background: var(--manila);
+    border-radius: var(--radius) 0 0 0;
+    clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 100%, 0 100%);
+  }
+  .factbox__title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  }
+  .factbox__list {
+    margin: 0;
+  }
+  .factbox__row {
+    display: grid;
+    grid-template-columns: minmax(0, 10.5ch) minmax(0, 1fr);
+    column-gap: 0.75ch;
+    align-items: baseline;
+    padding-block: 0.3rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  dt {
+    display: flex;
+    min-width: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  dt > span:first-child {
+    flex: none;
+    padding-right: 0.5ch;
+  }
+  .factbox__dots {
+    flex: 1;
+    overflow: hidden;
+    letter-spacing: 0;
+  }
+  dd {
+    margin: 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+  dd.is-undisclosed {
+    color: var(--slate);
+    font-style: italic;
+  }
+</style>

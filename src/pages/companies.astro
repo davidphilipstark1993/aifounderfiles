@@ -1,0 +1,40 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { fileNumberLabel, fileUrl, getCompanies } from '../lib/files';
+const companies = await getCompanies();
+const detail = (c: (typeof companies)[number]) =>
+  [c.sector, c.stage, c.hq].filter((v) => v && !/^undisclosed$/i.test(v)).join(' · ');
+---
+<PageLayout
+  title="Companies"
+  description="Every company profiled in an AI Founder Files deep dive, one file each."
+  label="The index"
+  heading="Companies"
+  lede="Every company we’ve profiled, with a link to its file."
+  prose={false}
+>
+  {companies.length > 0 ? (
+    <ul class="index" role="list">
+      {companies.map((c) => (
+        <li>
+          <a class="index__row" href={fileUrl(c.entry)}>
+            <span class="index__num label label--muted">{fileNumberLabel(c.entry.data.fileNumber)}</span>
+            <span class="index__main">
+              <span class="index__title">{c.name}</span>
+              <span class="index__sub">{detail(c)}</span>
+            </span>
+            <span class="index__meta label label--muted">Founder: {c.founder}</span>
+            <span class="index__go" aria-hidden="true"><Arrow /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div class="empty-state">
+      <p class="label label--signal">Nothing filed yet</p>
+      <p><strong>No companies yet.</strong> The first company is announced with file #001. Each one we cover will be listed here.</p>
+      <a class="link-arrow" href="/subscribe/"><span>Subscribe to hear first</span><Arrow /></a>
+    </div>
+  )}
+</PageLayout>

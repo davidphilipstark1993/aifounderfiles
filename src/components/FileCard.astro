@@ -1,0 +1,85 @@
+---
+import { fileNumberLabel, fileUrl, formatDate, type FileEntry } from '../lib/files';
+interface Props {
+  entry: FileEntry;
+  level?: 2 | 3;
+}
+const { entry, level = 3 } = Astro.props;
+const { data } = entry;
+const Heading = `h${level}` as 'h2' | 'h3';
+---
+<article class="card">
+  <p class="label label--muted card__meta">
+    File {fileNumberLabel(data.fileNumber)} · <time datetime={data.publishDate.toISOString()}>{formatDate(data.publishDate, 'short')}</time>
+    {data.draft && <span class="tag tag--draft">Draft</span>}
+  </p>
+  <Heading class="display card__title"><a href={fileUrl(entry)}>{data.title}</a></Heading>
+  <p class="card__standfirst">{data.standfirst}</p>
+  <p class="card__who label">
+    <span class="tag">{data.company.sector}</span>
+    <span>{data.founder.name} · {data.company.name}</span>
+  </p>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.4rem 1.25rem;
+    transition: border-color 0.15s;
+  }
+  .card:hover,
+  .card:focus-within {
+    border-color: var(--ink);
+  }
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card__title {
+    font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  }
+  .card__title a {
+    text-decoration: none;
+  }
+  .card__title a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.12em;
+  }
+  /* Whole card is clickable */
+  .card__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .card__standfirst {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--slate);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card__who {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--graphite);
+  }
+</style>

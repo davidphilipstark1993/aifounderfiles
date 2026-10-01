@@ -1,0 +1,183 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../lib/site';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href);
+---
+<header class="site-header" data-header>
+  <div class="wrap site-header__bar">
+    <a href="/" class="site-header__logo" aria-label="AI Founder Files, home">
+      <Logo variant="horizontal" />
+    </a>
+
+    <button class="menu-toggle label" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-menu-label>Menu</span>
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+        <path class="bars" d="M3 6h14M3 10h14M3 14h14" />
+        <path class="cross" d="M4 4l12 12M16 4 4 16" />
+      </svg>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul role="list">
+        {SITE.nav.map((item) => (
+          <li>
+            <a class="label" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+        <li class="site-nav__cta">
+          <a class="btn" href="/subscribe/" aria-current={path.startsWith('/subscribe/') ? 'page' : undefined}>Subscribe</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .site-header__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 1.5rem;
+    min-height: 4.5rem;
+  }
+  .site-header__logo {
+    --logo-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    text-decoration: none;
+  }
+  .site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .site-nav a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 0.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav a:not(.btn):hover {
+    border-bottom-color: var(--ink);
+  }
+  .site-nav a[aria-current='page']:not(.btn) {
+    border-bottom-color: var(--signal);
+  }
+  .site-nav__cta {
+    margin-left: 0.5rem;
+  }
+
+  /* Menu button: only exists once JS has added .js to <html> */
+  .menu-toggle {
+    display: none;
+    margin-left: auto;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: var(--tap);
+    min-width: var(--tap);
+    padding: 0 0.9rem;
+    background: transparent;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .menu-toggle svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .menu-toggle .cross,
+  .menu-toggle[aria-expanded='true'] .bars {
+    display: none;
+  }
+  .menu-toggle[aria-expanded='true'] .cross {
+    display: inline;
+  }
+
+  @media (max-width: 899px) {
+    :global(.js) .menu-toggle {
+      display: inline-flex;
+    }
+    :global(.js) .site-nav {
+      display: none;
+      flex-basis: 100%;
+      padding-block: 0.5rem 1.25rem;
+    }
+    :global(.js) .site-header.nav-open .site-nav {
+      display: block;
+    }
+    :global(.js) .site-nav ul {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    :global(.js) .site-nav li {
+      border-top: 1px solid var(--rule);
+    }
+    :global(.js) .site-nav a:not(.btn) {
+      display: flex;
+      min-height: 3.25rem;
+      padding: 0;
+      border-bottom: 0;
+    }
+    :global(.js) .site-nav a[aria-current='page']:not(.btn) {
+      box-shadow: inset 3px 0 0 var(--signal);
+      padding-left: 0.75rem;
+    }
+    :global(.js) .site-nav__cta {
+      margin: 0.75rem 0 0;
+      border-top: 0 !important;
+    }
+    :global(.js) .site-nav__cta .btn {
+      width: 100%;
+    }
+    /* No-JS fallback: nav simply wraps under the logo */
+    .site-nav {
+      flex-basis: 100%;
+      padding-bottom: 0.5rem;
+    }
+  }
+  @media (min-width: 600px) {
+    .site-header__logo {
+      --logo-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+  const label = header?.querySelector<HTMLElement>('[data-menu-label]');
+
+  if (header && button) {
+    const setOpen = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      header.classList.toggle('nav-open', open);
+      if (label) label.textContent = open ? 'Close' : 'Menu';
+    };
+    button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        button.focus();
+      }
+    });
+    window.matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

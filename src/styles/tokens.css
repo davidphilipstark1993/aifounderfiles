@@ -1,0 +1,29 @@
+:root {
+  /* Brand colour tokens — exact values from brand sheet 03 */
+  --ink: #0e1a2b;
+  --signal: #c7431d; /* accent. Under 10% of any page. Never as text on ink. */
+  --signal-light: #f06a3f; /* accent on ink backgrounds only */
+  --paper: #f7f5f0;
+  --manila: #e8dcc0;
+  --slate: #33506f;
+  --graphite: #5b6573;
+  --rule: #e2ddd2;
+
+  /* Supporting neutrals (not brand colours) */
+  --white: #ffffff; /* card surfaces, text on signal buttons (4.9:1) */
+  --ink-muted: #aeb6c2; /* secondary text on ink; graphite fails AA there (3.0:1) */
+  --ink-rule: #2a3a50; /* dividers on ink */
+
+  /* Type */
+  --font-display: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Layout */
+  --wrap: 1200px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --measure: 68ch;
+  --radius: 6px;
+  --radius-sm: 4px;
+  --tap: 44px;
+}

@@ -1,0 +1,49 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles } from '../lib/files';
+
+const files = await getPublishedFiles(); // already newest first
+const byYear = new Map<number, typeof files>();
+for (const f of files) {
+  const y = f.data.publishDate.getUTCFullYear();
+  byYear.set(y, [...(byYear.get(y) ?? []), f]);
+}
+---
+<PageLayout
+  title="Archive"
+  description="Every AI Founder Files deep dive, newest first."
+  label="The archive"
+  heading="All files"
+  lede="Every Founder File, newest first."
+  prose={false}
+>
+  {files.length > 0 ? (
+    [...byYear.entries()].map(([year, items]) => (
+      <>
+        <h2 class="index__year">{year}</h2>
+        <ul class="index" role="list">
+          {items.map((f) => (
+            <li>
+              <a class="index__row" href={fileUrl(f)}>
+                <span class="index__num label label--muted">{fileNumberLabel(f.data.fileNumber)}</span>
+                <span class="index__main">
+                  <span class="index__title">{f.data.title}</span>
+                  <span class="index__sub">{f.data.founder.name} · {f.data.company.name}{f.data.draft ? ' · DRAFT' : ''}</span>
+                </span>
+                <span class="index__meta label label--muted"><time datetime={f.data.publishDate.toISOString()}>{formatDate(f.data.publishDate)}</time></span>
+                <span class="index__go" aria-hidden="true"><Arrow /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  ) : (
+    <div class="empty-state">
+      <p class="label label--signal">Nothing filed yet</p>
+      <p><strong>The archive is empty.</strong> File #001 is on its way, and every file after it will be listed here, newest first.</p>
+      <a class="link-arrow" href="/subscribe/"><span>Subscribe to hear first</span><Arrow /></a>
+    </div>
+  )}
+</PageLayout>

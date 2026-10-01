@@ -1,0 +1,73 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../lib/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <a href="/" class="site-footer__logo" aria-label="AI Founder Files, home"><Logo variant="horizontal" /></a>
+        <p class="site-footer__tag label label--muted">{SITE.tagline}</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul role="list">
+          <li><a class="label" href="/about/">About</a></li>
+          <li><a class="label" href="/editorial-policy/">Editorial policy</a></li>
+          <li><a class="label" href="/subscribe/">Subscribe</a></li>
+          <li><a class="label" href="/rss.xml">RSS</a></li>
+          <li><a class="label" href="/privacy/">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="site-footer__legal label label--muted">© {year} {SITE.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding-block: 2.5rem 2rem;
+  }
+  .site-footer__top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .site-footer__logo {
+    display: inline-flex;
+    min-height: var(--tap);
+    align-items: center;
+    text-decoration: none;
+    --logo-size: 1.25rem;
+  }
+  .site-footer__tag {
+    margin-top: 0.4rem;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover {
+    border-bottom-color: var(--ink);
+  }
+  .site-footer__legal {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+</style>

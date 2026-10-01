@@ -1,0 +1,182 @@
+---
+/**
+ * Newsletter signup. The endpoint comes from PUBLIC_NEWSLETTER_ACTION (see README).
+ * Without JS the form posts straight to the provider; with JS it validates first and
+ * shows inline success/error states.
+ */
+import { newsletterAction } from '../lib/site';
+
+interface Props {
+  id: string; // unique per instance on a page
+  theme?: 'light' | 'dark';
+  buttonLabel?: string;
+}
+const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
+---
+<form
+  class:list={['subscribe', { 'on-ink': theme === 'dark' }]}
+  method="post"
+  action={newsletterAction || undefined}
+  novalidate
+  data-subscribe
+>
+  <label class="label subscribe__label" for={`${id}-email`}>Email address</label>
+  <div class="subscribe__row">
+    <input
+      class="subscribe__input"
+      id={`${id}-email`}
+      name="email"
+      type="email"
+      inputmode="email"
+      autocomplete="email"
+      autocapitalize="off"
+      spellcheck="false"
+      required
+      placeholder="you@company.com"
+      aria-describedby={`${id}-hint ${id}-msg`}
+    />
+    <button class="btn" type="submit">{buttonLabel}</button>
+  </div>
+  <p class="subscribe__hint" id={`${id}-hint`}>One email a week. Unsubscribe at any time.</p>
+  <p class="subscribe__msg" id={`${id}-msg`} aria-live="polite" aria-atomic="true" data-msg></p>
+</form>
+
+<style>
+  .subscribe {
+    width: 100%;
+    max-width: 34rem;
+  }
+  .subscribe__label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .subscribe__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .subscribe__input {
+    flex: 1 1 14rem;
+    min-width: 0;
+    min-height: 3rem;
+    padding: 0 1rem;
+    background: var(--white);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 1.0625rem; /* ≥16px stops iOS zooming on focus */
+  }
+  .subscribe__input::placeholder {
+    color: var(--graphite);
+    opacity: 1;
+  }
+  .subscribe__input[aria-invalid='true'] {
+    border-color: var(--signal);
+  }
+  .subscribe__input:focus-visible {
+    outline-offset: 2px;
+  }
+  .subscribe .btn {
+    flex: 0 0 auto;
+    min-height: 3rem;
+  }
+  .subscribe__hint {
+    margin-top: 0.6rem;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: var(--graphite);
+  }
+  .on-ink .subscribe__hint {
+    color: var(--ink-muted);
+  }
+  .on-ink .subscribe__input[aria-invalid='true'] {
+    border-color: var(--signal-light);
+  }
+  .subscribe__msg {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .subscribe__msg:empty {
+    display: none;
+  }
+  .subscribe__msg[data-kind] {
+    padding: 0.6rem 0.9rem;
+    border-left: 4px solid currentColor;
+    background: var(--white);
+    font-weight: 600;
+  }
+  .subscribe__msg[data-kind='error'] {
+    color: var(--signal);
+  }
+  .subscribe__msg[data-kind='success'] {
+    color: var(--ink);
+    border-left-color: var(--slate);
+  }
+  .on-ink .subscribe__msg[data-kind] {
+    background: transparent;
+    border-left-width: 4px;
+  }
+  .on-ink .subscribe__msg[data-kind='error'] {
+    color: var(--signal-light);
+  }
+  .on-ink .subscribe__msg[data-kind='success'] {
+    color: var(--paper);
+    border-left-color: var(--paper);
+  }
+</style>
+
+<script>
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  document.querySelectorAll<HTMLFormElement>('form[data-subscribe]').forEach((form) => {
+    const input = form.querySelector<HTMLInputElement>('input[type="email"]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const msg = form.querySelector<HTMLElement>('[data-msg]')!;
+
+    const show = (kind: 'error' | 'success', text: string) => {
+      msg.dataset.kind = kind;
+      msg.textContent = text;
+    };
+    const clear = () => {
+      delete msg.dataset.kind;
+      msg.textContent = '';
+      input.removeAttribute('aria-invalid');
+    };
+    const invalid = (text: string) => {
+      input.setAttribute('aria-invalid', 'true');
+      show('error', text);
+      input.focus();
+    };
+
+    input.addEventListener('input', () => {
+      if (input.getAttribute('aria-invalid') === 'true' && EMAIL.test(input.value.trim())) clear();
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+
+      if (!email) return invalid('Enter your email address.');
+      if (!EMAIL.test(email)) return invalid('That doesn’t look like an email address. Check it and try again.');
+      clear();
+
+      const action = form.getAttribute('action');
+      if (!action) return show('error', 'Signup isn’t connected yet. Please check back soon.');
+
+      button.disabled = true;
+      try {
+        // Most providers' form endpoints don't send CORS headers, so the response is opaque:
+        // a resolved fetch means the request was sent; a rejected one means a network failure.
+        await fetch(action, { method: 'POST', body: new FormData(form), mode: 'no-cors' });
+        show('success', 'Thanks for subscribing. Check your inbox for a confirmation email.');
+        form.reset();
+      } catch {
+        show('error', 'Something went wrong. Please try again in a moment.');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

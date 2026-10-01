@@ -1,0 +1,29 @@
+---
+/** Shared shell for text pages (about, policies, subscribe, etc.). */
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  label: string;
+  heading: string;
+  lede?: string;
+  noindex?: boolean;
+  prose?: boolean;
+}
+const { title, description, label, heading, lede, noindex, prose = true } = Astro.props;
+---
+<BaseLayout title={title} description={description} noindex={noindex}>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="label label--signal">{label}</p>
+      <h1 class="display">{heading}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </div>
+  </header>
+  <div class="section">
+    <div class="wrap">
+      {prose ? <div class="prose"><slot /></div> : <slot />}
+    </div>
+  </div>
+</BaseLayout>

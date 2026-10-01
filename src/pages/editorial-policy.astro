@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../lib/site';
+---
+<PageLayout
+  title="Editorial policy"
+  description="How AI Founder Files stays independent: coverage is never paid for, sponsored content is labelled, and how we fact-check and correct our work."
+  label="Editorial policy"
+  heading="How we keep this independent"
+  lede="The rules we hold ourselves to, so you can judge our work."
+>
+  <h2>Coverage is never paid for</h2>
+  <p>
+    No company, founder, investor or agency can pay to be featured in a Founder File, to influence what a file says, or to see it before publication beyond the fact-check described below. Choosing who to cover is an editorial decision, made by us.
+  </p>
+
+  <h2>Sponsored content is always labelled</h2>
+  <p>
+    If we ever publish sponsored content, it will be clearly labelled as sponsored, kept separate from Founder Files, and will never use the file format, the file number or the manila “The File” fact box.
+  </p>
+
+  <h2>Who isn’t eligible for coverage</h2>
+  <p>
+    A company that has paid us in the last 12 months is not eligible for editorial coverage. That includes sponsorship, advertising and any other commercial arrangement. We apply this rule before a file is commissioned, not after.
+  </p>
+
+  <h2>How we fact-check</h2>
+  <ul>
+    <li>We rely on primary sources first: company filings, announcements, product documentation, and on-the-record interviews.</li>
+    <li>Every figure and factual claim in a file is traced to a source, and the sources are listed at the end of the file.</li>
+    <li>Where a figure can’t be verified, we say it is undisclosed or unverified. We don’t estimate it and present the estimate as fact.</li>
+    <li>Before publication we check facts about the company and founder with them. They don’t get to approve or change our conclusions.</li>
+  </ul>
+
+  <h2 id="corrections">Corrections</h2>
+  <p>
+    If you think something we’ve published is wrong, email <a href={`mailto:${SITE.correctionsEmail}`}>{SITE.correctionsEmail}</a> with the file number, the sentence in question and, if you can, a source. We’ll look at it promptly.
+  </p>
+  <p>
+    When we fix a factual error, we correct the article, update the “Updated” date shown at the top, and add a note describing what changed. We don’t quietly rewrite history.
+  </p>
+</PageLayout>
