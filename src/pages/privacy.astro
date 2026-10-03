@@ -20,9 +20,9 @@ import { SITE } from '../lib/site';
 
   <h2>What we collect</h2>
   <ul>
-    <li><strong>Newsletter subscribers:</strong> your email address, and the date and time you subscribed.</li>
+    <li><strong>Newsletter subscribers:</strong> your email address, the date and time you subscribed, which form you used, and that you ticked the consent box. We record when emails are sent to you and when you unsubscribe or an address bounces.</li>
     <li><strong>Emails you send us:</strong> your email address and whatever you tell us.</li>
-    <li><strong>Server logs:</strong> our hosting provider ([Cloudflare / Netlify]) processes technical data such as IP address and browser type to deliver the site and keep it secure.</li>
+    <li><strong>Server logs:</strong> our hosting provider (Vercel) processes technical data such as IP address and browser type to deliver the site and keep it secure.</li>
   </ul>
   <p>This site doesn’t currently use analytics, advertising or tracking cookies. [Update this section if that changes.]</p>
 
@@ -35,7 +35,7 @@ import { SITE } from '../lib/site';
 
   <h2>Who we share it with</h2>
   <p>
-    We use [newsletter provider, e.g. Buttondown / Beehiiv] to store subscriber emails and send the newsletter, and [hosting provider] to host the site. They process data on our behalf under their own terms. We don’t sell your data. [Describe any international transfers and the safeguards used.]
+    We use Supabase to store the subscriber list, Twilio SendGrid to send the newsletter and welcome email, Vercel to host the site, and GitHub to run the weekly send. [Confirm these and the regions their data is stored in.] They process data on our behalf under their own terms. We don’t sell your data. [Describe any international transfers and the safeguards used.]
   </p>
 
   <h2>How long we keep it</h2>

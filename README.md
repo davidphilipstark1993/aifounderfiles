@@ -2,7 +2,7 @@
 
 The site for [aifounderfiles.com](https://aifounderfiles.com): one AI founder and their company, in depth, every week.
 
-Astro 7 (static output) · TypeScript · plain CSS with custom properties · no database, no CMS, no tracking scripts.
+Astro 7 (static output) · TypeScript · plain CSS with custom properties · no CMS and no tracking scripts. The only database is the newsletter subscriber list (Supabase), and the only server code is two small Vercel Functions for signup.
 
 ```bash
 npm install
@@ -11,6 +11,7 @@ npm run build      # static site into dist/
 npm run preview    # serve dist/ locally
 npm run check      # type-check .astro and .ts files
 npm run brand      # regenerate favicons + default OG image into public/
+npm run newsletter:dry-run   # render this week's email and report, sending nothing
 ```
 
 Requires Node 22.12 or newer.
@@ -23,7 +24,7 @@ Requires Node 22.12 or newer.
 2. Name it after the URL you want. `acme-ai.md` publishes at `/files/acme-ai/`. Lowercase, hyphens, no spaces.
 3. Fill in the frontmatter (below) and write the body in Markdown. `.mdx` also works.
 4. Set `draft: false`.
-5. Commit and push. The host rebuilds and the file appears on the home page, archive, founders/companies indexes, RSS feed and sitemap. Its social image (`/og/<slug>.png`) is generated automatically.
+5. Commit and push. The host rebuilds and the file appears on the home page, archive, founders/companies indexes, RSS feed and sitemap, and the next Sunday send emails it to subscribers. Its social image (`/og/<slug>.png`) is generated automatically.
 
 **Drafts** (`draft: true`) show in `npm run dev` with a banner and `noindex`, and are **excluded from production builds**. Run `PUBLIC_SHOW_DRAFTS=false npm run dev` to preview the site exactly as production will show it.
 
@@ -64,20 +65,64 @@ The build fails with a readable error if a required field is missing or a URL is
 
 ---
 
-## Connect the newsletter
+## The newsletter (SendGrid + Supabase + GitHub Actions)
 
-The signup form lives in one place, `src/components/SubscribeForm.astro`, and is used on the home page, every article and `/subscribe/`. Its endpoint comes from an environment variable.
+Built the same way as listentruecrime.com. Everything runs without a server of your own:
 
-1. Copy `.env.example` to `.env` and set `PUBLIC_NEWSLETTER_ACTION` to your provider's form endpoint.
-2. For production, set the same variable in your host's environment settings (see below) and redeploy. `PUBLIC_` variables are read **at build time**, so a change needs a rebuild.
+| Piece | Where | What it does |
+| --- | --- | --- |
+| Signup form | `src/components/SubscribeForm.astro` | Validates, requires a consent tick, posts to `/api/subscribe`. Shows real success and error messages. |
+| `POST /api/subscribe` | `api/subscribe.ts` (Vercel Function) | Saves the subscriber to Supabase **first**, then adds them to your SendGrid list, then sends the welcome email. A SendGrid failure never loses the subscriber. Re-subscribing lifts an earlier unsubscribe. |
+| `POST /api/sendgrid-webhook` | `api/sendgrid-webhook.ts` (Vercel Function) | Verifies SendGrid's signature, then marks people unsubscribed, bounced or suppressed so later sends skip them. |
+| Weekly send | `scripts/newsletter/weekly-send.ts` + `.github/workflows/weekly-newsletter-send.yml` | Sundays 08:00 UTC: emails the newest published file to every active subscriber, once. |
+| Email design | `lib/newsletter/templates.ts` | Welcome email and the weekly issue (headline, standfirst, "THE FILE" fact box, button), in the brand colours. |
+| Data | `supabase/migrations/001_newsletter.sql` | `newsletter_subscribers` and `newsletter_sends`. |
 
-**Buttondown:** use `https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME`. The form already sends an `email` field.
+**Publishing is the approval.** Set `draft: false` on a file and push. On Sunday the Action finds the newest published file that hasn't been emailed and sends it. If there is nothing new, nothing is sent and you get an email saying so.
 
-**Beehiiv:** use the form-post URL from Beehiiv's embeddable subscribe form for your publication, if your plan offers it. If it doesn't, Beehiiv's API needs a secret key, which must run server-side (for example a small Vercel serverless function) and not in this static site. That function isn't included.
+### What the weekly send will and won't do
 
-Behaviour: the form validates the address in the browser, then posts it with `fetch`. Most providers don't return CORS headers, so the browser can't read the response. A resolved request shows the success message, and a network failure shows the error message. If you want strict confirmation, use the provider's hosted "thanks" page by posting the form normally (remove the script in `SubscribeForm.astro`).
+- It sends **one file per run**, the newest by `publishDate` (then `fileNumber`).
+- A file is **never sent twice**: each send is recorded in `newsletter_sends` (unique per file) before any email goes out.
+- If a send stops part-way (for example a SendGrid error), nothing more goes out until you re-run the workflow with **resume** ticked, which emails only the people not yet reached.
+- It refuses to send a file published more than 10 days ago, so a late first run can't blast an old article. Use the `slug` input to send one deliberately.
+- You get an alert email for every outcome: sent, nothing new, already sent, failed.
 
-If `PUBLIC_NEWSLETTER_ACTION` is empty, the form still validates but reports "Signup isn't connected yet" instead of pretending to subscribe.
+### Try it without emailing anyone
+
+In GitHub: **Actions → Weekly Newsletter Send → Run workflow**. Choose a mode:
+
+- `dry-run` (default): renders the email and reports what it would send.
+- `test`: sends one copy to `ADMIN_EMAILS` only, so you can see it in your inbox.
+- `send`: emails every active subscriber now.
+
+Locally: `npm run newsletter:dry-run`.
+
+### One-time setup
+
+**1. Supabase.** Create a new project for AI Founder Files. In **SQL Editor** run `supabase/migrations/001_newsletter.sql`. From **Project Settings → API** copy the project URL and the `service_role` key (keep that secret; it must never go in client code).
+
+**2. SendGrid** (your existing account is fine; keep AI Founder Files in its own list and group).
+- **Sender authentication:** authenticate `aifounderfiles.com` (Settings → Sender Authentication → Domain). SendGrid gives you CNAME records to add in Namecheap's Advanced DNS. Without this, mail to Gmail/Outlook is likely to land in spam or be rejected.
+- **Marketing → Contacts → Lists:** create a list "AI Founder Files" and note its id.
+- **Settings → Unsubscribe Groups:** create a group "AI Founder Files weekly" and note its id (this powers one-click unsubscribe and the `List-Unsubscribe` header).
+- **Settings → API Keys:** create a key with Mail Send and Marketing permissions.
+- **Settings → Mail Settings → Event Webhook:** HTTP POST URL `https://aifounderfiles.com/api/sendgrid-webhook`; tick *Unsubscribe*, *Group Unsubscribe*, *Bounced* and *Spam Report*; switch on **Signature Verification** and copy the public key it shows. Enable the webhook.
+
+**3. Vercel → Settings → Environment Variables** (Production), then redeploy:
+`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_LIST_ID`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `SENDGRID_WEBHOOK_VERIFICATION_KEY`, `ADMIN_EMAILS`. (See `.env.example`.)
+
+**4. GitHub repo secrets** (Settings → Secrets and variables → Actions) for the weekly send:
+`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `ADMIN_EMAILS`. With the GitHub CLI each one is `gh secret set NAME` (it prompts for the value, so it never lands in your shell history).
+
+**5. Check it end to end:** subscribe with your own address on the live site (you should see the success message, get the welcome email, and see a row in Supabase), then run the workflow in `test` mode.
+
+### Notes
+
+- **Local development:** `npm run dev` serves the pages but not `/api/*`; the form then says signup isn't available. To exercise the functions locally use `npx vercel dev` with a `.env` file.
+- **Consent:** the form requires an explicit tick, and the time is stored (`consent_at`) as proof. Signup is single opt-in with a welcome email, like LTC. If you want double opt-in later, the welcome email is the place to add a confirmation link.
+- **Tracking:** no open or click tracking is switched on by this code. Leave SendGrid's tracking settings off to keep it that way.
+- **Spam protection:** a hidden honeypot field catches simple bots. If you see junk signups, add Cloudflare Turnstile or hCaptcha to the form.
 
 ---
 
@@ -86,7 +131,7 @@ If `PUBLIC_NEWSLETTER_ACTION` is empty, the form still validates but reports "Si
 The repo is at `github.com/davidphilipstark1993/aifounderfiles`. `vercel.json` already sets the build command, output folder and trailing-slash URLs, and `package.json` pins Node 22.12+. No adapter is needed because the site is fully static.
 
 1. In Vercel choose **Add New → Project**, import the GitHub repo and leave the detected settings (Framework: Astro, Build: `npm run build`, Output: `dist`).
-2. Under **Environment Variables** add `PUBLIC_NEWSLETTER_ACTION` with your provider's endpoint (see above). It's read at build time, so redeploy after changing it.
+2. Under **Environment Variables** add the newsletter variables listed in the newsletter section above, then redeploy.
 3. Deploy. You'll get a `*.vercel.app` URL to check first.
 4. **Settings → Domains → Add** `aifounderfiles.com`, and add `www.aifounderfiles.com` too. Vercel shows the exact DNS records to create.
 5. Create those records where the domain is registered (or wherever its DNS is managed). Use the values Vercel displays, typically an `A` record for the apex and a `CNAME` for `www`. DNS changes can take from a few minutes to a few hours.
@@ -97,7 +142,7 @@ Every push to `main` redeploys automatically, so publishing a file is: add the M
 
 ### Other hosts
 
-The output is plain static files in `dist/`, so Netlify and Cloudflare Pages work too: build command `npm run build`, output directory `dist`, `NODE_VERSION=22`, and the same `PUBLIC_NEWSLETTER_ACTION` variable. On Cloudflare Pages the trailing-slash behaviour is the default, and on Netlify enable "Pretty URLs".
+The pages are plain static files in `dist/`, but signup and the SendGrid webhook are Vercel Functions in `api/`. Moving to Netlify or Cloudflare would mean porting those two small files to that host's function format.
 
 ---
 
@@ -106,7 +151,7 @@ The output is plain static files in `dist/`, so Netlify and Cloudflare Pages wor
 - [ ] Replace the placeholders on `/privacy/` (marked `[DRAFT — review before launch]`), have it reviewed, then remove `noindex` from `src/pages/privacy.astro` and the `/privacy/` filter in the sitemap config in `astro.config.mjs`.
 - [ ] Set up the mailboxes in `src/lib/site.ts` (`hello@` and `corrections@aifounderfiles.com`), or change them.
 - [ ] Read `/editorial-policy/` and `/about/` and edit the wording to match how you actually work. The fact-checking section is a draft. Add the "Who's behind it" paragraph on `/about/`.
-- [ ] Set `PUBLIC_NEWSLETTER_ACTION` in Vercel's environment variables.
+- [ ] Complete the newsletter one-time setup above (Supabase, SendGrid domain authentication, Vercel env vars, GitHub secrets) and run a `test` send.
 - [ ] Publish file #001 (`draft: false`). Until then the home page, archive and indexes show "coming soon" empty states.
 
 ---
@@ -123,9 +168,14 @@ src/
   pages/                   home, files/[slug], founders, companies, archive, subscribe, about,
                            editorial-policy, privacy, 404, rss.xml, og/[slug].png
   styles/                  tokens.css (brand tokens), global.css
+api/                       Vercel Functions: subscribe.ts, sendgrid-webhook.ts
+lib/newsletter/            shared by the functions and the weekly send: SendGrid, Supabase, email templates
+supabase/migrations/       001_newsletter.sql (subscriber + send-log tables)
+.github/workflows/         weekly-newsletter-send.yml (Sundays 08:00 UTC)
 scripts/
   build-brand-assets.mjs   favicon + default OG generator (text outlined to paths)
   lib/outline.mjs          text-to-path helper shared with og.ts
+  newsletter/weekly-send.ts  the Sunday send
 public/                    favicons, manifest, og-default.png, robots.txt
 brand/                     the four brand sheets (reference only, not served)
 ```

@@ -15,5 +15,3 @@ export const SITE = {
     { label: 'Archive', href: '/archive/' },
   ],
 } as const;
-
-export const newsletterAction: string = import.meta.env.PUBLIC_NEWSLETTER_ACTION ?? '';

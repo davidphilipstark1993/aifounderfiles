@@ -1,25 +1,25 @@
 ---
 /**
- * Newsletter signup. The endpoint comes from PUBLIC_NEWSLETTER_ACTION (see README).
- * Without JS the form posts straight to the provider; with JS it validates first and
- * shows inline success/error states.
+ * Newsletter signup. Posts to /api/subscribe (a Vercel Function, see api/subscribe.ts), which saves the
+ * subscriber, syncs SendGrid and sends the welcome email. Without JS the form posts normally and the
+ * function redirects to /subscribed/; with JS it validates first and shows inline success/error states.
  */
-import { newsletterAction } from '../lib/site';
-
 interface Props {
   id: string; // unique per instance on a page
   theme?: 'light' | 'dark';
   buttonLabel?: string;
+  source?: string; // recorded with the subscriber, e.g. "home", "article"
 }
-const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
+const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.props;
 ---
 <form
   class:list={['subscribe', { 'on-ink': theme === 'dark' }]}
   method="post"
-  action={newsletterAction || undefined}
+  action="/api/subscribe"
   novalidate
   data-subscribe
 >
+  <input type="hidden" name="source" value={source} />
   <label class="label subscribe__label" for={`${id}-email`}>Email address</label>
   <div class="subscribe__row">
     <input
@@ -37,7 +37,21 @@ const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
     />
     <button class="btn" type="submit">{buttonLabel}</button>
   </div>
-  <p class="subscribe__hint" id={`${id}-hint`}>One email a week. Unsubscribe at any time.</p>
+
+  <div class="subscribe__consent">
+    <input type="checkbox" id={`${id}-consent`} name="consent" required />
+    <label for={`${id}-consent`}>
+      I’d like to receive the weekly AI Founder Files email. I can unsubscribe at any time. See the{' '}
+      <a href="/privacy/">privacy policy</a>.
+    </label>
+  </div>
+
+  <!-- Honeypot: real visitors never see or fill this. -->
+  <div class="subscribe__trap" aria-hidden="true">
+    <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <p class="subscribe__hint" id={`${id}-hint`}>One email a week, on Sundays.</p>
   <p class="subscribe__msg" id={`${id}-msg`} aria-live="polite" aria-atomic="true" data-msg></p>
 </form>
 
@@ -125,6 +139,41 @@ const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
     color: var(--paper);
     border-left-color: var(--paper);
   }
+  .subscribe__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+  .subscribe__consent input {
+    flex: none;
+    width: 1.375rem;
+    height: 1.375rem;
+    margin: 0.1rem 0 0;
+    accent-color: var(--signal);
+    cursor: pointer;
+  }
+  .subscribe__consent label {
+    padding-block: 0.1rem;
+    cursor: pointer;
+  }
+  .subscribe__consent a {
+    color: inherit;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.15em;
+  }
+  .on-ink .subscribe__consent input {
+    accent-color: var(--signal-light);
+  }
+  .subscribe__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
 </style>
 
 <script>
@@ -132,6 +181,7 @@ const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
 
   document.querySelectorAll<HTMLFormElement>('form[data-subscribe]').forEach((form) => {
     const input = form.querySelector<HTMLInputElement>('input[type="email"]')!;
+    const consent = form.querySelector<HTMLInputElement>('input[name="consent"]')!;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const msg = form.querySelector<HTMLElement>('[data-msg]')!;
 
@@ -143,37 +193,55 @@ const { id, theme = 'light', buttonLabel = 'Subscribe' } = Astro.props;
       delete msg.dataset.kind;
       msg.textContent = '';
       input.removeAttribute('aria-invalid');
+      consent.removeAttribute('aria-invalid');
     };
-    const invalid = (text: string) => {
-      input.setAttribute('aria-invalid', 'true');
+    const invalid = (field: HTMLInputElement, text: string) => {
+      field.setAttribute('aria-invalid', 'true');
       show('error', text);
-      input.focus();
+      field.focus();
     };
 
     input.addEventListener('input', () => {
       if (input.getAttribute('aria-invalid') === 'true' && EMAIL.test(input.value.trim())) clear();
+    });
+    consent.addEventListener('change', () => {
+      if (consent.checked && consent.getAttribute('aria-invalid') === 'true') clear();
     });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const email = input.value.trim();
 
-      if (!email) return invalid('Enter your email address.');
-      if (!EMAIL.test(email)) return invalid('That doesn’t look like an email address. Check it and try again.');
+      if (!email) return invalid(input, 'Enter your email address.');
+      if (!EMAIL.test(email)) return invalid(input, 'That doesn’t look like an email address. Check it and try again.');
+      if (!consent.checked) return invalid(consent, 'Please tick the box to confirm you’d like to receive the newsletter.');
       clear();
-
-      const action = form.getAttribute('action');
-      if (!action) return show('error', 'Signup isn’t connected yet. Please check back soon.');
 
       button.disabled = true;
       try {
-        // Most providers' form endpoints don't send CORS headers, so the response is opaque:
-        // a resolved fetch means the request was sent; a rejected one means a network failure.
-        await fetch(action, { method: 'POST', body: new FormData(form), mode: 'no-cors' });
-        show('success', 'Thanks for subscribing. Check your inbox for a confirmation email.');
-        form.reset();
+        const res = await fetch(form.getAttribute('action') || '/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            consent: true,
+            source: (form.elements.namedItem('source') as HTMLInputElement | null)?.value,
+            website: (form.elements.namedItem('website') as HTMLInputElement | null)?.value,
+          }),
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok && data?.ok) {
+          show('success', 'Thanks, you’re on the list. A welcome email is on its way.');
+          form.reset();
+        } else if (res.status === 400 && data?.error) {
+          invalid(input, data.error);
+        } else if (res.status === 503 || res.status === 404) {
+          show('error', 'Signup isn’t available just yet. Please check back soon.');
+        } else {
+          show('error', 'Something went wrong. Please try again in a moment.');
+        }
       } catch {
-        show('error', 'Something went wrong. Please try again in a moment.');
+        show('error', 'We couldn’t reach the server. Check your connection and try again.');
       } finally {
         button.disabled = false;
       }

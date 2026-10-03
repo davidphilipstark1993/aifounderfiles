@@ -11,6 +11,6 @@ export default defineConfig({
   integrations: [
     mdx(),
     // The privacy page is a noindex placeholder until it has been reviewed, so keep it out of the sitemap.
-    sitemap({ filter: (page) => !page.includes('/privacy/') }),
+    sitemap({ filter: (page) => !page.includes('/privacy/') && !page.includes('/subscribed/') }),
   ],
 });

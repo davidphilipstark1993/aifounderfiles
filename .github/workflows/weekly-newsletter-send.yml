@@ -1,0 +1,57 @@
+name: Weekly Newsletter Send
+
+on:
+  schedule:
+    # 08:00 UTC every Sunday (08:00 GMT in winter, 09:00 BST in summer: GitHub cron is always UTC).
+    - cron: '0 8 * * 0'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'send = email subscribers · test = email only ADMIN_EMAILS · dry-run = render and report only'
+        type: choice
+        options: [send, test, dry-run]
+        default: dry-run
+      slug:
+        description: 'Optional: file to send instead of the newest published one (e.g. acme-ai)'
+        type: string
+        required: false
+      resume:
+        description: 'Finish a send that stopped part-way (skips people already emailed)'
+        type: boolean
+        default: false
+
+# Never run two sends at once.
+concurrency:
+  group: weekly-newsletter-send
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Scheduled runs have no inputs, so they always do a real send.
+      - name: Send the newest published file (if it hasn't been sent)
+        run: >
+          npx tsx scripts/newsletter/weekly-send.ts
+          ${{ github.event_name == 'workflow_dispatch' && inputs.mode != 'send' && format('--{0}', inputs.mode) || '' }}
+          ${{ github.event_name == 'workflow_dispatch' && inputs.slug != '' && format('--slug={0}', inputs.slug) || '' }}
+          ${{ github.event_name == 'workflow_dispatch' && inputs.resume && '--resume' || '' }}
+        env:
+          SITE_URL: https://aifounderfiles.com
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+          SENDGRID_FROM_NAME: ${{ secrets.SENDGRID_FROM_NAME }}
+          SENDGRID_UNSUBSCRIBE_GROUP_ID: ${{ secrets.SENDGRID_UNSUBSCRIBE_GROUP_ID }}
+          ADMIN_EMAILS: ${{ secrets.ADMIN_EMAILS }}
