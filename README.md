@@ -157,7 +157,7 @@ The pages are plain static files in `dist/`, but signup and the SendGrid webhook
 ## Before launch checklist
 
 - [ ] Replace the placeholders on `/privacy/` (marked `[DRAFT — review before launch]`), have it reviewed, then remove `noindex` from `src/pages/privacy.astro` and the `/privacy/` filter in the sitemap config in `astro.config.mjs`.
-- [ ] Set up the mailboxes in `src/lib/site.ts` (`info@` and `corrections@aifounderfiles.com`), or change them.
+- [ ] Mailbox: `info@aifounderfiles.com` (Namecheap Private Email) is used for the sender, contact and corrections addresses (`src/lib/site.ts`).
 - [ ] Read `/editorial-policy/` and `/about/` and edit the wording to match how you actually work. The fact-checking section is a draft. Add the "Who's behind it" paragraph on `/about/`.
 - [ ] Complete the newsletter one-time setup above (Supabase, SendGrid domain authentication, Vercel env vars, GitHub secrets) and run a `test` send.
 - [ ] Publish file #001 (`draft: false`). Until then the home page, archive and indexes show "coming soon" empty states.

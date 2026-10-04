@@ -93,20 +93,19 @@ const button = (href: string, label: string) => `
 
 /** Welcome email sent when someone subscribes. */
 export function renderWelcome(opts: { unsubscribeAvailable: boolean }): Message {
-  const archive = `${SITE_URL}/archive/`;
   const body = `
 <p style="margin:0 0 14px;font-family:${MONO};font-weight:700;font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:${C.signal};">You're on the list</p>
 <h1 style="margin:0 0 18px;font-family:${SANS};font-weight:900;font-size:34px;line-height:1;letter-spacing:-0.8px;text-transform:uppercase;color:${C.ink};">${esc(SITE_TAGLINE)}</h1>
 <p style="margin:0 0 16px;font-family:${SERIF};font-size:17px;line-height:1.55;color:${C.ink};">Thanks for subscribing. Every week we open one file: the founder, the product, the funding and the business model behind a new AI company, told in full.</p>
-<p style="margin:0 0 24px;font-family:${SERIF};font-size:17px;line-height:1.55;color:${C.ink};">Each file lands in your inbox on Sunday. Until then, the archive is open.</p>
-${button(archive, 'Browse the archive')}`;
+<p style="margin:0 0 24px;font-family:${SERIF};font-size:17px;line-height:1.55;color:${C.ink};">Each file arrives in your inbox on Sunday as a PDF you can read, save or share.</p>
+${button(SITE_URL + '/about/', 'About AI Founder Files')}`;
   const text = `You're on the list.
 
 ${SITE_TAGLINE}
 
 Thanks for subscribing. Every week we open one file: the founder, the product, the funding and the business model behind a new AI company, told in full.
 
-Each file lands in your inbox on Sunday. Until then, the archive is open: ${archive}
+Each file arrives in your inbox on Sunday as a PDF you can read, save or share.\n\nAbout AI Founder Files: ${SITE_URL}/about/
 
 --
 You're receiving this because you subscribed at aifounderfiles.com.${opts.unsubscribeAvailable ? `\nUnsubscribe: ${UNSUBSCRIBE_TAG}` : ''}
