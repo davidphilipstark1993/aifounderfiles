@@ -41,6 +41,34 @@ export async function removeUnsubscribe(email: string): Promise<void> {
   if (!res.ok && res.status !== 404) throw new Error(`SendGrid suppression error ${res.status}: ${await res.text()}`);
 }
 
+/** Adds an address to the unsubscribe group, so SendGrid never emails it again. */
+export async function addUnsubscribe(email: string): Promise<void> {
+  const group = unsubscribeGroupId();
+  if (!group) return;
+  const res = await fetch(`${API}/asm/groups/${group}/suppressions`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({ recipient_emails: [email] }),
+  });
+  if (!res.ok) throw new Error(`SendGrid suppression error ${res.status}: ${await res.text()}`);
+}
+
+/** Erases a Marketing Contact (used when a subscriber is deleted). A contact that isn't there is fine. */
+export async function deleteContact(email: string): Promise<void> {
+  const found = await fetch(`${API}/marketing/contacts/search/emails`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({ emails: [email] }),
+  });
+  if (found.status === 404) return;
+  if (!found.ok) throw new Error(`SendGrid contact lookup error ${found.status}: ${await found.text()}`);
+  const result = ((await found.json()) as { result?: Record<string, { contact?: { id: string } }> }).result ?? {};
+  const id = result[email]?.contact?.id ?? Object.values(result)[0]?.contact?.id;
+  if (!id) return;
+  const del = await fetch(`${API}/marketing/contacts?ids=${encodeURIComponent(id)}`, { method: 'DELETE', headers: headers() });
+  if (!del.ok) throw new Error(`SendGrid contact delete error ${del.status}: ${await del.text()}`);
+}
+
 export interface Message {
   subject: string;
   html: string;

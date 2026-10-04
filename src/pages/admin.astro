@@ -5,8 +5,7 @@ import PageLayout from '../layouts/PageLayout.astro';
   title="Admin"
   description="Publisher admin for AI Founder Files."
   label="Admin"
-  heading="Newsletter"
-  lede="Upload this week’s PDF, check it, approve it. Approved issues go out on Sunday."
+  heading="Newsletter admin"
   noindex
   prose={false}
 >
@@ -25,33 +24,75 @@ import PageLayout from '../layouts/PageLayout.astro';
   <!-- Signed in -->
   <div data-dash hidden>
     <div class="topbar">
-      <p class="label label--muted" data-subs></p>
+      <div class="tabs" role="tablist" aria-label="Admin sections">
+        <button class="tab" role="tab" id="tab-news" aria-controls="pane-news" aria-selected="true" data-tab="news" type="button">Newsletters</button>
+        <button class="tab" role="tab" id="tab-subs" aria-controls="pane-subs" aria-selected="false" data-tab="subs" type="button" tabindex="-1">Subscribers</button>
+      </div>
       <button class="btn btn--ghost" type="button" data-logout>Sign out</button>
     </div>
 
-    <section class="panel" aria-labelledby="upload-title">
-      <h2 id="upload-title" class="label">Upload a new issue</h2>
-      <form class="stack" data-upload-form novalidate>
-        <div>
-          <label class="label label--muted" for="issue-title">Title</label>
-          <input class="field" id="issue-title" type="text" maxlength="140" required placeholder="e.g. The founder behind [Company]" />
-        </div>
-        <div>
-          <label class="label label--muted" for="issue-note">Short note for the email (optional)</label>
-          <textarea class="field field--area" id="issue-note" rows="4" maxlength="5000" placeholder="One or two sentences shown above the download button. Leave a blank line between paragraphs."></textarea>
-        </div>
-        <div>
-          <label class="label label--muted" for="issue-pdf">PDF (max 50 MB)</label>
-          <input class="field field--file" id="issue-pdf" type="file" accept="application/pdf,.pdf" required />
-        </div>
-        <div><button class="btn" type="submit">Upload PDF</button></div>
-      </form>
+    <!-- ===== Newsletters ===== -->
+    <section id="pane-news" role="tabpanel" aria-labelledby="tab-news" data-pane="news">
+      <div class="tiles" data-news-tiles></div>
+
+      <div class="panel">
+        <h2 class="label">Upload a new issue</h2>
+        <form class="stack" data-upload-form novalidate>
+          <div>
+            <label class="label label--muted" for="issue-title">Title</label>
+            <input class="field" id="issue-title" type="text" maxlength="140" required placeholder="e.g. The founder behind [Company]" />
+          </div>
+          <div>
+            <label class="label label--muted" for="issue-note">Short note for the email (optional)</label>
+            <textarea class="field field--area" id="issue-note" rows="4" maxlength="5000" placeholder="One or two sentences shown above the download button. Leave a blank line between paragraphs."></textarea>
+          </div>
+          <div>
+            <label class="label label--muted" for="issue-pdf">PDF (max 50 MB)</label>
+            <input class="field field--file" id="issue-pdf" type="file" accept="application/pdf,.pdf" required />
+          </div>
+          <div><button class="btn" type="submit">Upload PDF</button></div>
+        </form>
+      </div>
+
+      <h2 class="label section-label">Drafts and queued</h2>
+      <ul class="list" data-open role="list"></ul>
+      <p class="empty" data-open-empty hidden>Nothing waiting. Upload a PDF above to start the next issue.</p>
+
+      <h2 class="label section-label">Sent history</h2>
+      <ul class="list" data-history role="list"></ul>
+      <p class="empty" data-history-empty hidden>Nothing has been sent yet.</p>
     </section>
 
-    <section aria-labelledby="issues-title">
-      <h2 id="issues-title" class="label issues-title">Issues</h2>
-      <ul class="issues" data-issues role="list"></ul>
-      <p class="empty" data-empty hidden>No issues yet. Upload your first PDF above.</p>
+    <!-- ===== Subscribers ===== -->
+    <section id="pane-subs" role="tabpanel" aria-labelledby="tab-subs" data-pane="subs" hidden>
+      <div class="tiles" data-subs-tiles></div>
+
+      <form class="toolbar" data-subs-filter novalidate>
+        <div class="toolbar__search">
+          <label class="visually-hidden" for="subs-q">Search by email</label>
+          <input class="field" id="subs-q" type="search" placeholder="Search by email" autocomplete="off" />
+        </div>
+        <div>
+          <label class="visually-hidden" for="subs-status">Status</label>
+          <select class="field" id="subs-status">
+            <option value="all">All statuses</option>
+            <option value="active">Active</option>
+            <option value="unsubscribed">Unsubscribed</option>
+            <option value="bounced">Bounced</option>
+            <option value="suppressed">Suppressed</option>
+          </select>
+        </div>
+        <button class="btn btn--ghost" type="submit">Search</button>
+        <a class="btn btn--ghost" data-export href="/api/admin/subscribers/?format=csv" download>Export CSV</a>
+      </form>
+
+      <p class="label label--muted range" data-range></p>
+      <ul class="list" data-subs role="list"></ul>
+      <p class="empty" data-subs-empty hidden>No subscribers match.</p>
+      <div class="pager" data-pager hidden>
+        <button class="btn btn--ghost" type="button" data-prev>Previous</button>
+        <button class="btn btn--ghost" type="button" data-next>Next</button>
+      </div>
     </section>
   </div>
 </PageLayout>
@@ -70,7 +111,7 @@ import PageLayout from '../layouts/PageLayout.astro';
     border-left: 4px solid currentColor;
     background: var(--white);
     font-weight: 600;
-    max-width: 44rem;
+    max-width: 52rem;
   }
   .msg[data-kind='error'] {
     color: var(--signal);
@@ -80,7 +121,7 @@ import PageLayout from '../layouts/PageLayout.astro';
     border-left-color: var(--slate);
   }
   .panel {
-    max-width: 44rem;
+    max-width: 52rem;
     margin-bottom: 2.5rem;
     padding: 1.5rem;
     background: var(--white);
@@ -116,6 +157,9 @@ import PageLayout from '../layouts/PageLayout.astro';
     font-family: var(--font-body);
     font-size: 1.0625rem;
   }
+  select.field {
+    padding-right: 0.5rem;
+  }
   .field--area {
     padding: 0.75rem 1rem;
     line-height: 1.5;
@@ -143,70 +187,166 @@ import PageLayout from '../layouts/PageLayout.astro';
     border-color: var(--signal);
     color: var(--white);
   }
+  .btn--small {
+    min-height: var(--tap);
+    padding: 0 1rem;
+    font-size: 0.75rem;
+  }
+
+  /* Tabs */
   .topbar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    max-width: 44rem;
-    margin-bottom: 1.5rem;
+    max-width: 52rem;
+    margin-bottom: 1.75rem;
   }
-  .issues-title {
-    margin-bottom: 1rem;
+  .tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 2px solid var(--ink);
   }
-  .issues {
+  .tab {
+    min-height: var(--tap);
+    padding: 0 1.25rem;
+    background: transparent;
+    color: var(--ink);
+    border: 0;
+    border-bottom: 4px solid transparent;
+    margin-bottom: -2px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .tab[aria-selected='true'] {
+    border-bottom-color: var(--signal);
+  }
+  .tab:hover {
+    background: var(--manila);
+  }
+
+  /* Stat tiles */
+  .tiles {
     display: grid;
-    gap: 1rem;
-    max-width: 44rem;
-    padding: 0;
-    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0.75rem;
+    max-width: 52rem;
+    margin-bottom: 2rem;
   }
-  .empty {
-    color: var(--graphite);
-  }
-  .issue {
-    padding: 1.25rem 1.5rem;
+  .tile {
+    padding: 0.9rem 1rem;
     background: var(--white);
     border: 1px solid var(--rule);
     border-radius: var(--radius);
   }
-  .issue h3 {
+  .tile__value {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 85%;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .tile__value--text {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .tile__sub {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--graphite);
+  }
+
+  .section-label {
+    margin: 0 0 1rem;
+  }
+  .list {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 52rem;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .empty {
+    margin-bottom: 2.5rem;
+    color: var(--graphite);
+  }
+
+  /* Issue cards */
+  .item {
+    padding: 1.1rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+  .item h3 {
     margin: 0.35rem 0 0.5rem;
     font-family: var(--font-display);
     font-weight: 900;
     font-stretch: 85%;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.05;
     letter-spacing: -0.01em;
     text-transform: uppercase;
   }
-  .issue__meta {
-    margin-bottom: 1rem;
+  .item__meta {
+    margin: 0 0 0.9rem;
     font-size: 0.9375rem;
+    line-height: 1.5;
     color: var(--graphite);
   }
-  .issue__meta a {
+  .item__meta a,
+  .item__note a {
     color: var(--slate);
   }
-  .issue__actions {
+  .item__note {
+    margin: 0 0 0.9rem;
+    white-space: pre-line;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .item__error {
+    margin: 0 0 0.9rem;
+    color: var(--signal);
+    font-weight: 600;
+  }
+  .item__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
   }
-  .issue__error {
-    margin-bottom: 1rem;
-    color: var(--signal);
-    font-weight: 600;
+  .pdf-preview {
+    width: 100%;
+    height: 32rem;
+    margin: 0 0 1rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .edit {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0 0 1rem;
   }
   .status {
     display: inline-block;
     padding: 0.1rem 0.5rem;
+    margin-left: 0.4rem;
     border: 1px solid currentColor;
     border-radius: var(--radius-sm);
     color: var(--graphite);
   }
-  .status[data-status='approved'] {
+  .status[data-status='approved'],
+  .status[data-status='active'] {
     color: var(--slate);
     background: var(--paper);
   }
@@ -216,41 +356,90 @@ import PageLayout from '../layouts/PageLayout.astro';
     border-color: var(--manila);
   }
   .status[data-status='failed'],
-  .status[data-status='sending'] {
+  .status[data-status='sending'],
+  .status[data-status='bounced'],
+  .status[data-status='suppressed'] {
     color: var(--signal);
+  }
+
+  /* Subscribers */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    max-width: 52rem;
+    margin-bottom: 1rem;
+  }
+  .toolbar__search {
+    flex: 1 1 14rem;
+  }
+  .toolbar select.field {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .range {
+    margin-bottom: 0.75rem;
+  }
+  .sub__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+  }
+  .sub__email {
+    font-weight: 600;
+    font-size: 1.0625rem;
+    overflow-wrap: anywhere;
+  }
+  .sub__when {
+    font-size: 0.9375rem;
+    color: var(--graphite);
+  }
+  .details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1.25rem;
+    margin: 0 0 1rem;
+    padding: 0.9rem 1rem;
+    background: var(--paper);
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+  }
+  .details dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    padding-top: 0.15rem;
+  }
+  .details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .pager {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
   }
 </style>
 
 <script>
+  type Kind = 'error' | 'success' | '';
   const $ = <T extends Element>(sel: string) => document.querySelector(sel) as T;
   const msg = $<HTMLElement>('[data-msg]');
   const loginPanel = $<HTMLElement>('[data-login]');
   const dash = $<HTMLElement>('[data-dash]');
-  const list = $<HTMLUListElement>('[data-issues]');
-  const empty = $<HTMLElement>('[data-empty]');
-  const subs = $<HTMLElement>('[data-subs]');
 
-  const say = (text: string, kind: 'error' | 'success' | '' = '') => {
+  const say = (text: string, kind: Kind = '') => {
     msg.textContent = text;
     if (kind) msg.dataset.kind = kind;
     else delete msg.dataset.kind;
   };
 
-  interface Issue {
-    id: string;
-    issue_number: number;
-    title: string;
-    note: string | null;
-    pdf_name: string;
-    pdf_url: string;
-    status: 'draft' | 'approved' | 'sending' | 'sent' | 'failed';
-    recipient_count: number;
-    sent_count: number;
-    error: string | null;
-    created_at: string;
-    sent_at: string | null;
-  }
-
+  // ---------- helpers ----------
   async function api(url: string, init?: { method?: string; body?: unknown }) {
     const res = await fetch(url, {
       method: init?.method ?? 'GET',
@@ -262,15 +451,33 @@ import PageLayout from '../layouts/PageLayout.astro';
     return { ok: res.ok && data.ok !== false, status: res.status, data };
   }
 
-  const act = (action: string, id: string) => api('/api/admin/issues/', { method: 'POST', body: { action, id } });
+  const fmt = (iso: string | null) =>
+    iso ? new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
 
-  const fmt = (iso: string) => new Date(iso).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' });
+  function ago(iso: string) {
+    const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+    const units: [number, string][] = [[86400 * 365, 'year'], [86400 * 30, 'month'], [86400, 'day'], [3600, 'hour'], [60, 'minute']];
+    for (const [size, name] of units) {
+      const n = Math.floor(s / size);
+      if (n >= 1) return `${n} ${name}${n === 1 ? '' : 's'} ago`;
+    }
+    return 'just now';
+  }
 
-  function button(label: string, onClick: (b: HTMLButtonElement) => Promise<void>, cls = '') {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = `btn ${cls}`.trim();
-    b.textContent = label;
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, props: Record<string, any> = {}, ...kids: (Node | string)[]) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') node.className = v;
+      else if (k === 'data') Object.assign(node.dataset, v);
+      else if (k in node) (node as any)[k] = v;
+      else node.setAttribute(k, String(v));
+    }
+    node.append(...kids);
+    return node;
+  }
+
+  function button(label: string, onClick: (b: HTMLButtonElement) => Promise<void> | void, cls = '') {
+    const b = el('button', { type: 'button', class: `btn btn--small ${cls}`.trim() }, label);
     b.addEventListener('click', async () => {
       b.disabled = true;
       try {
@@ -282,54 +489,121 @@ import PageLayout from '../layouts/PageLayout.astro';
     return b;
   }
 
-  function card(issue: Issue) {
-    const li = document.createElement('li');
-    li.className = 'issue';
+  const tile = (label: string, value: string | number, sub = '', text = false) =>
+    el(
+      'div',
+      { class: 'tile' },
+      el('span', { class: 'label label--muted' }, label),
+      el('span', { class: `tile__value${text ? ' tile__value--text' : ''}` }, String(value)),
+      ...(sub ? [el('span', { class: 'tile__sub' }, sub)] : []),
+    );
 
-    const top = document.createElement('p');
-    top.className = 'label label--signal';
-    top.append(`Issue #${String(issue.issue_number).padStart(3, '0')} `);
-    const status = document.createElement('span');
-    status.className = 'label status';
-    status.dataset.status = issue.status;
-    status.textContent = issue.status;
-    top.append(status);
+  const statusChip = (s: string) => el('span', { class: 'label status', data: { status: s } }, s);
 
-    const h3 = document.createElement('h3');
-    h3.textContent = issue.title;
+  // ---------- tabs ----------
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+  const panes = [...document.querySelectorAll<HTMLElement>('[data-pane]')];
+  let subsLoaded = false;
 
-    const meta = document.createElement('p');
-    meta.className = 'issue__meta';
-    const link = document.createElement('a');
-    link.href = issue.pdf_url;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = issue.pdf_name;
-    meta.append(link, ` · uploaded ${fmt(issue.created_at)}`);
-    if (issue.status === 'sent' && issue.sent_at) meta.append(` · sent ${fmt(issue.sent_at)} to ${issue.sent_count}`);
-    if (issue.status === 'sending' || issue.status === 'failed') meta.append(` · ${issue.sent_count}/${issue.recipient_count} sent`);
-    if (issue.status === 'approved') meta.append(' · will send on Sunday 08:00 UTC');
-
-    li.append(top, h3, meta);
-
-    if (issue.error) {
-      const err = document.createElement('p');
-      err.className = 'issue__error';
-      err.textContent = issue.error;
-      li.append(err);
+  function selectTab(name: 'news' | 'subs', focus = false) {
+    for (const t of tabs) {
+      const on = t.dataset.tab === name;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
     }
+    for (const p of panes) p.hidden = p.dataset.pane !== name;
+    history.replaceState(null, '', name === 'subs' ? '#subscribers' : '#newsletters');
+    if (name === 'subs' && !subsLoaded) loadSubs();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectTab(t.dataset.tab as 'news' | 'subs'));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      selectTab(tabs[(i + 1) % tabs.length].dataset.tab as 'news' | 'subs', true);
+    });
+  });
 
-    const actions = document.createElement('div');
-    actions.className = 'issue__actions';
+  function show(authed: boolean) {
+    loginPanel.hidden = authed;
+    dash.hidden = !authed;
+  }
+
+  // ---------- newsletters ----------
+  interface Issue {
+    id: string;
+    issue_number: number;
+    title: string;
+    note: string | null;
+    pdf_name: string;
+    pdf_url: string;
+    status: 'draft' | 'approved' | 'sending' | 'sent' | 'failed';
+    recipient_count: number;
+    sent_count: number;
+    sendgrid_message_id: string | null;
+    error: string | null;
+    created_at: string;
+    approved_at: string | null;
+    sent_at: string | null;
+  }
+
+  const openList = $<HTMLUListElement>('[data-open]');
+  const openEmpty = $<HTMLElement>('[data-open-empty]');
+  const historyList = $<HTMLUListElement>('[data-history]');
+  const historyEmpty = $<HTMLElement>('[data-history-empty]');
+  const newsTiles = $<HTMLElement>('[data-news-tiles]');
+
+  const issueAct = (action: string, id: string, extra: Record<string, unknown> = {}) =>
+    api('/api/admin/issues/', { method: 'POST', body: { action, id, ...extra } });
+
+  const num = (n: number) => `#${String(n).padStart(3, '0')}`;
+
+  function issueCard(issue: Issue) {
+    const top = el('p', { class: 'label label--signal' }, `Issue ${num(issue.issue_number)}`, statusChip(issue.status));
+    const h3 = el('h3', {}, issue.title);
+
+    const meta = el('p', { class: 'item__meta' });
+    meta.append(
+      el('a', { href: issue.pdf_url, target: '_blank', rel: 'noopener' }, issue.pdf_name),
+      ` · uploaded ${fmt(issue.created_at)}`,
+    );
+    if (issue.status === 'approved') meta.append(` · approved ${fmt(issue.approved_at)} · sends Sunday 08:00 UTC`);
+    if (issue.status === 'sending' || issue.status === 'failed') meta.append(` · ${issue.sent_count}/${issue.recipient_count} sent`);
+
+    const card = el('li', { class: 'item' }, top, h3, meta);
+    if (issue.note) card.append(el('p', { class: 'item__note' }, issue.note));
+    if (issue.error) card.append(el('p', { class: 'item__error' }, issue.error));
+
     const run = (action: string, done: string, confirmText?: string) => async () => {
       if (confirmText && !confirm(confirmText)) return;
       say('Working…');
-      const r = await act(action, issue.id);
+      const r = await issueAct(action, issue.id);
       if (!r.ok) return say(r.data.error ?? r.data.message ?? 'Something went wrong.', 'error');
       say(r.data.message ?? done, 'success');
-      await refresh();
+      await loadIssues();
     };
 
+    const actions = el('div', { class: 'item__actions' });
+
+    // PDF preview toggle (inline viewer; "Open PDF" above always works in a new tab).
+    let frame: HTMLIFrameElement | null = null;
+    actions.append(
+      button('Preview PDF', (b) => {
+        if (frame) {
+          frame.remove();
+          frame = null;
+          b.textContent = 'Preview PDF';
+          return;
+        }
+        frame = el('iframe', { class: 'pdf-preview', src: issue.pdf_url, title: `PDF preview: ${issue.title}` });
+        actions.before(frame);
+        b.textContent = 'Hide preview';
+      }, 'btn--ghost'),
+    );
+
+    if (issue.status === 'draft') {
+      actions.append(button('Edit', () => openEditor(card, actions, issue), 'btn--ghost'));
+    }
     if (issue.status !== 'sent' && issue.status !== 'sending') {
       actions.append(button('Send test to me', run('test', 'Test sent.'), 'btn--ghost'));
     }
@@ -347,29 +621,204 @@ import PageLayout from '../layouts/PageLayout.astro';
     if (issue.status === 'failed') {
       actions.append(button('Delete', run('delete', 'Deleted.', `Delete "${issue.title}" and its PDF?`), 'btn--danger'));
     }
-    li.append(actions);
-    return li;
+    card.append(actions);
+    return card;
   }
 
-  function show(authed: boolean) {
-    loginPanel.hidden = authed;
-    dash.hidden = !authed;
+  function openEditor(card: HTMLElement, actions: HTMLElement, issue: Issue) {
+    if (card.querySelector('.edit')) return;
+    const title = el('input', { class: 'field', type: 'text', maxLength: 140, value: issue.title, id: `t-${issue.id}`, 'aria-label': 'Title' });
+    const note = el('textarea', { class: 'field field--area', rows: 4, maxLength: 5000, value: issue.note ?? '', id: `n-${issue.id}`, 'aria-label': 'Note' });
+    const form: HTMLElement = el(
+      'div',
+      { class: 'edit' },
+      title,
+      note,
+      el(
+        'div',
+        { class: 'item__actions' },
+        button('Save changes', async () => {
+          const r = await issueAct('update', issue.id, { title: title.value, note: note.value });
+          if (!r.ok) return say(r.data.error ?? 'Could not save.', 'error');
+          say('Saved.', 'success');
+          await loadIssues();
+        }),
+        button('Cancel', (): void => form.remove(), 'btn--ghost'),
+      ),
+    );
+    actions.before(form);
+    title.focus();
   }
 
-  async function refresh() {
+  function historyRow(issue: Issue) {
+    const sub = [
+      `Sent ${fmt(issue.sent_at)}`,
+      `to ${issue.sent_count} subscriber${issue.sent_count === 1 ? '' : 's'}`,
+    ].join(' ');
+    return el(
+      'li',
+      { class: 'item' },
+      el('p', { class: 'label label--signal' }, `Issue ${num(issue.issue_number)}`, statusChip('sent')),
+      el('h3', {}, issue.title),
+      el('p', { class: 'item__meta' }, sub, ' · ', el('a', { href: issue.pdf_url, target: '_blank', rel: 'noopener' }, 'Open PDF')),
+    );
+  }
+
+  async function loadIssues() {
     const r = await api('/api/admin/issues/');
     if (r.status === 401) return show(false);
-    if (!r.ok) {
-      show(true);
-      return say(r.data.error ?? 'Could not load issues.', 'error');
-    }
     show(true);
+    if (!r.ok) return say(r.data.error ?? 'Could not load issues.', 'error');
     const issues = r.data.issues as Issue[];
-    subs.textContent = `${r.data.activeSubscribers} active subscriber${r.data.activeSubscribers === 1 ? '' : 's'}`;
-    list.replaceChildren(...issues.map(card));
-    empty.hidden = issues.length > 0;
+    const open = issues.filter((i) => i.status !== 'sent');
+    const sent = issues.filter((i) => i.status === 'sent').sort((a, b) => +new Date(b.sent_at ?? 0) - +new Date(a.sent_at ?? 0));
+    const queued = open.filter((i) => i.status === 'approved').sort((a, b) => +new Date(a.approved_at ?? 0) - +new Date(b.approved_at ?? 0))[0];
+
+    newsTiles.replaceChildren(
+      tile('Next send', queued ? queued.title : 'Nothing approved', queued ? 'Sunday 08:00 UTC' : 'Approve an issue to queue it', true),
+      tile('Active subscribers', r.data.activeSubscribers),
+      tile('Issues sent', sent.length, sent[0] ? `Last: ${ago(sent[0].sent_at as string)}` : ''),
+      tile('Drafts', open.filter((i) => i.status === 'draft').length),
+    );
+
+    openList.replaceChildren(...open.map(issueCard));
+    openEmpty.hidden = open.length > 0;
+    historyList.replaceChildren(...sent.map(historyRow));
+    historyEmpty.hidden = sent.length > 0;
   }
 
+  // ---------- subscribers ----------
+  interface Sub {
+    id: string;
+    email: string;
+    source: string;
+    consent: boolean;
+    consent_at: string | null;
+    status: 'active' | 'unsubscribed' | 'bounced' | 'suppressed';
+    sendgrid_synced: boolean;
+    welcome_sent: boolean;
+    created_at: string;
+    unsubscribed_at: string | null;
+  }
+
+  const subsList = $<HTMLUListElement>('[data-subs]');
+  const subsEmpty = $<HTMLElement>('[data-subs-empty]');
+  const subsTiles = $<HTMLElement>('[data-subs-tiles]');
+  const range = $<HTMLElement>('[data-range]');
+  const pager = $<HTMLElement>('[data-pager]');
+  const prev = $<HTMLButtonElement>('[data-prev]');
+  const next = $<HTMLButtonElement>('[data-next]');
+  const exportLink = $<HTMLAnchorElement>('[data-export]');
+  const qInput = $<HTMLInputElement>('#subs-q');
+  const statusSelect = $<HTMLSelectElement>('#subs-status');
+  let page = 1;
+
+  const subAct = (action: string, id: string) => api('/api/admin/subscribers/', { method: 'POST', body: { action, id } });
+
+  function subRow(s: Sub) {
+    const details = el(
+      'dl',
+      { class: 'details', hidden: true },
+      ...([
+        ['Subscribed', `${fmt(s.created_at)} (${ago(s.created_at)})`],
+        ['Source', s.source],
+        ['Consent', s.consent ? `Given ${fmt(s.consent_at)}` : 'Not recorded'],
+        ['Welcome email', s.welcome_sent ? 'Sent' : 'Not sent'],
+        ['In SendGrid', s.sendgrid_synced ? 'Synced' : 'Not synced yet'],
+        ['Unsubscribed', s.unsubscribed_at ? fmt(s.unsubscribed_at) : '—'],
+        ['ID', s.id],
+      ] as [string, string][]).flatMap(([k, v]) => [el('dt', {}, k), el('dd', {}, v)]),
+    );
+
+    const removed = async (action: string, confirmText: string) => {
+      if (!confirm(confirmText)) return;
+      say('Working…');
+      const r = await subAct(action, s.id);
+      if (!r.ok) return say(r.data.error ?? 'Something went wrong.', 'error');
+      say(r.data.message ?? 'Done.', 'success');
+      await loadSubs();
+    };
+
+    const actions = el('div', { class: 'item__actions' });
+    actions.append(
+      button('Details', (b) => {
+        details.hidden = !details.hidden;
+        b.textContent = details.hidden ? 'Details' : 'Hide details';
+      }, 'btn--ghost'),
+    );
+    if (s.status === 'active') {
+      actions.append(button('Unsubscribe', () => removed('unsubscribe', `Unsubscribe ${s.email}? They will not be emailed again.`), 'btn--ghost'));
+    }
+    actions.append(
+      button('Delete', () => removed('delete', `Permanently delete ${s.email}? This removes them from the database and from SendGrid and cannot be undone.`), 'btn--danger'),
+    );
+
+    return el(
+      'li',
+      { class: 'item' },
+      el('div', { class: 'sub__top' }, el('span', { class: 'sub__email' }, s.email, statusChip(s.status)), el('span', { class: 'sub__when' }, `Subscribed ${fmt(s.created_at)} · ${ago(s.created_at)}`)),
+      el('p', { class: 'item__meta' }, `Source: ${s.source}`),
+      details,
+      actions,
+    );
+  }
+
+  const filterParams = () => {
+    const p = new URLSearchParams();
+    if (statusSelect.value !== 'all') p.set('status', statusSelect.value);
+    if (qInput.value.trim()) p.set('q', qInput.value.trim());
+    return p;
+  };
+
+  async function loadSubs() {
+    const p = filterParams();
+    const csv = new URLSearchParams(p);
+    csv.set('format', 'csv');
+    exportLink.href = `/api/admin/subscribers/?${csv}`;
+    p.set('page', String(page));
+    const r = await api(`/api/admin/subscribers/?${p}`);
+    if (r.status === 401) return show(false);
+    if (!r.ok) return say(r.data.error ?? 'Could not load subscribers.', 'error');
+    subsLoaded = true;
+    const c = r.data.counts as Record<string, number>;
+    subsTiles.replaceChildren(
+      tile('Active', c.active),
+      tile('New in 7 days', c.last7),
+      tile('New in 30 days', c.last30),
+      tile('Unsubscribed', c.unsubscribed),
+      tile('Bounced', c.bounced + c.suppressed),
+      tile('Total', c.total),
+    );
+    const subs = r.data.subscribers as Sub[];
+    const matching = r.data.matching as number;
+    const size = r.data.pageSize as number;
+    subsList.replaceChildren(...subs.map(subRow));
+    subsEmpty.hidden = subs.length > 0;
+    range.textContent = subs.length ? `Showing ${(page - 1) * size + 1}–${(page - 1) * size + subs.length} of ${matching}` : '';
+    pager.hidden = matching <= size;
+    prev.disabled = page <= 1;
+    next.disabled = page * size >= matching;
+  }
+
+  $<HTMLFormElement>('[data-subs-filter]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    page = 1;
+    loadSubs();
+  });
+  statusSelect.addEventListener('change', () => {
+    page = 1;
+    loadSubs();
+  });
+  prev.addEventListener('click', () => {
+    page -= 1;
+    loadSubs();
+  });
+  next.addEventListener('click', () => {
+    page += 1;
+    loadSubs();
+  });
+
+  // ---------- sign in / out ----------
   $<HTMLFormElement>('[data-login-form]').addEventListener('submit', async (e) => {
     e.preventDefault();
     const input = $<HTMLInputElement>('#admin-password');
@@ -378,15 +827,17 @@ import PageLayout from '../layouts/PageLayout.astro';
     input.value = '';
     if (!r.ok) return say(r.data.error ?? 'Could not sign in.', 'error');
     say('');
-    await refresh();
+    await start();
   });
 
   $<HTMLButtonElement>('[data-logout]').addEventListener('click', async () => {
     await api('/api/admin/login/', { method: 'DELETE' });
     say('');
+    subsLoaded = false;
     show(false);
   });
 
+  // ---------- upload ----------
   $<HTMLFormElement>('[data-upload-form]').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
@@ -419,11 +870,15 @@ import PageLayout from '../layouts/PageLayout.astro';
       if (!created.ok) return say(created.data.error ?? 'Could not save the issue.', 'error');
       form.reset();
       say('Uploaded as a draft. Send yourself a test, then approve it.', 'success');
-      await refresh();
+      await loadIssues();
     } finally {
       submit.disabled = false;
     }
   });
 
-  refresh();
+  async function start() {
+    await loadIssues();
+    if (!dash.hidden) selectTab(location.hash === '#subscribers' ? 'subs' : 'news');
+  }
+  start();
 </script>

@@ -1,6 +1,6 @@
 // /api/admin/issues/: everything the admin page needs. Every handler checks the session cookie first.
 //   GET   → the list of issues and the active subscriber count
-//   POST  → { action: 'prepare' | 'create' | 'approve' | 'unapprove' | 'delete' | 'test' | 'send-now' | 'resume', ... }
+//   POST  → { action: 'prepare' | 'create' | 'update' | 'approve' | 'unapprove' | 'delete' | 'test' | 'send-now' | 'resume', ... }
 // PDFs never pass through this function (Vercel limits request bodies to 4.5 MB): 'prepare' returns a
 // short-lived signed URL and the browser uploads straight to Supabase Storage, then calls 'create'.
 import { randomUUID } from 'node:crypto';
@@ -69,6 +69,22 @@ export async function POST(request: Request): Promise<Response> {
     const { data: row } = await supabase.from('newsletter_issues').select('*').eq('id', id).maybeSingle();
     if (!row) return json({ ok: false, error: 'Issue not found.' }, 404);
     const issue = row as IssueRow;
+
+    if (action === 'update') {
+      const title = typeof b.title === 'string' ? b.title.trim() : '';
+      const note = typeof b.note === 'string' ? b.note.trim() : '';
+      if (!title || title.length > 140) return json({ ok: false, error: 'Add a title (up to 140 characters).' }, 400);
+      if (note.length > 5000) return json({ ok: false, error: 'The note is too long (5,000 characters max).' }, 400);
+      const { data, error } = await supabase
+        .from('newsletter_issues')
+        .update({ title, note: note || null })
+        .eq('id', id)
+        .eq('status', 'draft')
+        .select('id');
+      if (error) return json({ ok: false, error: error.message }, 500);
+      if (!data?.length) return json({ ok: false, error: 'Only a draft can be edited. Move it back to draft first.' }, 409);
+      return json({ ok: true });
+    }
 
     if (action === 'approve') {
       const { data, error } = await supabase
