@@ -107,7 +107,7 @@ Locally: `npm run newsletter:dry-run`.
 - **Marketing → Contacts → Lists:** create a list "AI Founder Files" and note its id.
 - **Settings → Unsubscribe Groups:** create a group "AI Founder Files weekly" and note its id (this powers one-click unsubscribe and the `List-Unsubscribe` header).
 - **Settings → API Keys:** create a key with Mail Send and Marketing permissions.
-- **Settings → Mail Settings → Event Webhook:** HTTP POST URL `https://aifounderfiles.com/api/sendgrid-webhook`; tick *Unsubscribe*, *Group Unsubscribe*, *Bounced* and *Spam Report*; switch on **Signature Verification** and copy the public key it shows. Enable the webhook.
+- **Settings → Mail Settings → Event Webhook:** HTTP POST URL `https://aifounderfiles.com/api/sendgrid-webhook/` (the trailing slash matters: the site forces slashes and SendGrid will not follow the redirect); tick *Unsubscribe*, *Group Unsubscribe*, *Bounced* and *Spam Report*; switch on **Signature Verification** and copy the public key it shows. Enable the webhook.
 
 **3. Vercel → Settings → Environment Variables** (Production), then redeploy:
 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_LIST_ID`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `SENDGRID_WEBHOOK_VERIFICATION_KEY`, `ADMIN_EMAILS`. (See `.env.example`.)

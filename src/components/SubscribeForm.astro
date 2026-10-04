@@ -15,7 +15,7 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
 <form
   class:list={['subscribe', { 'on-ink': theme === 'dark' }]}
   method="post"
-  action="/api/subscribe"
+  action="/api/subscribe/"
   novalidate
   data-subscribe
 >
@@ -219,7 +219,7 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
 
       button.disabled = true;
       try {
-        const res = await fetch(form.getAttribute('action') || '/api/subscribe', {
+        const res = await fetch(form.getAttribute('action') || '/api/subscribe/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
