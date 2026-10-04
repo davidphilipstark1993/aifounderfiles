@@ -27,6 +27,19 @@ import SubscribeForm from '../components/SubscribeForm.astro';
   </div>
 </PageLayout>
 
+<script>
+  // No-JS fallback: /api/subscribe redirects back here with ?problem=… when a plain form post fails.
+  const problem = new URLSearchParams(location.search).get('problem');
+  const msg = document.querySelector<HTMLElement>('form[data-subscribe] [data-msg]');
+  if (problem && msg) {
+    msg.dataset.kind = 'error';
+    msg.textContent =
+      problem === 'invalid'
+        ? 'Check your email address and that you’ve ticked the consent box, then try again.'
+        : 'Signup isn’t available just yet. Please check back soon.';
+  }
+</script>
+
 <style>
   .subscribe-grid {
     display: grid;

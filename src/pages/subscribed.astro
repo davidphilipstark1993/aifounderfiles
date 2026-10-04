@@ -1,0 +1,15 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<PageLayout
+  title="You’re on the list"
+  description="Thanks for subscribing to AI Founder Files."
+  label="Subscribed"
+  heading="You’re on the list."
+  lede="A welcome email is on its way. Your first file arrives on Sunday."
+  noindex
+  prose={false}
+>
+  <a class="link-arrow" href="/archive/"><span>Browse the archive</span><Arrow /></a>
+</PageLayout>
