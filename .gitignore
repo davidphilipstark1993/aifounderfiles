@@ -7,3 +7,6 @@ dist/
 .DS_Store
 .vercel
 .env*
+
+# Local logo files, not part of the site
+Logos */
