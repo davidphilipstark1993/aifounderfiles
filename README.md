@@ -74,25 +74,33 @@ Built the same way as listentruecrime.com. Everything runs without a server of y
 | Signup form | `src/components/SubscribeForm.astro` | Validates, requires a consent tick, posts to `/api/subscribe`. Shows real success and error messages. |
 | `POST /api/subscribe` | `api/subscribe.ts` (Vercel Function) | Saves the subscriber to Supabase **first**, then adds them to your SendGrid list, then sends the welcome email. A SendGrid failure never loses the subscriber. Re-subscribing lifts an earlier unsubscribe. |
 | `POST /api/sendgrid-webhook` | `api/sendgrid-webhook.ts` (Vercel Function) | Verifies SendGrid's signature, then marks people unsubscribed, bounced or suppressed so later sends skip them. |
-| Weekly send | `scripts/newsletter/weekly-send.ts` + `.github/workflows/weekly-newsletter-send.yml` | Sundays 08:00 UTC: emails the newest published file to every active subscriber, once. |
-| Email design | `lib/newsletter/templates.ts` | Welcome email and the weekly issue (headline, standfirst, "THE FILE" fact box, button), in the brand colours. |
-| Data | `supabase/migrations/001_newsletter.sql` | `newsletter_subscribers` and `newsletter_sends`. |
+| Admin page | `src/pages/admin.astro` + `api/admin/*.ts` | `/admin/`: sign in, upload a PDF, send yourself a test, approve it for Sunday (or send now). |
+| Weekly send | `scripts/newsletter/weekly-send.ts` + `.github/workflows/weekly-newsletter-send.yml` | Sundays 08:00 UTC: emails the oldest **approved** PDF issue to every active subscriber, once. |
+| Email design | `lib/newsletter/templates.ts` | Welcome email and the weekly PDF email (title, short note, "Download the PDF" button), in the brand colours. |
+| Data | `supabase/migrations/001_newsletter.sql`, `002_pdf_issues.sql` | `newsletter_subscribers`, plus `newsletter_issues` and a public `issues` storage bucket for the PDFs. |
 
-**Publishing is the approval.** Set `draft: false` on a file and push. On Sunday the Action finds the newest published file that hasn't been emailed and sends it. If there is nothing new, nothing is sent and you get an email saying so.
+### Weekly routine (the admin page)
+
+1. Open `https://aifounderfiles.com/admin/` and sign in with `ADMIN_PASSWORD`.
+2. Fill in the title, an optional short note (shown above the button in the email) and choose the PDF (max 50 MB). **Upload PDF** saves it as a draft.
+3. **Send test to me** emails a copy to `ADMIN_EMAILS` so you can check it in your inbox.
+4. **Approve for Sunday.** On Sunday 08:00 UTC the Action emails it. Or press **Send now** to send straight away. **Back to draft** undoes an approval.
+
+PDFs are stored in a public Supabase bucket under a random folder name, so the emailed link works without a login but cannot be guessed. Anyone who is forwarded the email can open the PDF.
 
 ### What the weekly send will and won't do
 
-- It sends **one file per run**, the newest by `publishDate` (then `fileNumber`).
-- A file is **never sent twice**: each send is recorded in `newsletter_sends` (unique per file) before any email goes out.
-- If a send stops part-way (for example a SendGrid error), nothing more goes out until you re-run the workflow with **resume** ticked, which emails only the people not yet reached.
-- It refuses to send a file published more than 10 days ago, so a late first run can't blast an old article. Use the `slug` input to send one deliberately.
-- You get an alert email for every outcome: sent, nothing new, already sent, failed.
+- It sends **one issue per run**, the oldest approved one.
+- An issue is **never sent twice**: sending is claimed with a single database update before any email goes out.
+- If a send stops part-way (for example a SendGrid error), nothing more goes out until you press **Resume send** on the admin page (or run the workflow with **resume** ticked), which emails only the people not yet reached.
+- It won't automatically send an issue approved more than 10 days ago. Use **Send now** to send one deliberately.
+- You get an alert email for every outcome: sent, nothing approved, failed.
 
 ### Try it without emailing anyone
 
 In GitHub: **Actions → Weekly Newsletter Send → Run workflow**. Choose a mode:
 
-- `dry-run` (default): renders the email and reports what it would send.
+- `dry-run` (default): reports which issue would be sent.
 - `test`: sends one copy to `ADMIN_EMAILS` only, so you can see it in your inbox.
 - `send`: emails every active subscriber now.
 
@@ -100,7 +108,7 @@ Locally: `npm run newsletter:dry-run`.
 
 ### One-time setup
 
-**1. Supabase.** Create a new project for AI Founder Files. In **SQL Editor** run `supabase/migrations/001_newsletter.sql`. From **Project Settings → API** copy the project URL and the `service_role` key (keep that secret; it must never go in client code).
+**1. Supabase.** Create a new project for AI Founder Files. In **SQL Editor** run `supabase/migrations/001_newsletter.sql`, then `002_pdf_issues.sql` (creates the issues table and the PDF bucket). From **Project Settings → API** copy the project URL and the `service_role` key (keep that secret; it must never go in client code).
 
 **2. SendGrid** (your existing account is fine; keep AI Founder Files in its own list and group).
 - **Sender authentication:** authenticate `aifounderfiles.com` (Settings → Sender Authentication → Domain). SendGrid gives you CNAME records to add in Namecheap's Advanced DNS. Without this, mail to Gmail/Outlook is likely to land in spam or be rejected.
@@ -110,7 +118,7 @@ Locally: `npm run newsletter:dry-run`.
 - **Settings → Mail Settings → Event Webhook:** HTTP POST URL `https://aifounderfiles.com/api/sendgrid-webhook/` (the trailing slash matters: the site forces slashes and SendGrid will not follow the redirect); tick *Unsubscribe*, *Group Unsubscribe*, *Bounced* and *Spam Report*; switch on **Signature Verification** and copy the public key it shows. Enable the webhook.
 
 **3. Vercel → Settings → Environment Variables** (Production), then redeploy:
-`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_LIST_ID`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `SENDGRID_WEBHOOK_VERIFICATION_KEY`, `ADMIN_EMAILS`. (See `.env.example`.)
+`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_LIST_ID`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `SENDGRID_WEBHOOK_VERIFICATION_KEY`, `ADMIN_EMAILS`, `ADMIN_PASSWORD` (at least 12 characters; the admin page sign-in. Changing it signs everyone out). (See `.env.example`.)
 
 **4. GitHub repo secrets** (Settings → Secrets and variables → Actions) for the weekly send:
 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME`, `SENDGRID_UNSUBSCRIBE_GROUP_ID`, `ADMIN_EMAILS`. With the GitHub CLI each one is `gh secret set NAME` (it prompts for the value, so it never lands in your shell history).

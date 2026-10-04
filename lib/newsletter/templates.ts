@@ -184,3 +184,56 @@ Unsubscribe: ${UNSUBSCRIBE_TAG}
     categories: [`file-${file.slug}`],
   };
 }
+
+export interface PdfIssue {
+  issueNumber: number;
+  title: string;
+  note?: string | null;
+  pdfUrl: string;
+  date: Date;
+}
+
+/** The weekly email for one uploaded PDF issue: a short note and a download button. */
+export function renderPdfIssue(issue: PdfIssue): Message {
+  const num = fileNo(issue.issueNumber);
+  const paragraphs = (issue.note ?? '')
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const noteHtml = paragraphs
+    .map(
+      (p) =>
+        `<p style="margin:0 0 16px;font-family:${SERIF};font-size:17px;line-height:1.55;color:${C.ink};">${esc(p).replace(/\n/g, '<br />')}</p>`,
+    )
+    .join('');
+
+  const body = `
+<p style="margin:0 0 14px;font-family:${MONO};font-weight:700;font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:${C.signal};">New file · Issue ${num}</p>
+<h1 style="margin:0 0 22px;font-family:${SANS};font-weight:900;font-size:34px;line-height:1.02;letter-spacing:-0.8px;text-transform:uppercase;color:${C.ink};">${esc(issue.title)}</h1>
+${noteHtml}
+${button(issue.pdfUrl, 'Download the PDF →')}
+<p style="margin:0 0 24px;font-family:${SERIF};font-size:14px;line-height:1.5;color:${C.graphite};">Button not working? Copy this link into your browser:<br /><a href="${issue.pdfUrl}" style="color:${C.slate};word-break:break-all;">${esc(issue.pdfUrl)}</a></p>`;
+
+  const text = `NEW FILE · ISSUE ${num}
+
+${issue.title.toUpperCase()}
+
+${paragraphs.join('\n\n')}${paragraphs.length ? '\n\n' : ''}Download the PDF: ${issue.pdfUrl}
+
+--
+You're receiving this because you subscribed at aifounderfiles.com.
+Unsubscribe: ${UNSUBSCRIBE_TAG}
+`;
+
+  return {
+    subject: `AI Founder Files ${num}: ${issue.title}`,
+    html: shell({
+      preheader: paragraphs[0]?.slice(0, 140) || 'This week’s file is ready to download.',
+      headerRight: `${num} · ${dateLong(issue.date)}`,
+      body,
+      footer: footerHtml('You are receiving this because you subscribed at aifounderfiles.com.', true),
+    }),
+    text,
+    categories: [`issue-${issue.issueNumber}`],
+  };
+}

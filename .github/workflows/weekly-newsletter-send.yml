@@ -11,10 +11,6 @@ on:
         type: choice
         options: [send, test, dry-run]
         default: dry-run
-      slug:
-        description: 'Optional: file to send instead of the newest published one (e.g. acme-ai)'
-        type: string
-        required: false
       resume:
         description: 'Finish a send that stopped part-way (skips people already emailed)'
         type: boolean
@@ -40,11 +36,10 @@ jobs:
       - run: npm ci
 
       # Scheduled runs have no inputs, so they always do a real send.
-      - name: Send the newest published file (if it hasn't been sent)
+      - name: Send the oldest approved PDF issue
         run: >
           npx tsx scripts/newsletter/weekly-send.ts
           ${{ github.event_name == 'workflow_dispatch' && inputs.mode != 'send' && format('--{0}', inputs.mode) || '' }}
-          ${{ github.event_name == 'workflow_dispatch' && inputs.slug != '' && format('--slug={0}', inputs.slug) || '' }}
           ${{ github.event_name == 'workflow_dispatch' && inputs.resume && '--resume' || '' }}
         env:
           SITE_URL: https://aifounderfiles.com

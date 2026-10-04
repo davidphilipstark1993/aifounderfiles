@@ -1,0 +1,429 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout
+  title="Admin"
+  description="Publisher admin for AI Founder Files."
+  label="Admin"
+  heading="Newsletter"
+  lede="Upload this week’s PDF, check it, approve it. Approved issues go out on Sunday."
+  noindex
+  prose={false}
+>
+  <p class="msg" data-msg role="status" aria-live="polite"></p>
+
+  <!-- Sign in -->
+  <section class="panel" data-login aria-labelledby="login-title" hidden>
+    <h2 id="login-title" class="label">Sign in</h2>
+    <form class="row" data-login-form novalidate>
+      <label class="visually-hidden" for="admin-password">Admin password</label>
+      <input class="field" id="admin-password" type="password" autocomplete="current-password" required placeholder="Admin password" />
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+  </section>
+
+  <!-- Signed in -->
+  <div data-dash hidden>
+    <div class="topbar">
+      <p class="label label--muted" data-subs></p>
+      <button class="btn btn--ghost" type="button" data-logout>Sign out</button>
+    </div>
+
+    <section class="panel" aria-labelledby="upload-title">
+      <h2 id="upload-title" class="label">Upload a new issue</h2>
+      <form class="stack" data-upload-form novalidate>
+        <div>
+          <label class="label label--muted" for="issue-title">Title</label>
+          <input class="field" id="issue-title" type="text" maxlength="140" required placeholder="e.g. The founder behind [Company]" />
+        </div>
+        <div>
+          <label class="label label--muted" for="issue-note">Short note for the email (optional)</label>
+          <textarea class="field field--area" id="issue-note" rows="4" maxlength="5000" placeholder="One or two sentences shown above the download button. Leave a blank line between paragraphs."></textarea>
+        </div>
+        <div>
+          <label class="label label--muted" for="issue-pdf">PDF (max 50 MB)</label>
+          <input class="field field--file" id="issue-pdf" type="file" accept="application/pdf,.pdf" required />
+        </div>
+        <div><button class="btn" type="submit">Upload PDF</button></div>
+      </form>
+    </section>
+
+    <section aria-labelledby="issues-title">
+      <h2 id="issues-title" class="label issues-title">Issues</h2>
+      <ul class="issues" data-issues role="list"></ul>
+      <p class="empty" data-empty hidden>No issues yet. Upload your first PDF above.</p>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  .msg {
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .msg:empty {
+    display: none;
+  }
+  .msg[data-kind] {
+    padding: 0.7rem 1rem;
+    border-left: 4px solid currentColor;
+    background: var(--white);
+    font-weight: 600;
+    max-width: 44rem;
+  }
+  .msg[data-kind='error'] {
+    color: var(--signal);
+  }
+  .msg[data-kind='success'] {
+    color: var(--ink);
+    border-left-color: var(--slate);
+  }
+  .panel {
+    max-width: 44rem;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+  .panel > .label {
+    margin-bottom: 1rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .stack {
+    display: grid;
+    gap: 1.1rem;
+  }
+  .stack .label {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .field {
+    flex: 1 1 14rem;
+    width: 100%;
+    min-width: 0;
+    min-height: 3rem;
+    padding: 0 1rem;
+    background: var(--white);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+  }
+  .field--area {
+    padding: 0.75rem 1rem;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  .field--file {
+    padding: 0.6rem 1rem;
+  }
+  .btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .btn--ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn--danger {
+    background: transparent;
+    color: var(--signal);
+    border-color: var(--signal);
+  }
+  .btn--danger:hover {
+    background: var(--signal);
+    border-color: var(--signal);
+    color: var(--white);
+  }
+  .topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 44rem;
+    margin-bottom: 1.5rem;
+  }
+  .issues-title {
+    margin-bottom: 1rem;
+  }
+  .issues {
+    display: grid;
+    gap: 1rem;
+    max-width: 44rem;
+    padding: 0;
+    list-style: none;
+  }
+  .empty {
+    color: var(--graphite);
+  }
+  .issue {
+    padding: 1.25rem 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+  .issue h3 {
+    margin: 0.35rem 0 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 85%;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  .issue__meta {
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+    color: var(--graphite);
+  }
+  .issue__meta a {
+    color: var(--slate);
+  }
+  .issue__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .issue__error {
+    margin-bottom: 1rem;
+    color: var(--signal);
+    font-weight: 600;
+  }
+  .status {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-sm);
+    color: var(--graphite);
+  }
+  .status[data-status='approved'] {
+    color: var(--slate);
+    background: var(--paper);
+  }
+  .status[data-status='sent'] {
+    color: var(--ink);
+    background: var(--manila);
+    border-color: var(--manila);
+  }
+  .status[data-status='failed'],
+  .status[data-status='sending'] {
+    color: var(--signal);
+  }
+</style>
+
+<script>
+  const $ = <T extends Element>(sel: string) => document.querySelector(sel) as T;
+  const msg = $<HTMLElement>('[data-msg]');
+  const loginPanel = $<HTMLElement>('[data-login]');
+  const dash = $<HTMLElement>('[data-dash]');
+  const list = $<HTMLUListElement>('[data-issues]');
+  const empty = $<HTMLElement>('[data-empty]');
+  const subs = $<HTMLElement>('[data-subs]');
+
+  const say = (text: string, kind: 'error' | 'success' | '' = '') => {
+    msg.textContent = text;
+    if (kind) msg.dataset.kind = kind;
+    else delete msg.dataset.kind;
+  };
+
+  interface Issue {
+    id: string;
+    issue_number: number;
+    title: string;
+    note: string | null;
+    pdf_name: string;
+    pdf_url: string;
+    status: 'draft' | 'approved' | 'sending' | 'sent' | 'failed';
+    recipient_count: number;
+    sent_count: number;
+    error: string | null;
+    created_at: string;
+    sent_at: string | null;
+  }
+
+  async function api(url: string, init?: { method?: string; body?: unknown }) {
+    const res = await fetch(url, {
+      method: init?.method ?? 'GET',
+      headers: init?.body ? { 'Content-Type': 'application/json' } : undefined,
+      body: init?.body ? JSON.stringify(init.body) : undefined,
+      credentials: 'same-origin',
+    });
+    const data = (await res.json().catch(() => ({}))) as Record<string, any>;
+    return { ok: res.ok && data.ok !== false, status: res.status, data };
+  }
+
+  const act = (action: string, id: string) => api('/api/admin/issues/', { method: 'POST', body: { action, id } });
+
+  const fmt = (iso: string) => new Date(iso).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' });
+
+  function button(label: string, onClick: (b: HTMLButtonElement) => Promise<void>, cls = '') {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = `btn ${cls}`.trim();
+    b.textContent = label;
+    b.addEventListener('click', async () => {
+      b.disabled = true;
+      try {
+        await onClick(b);
+      } finally {
+        b.disabled = false;
+      }
+    });
+    return b;
+  }
+
+  function card(issue: Issue) {
+    const li = document.createElement('li');
+    li.className = 'issue';
+
+    const top = document.createElement('p');
+    top.className = 'label label--signal';
+    top.append(`Issue #${String(issue.issue_number).padStart(3, '0')} `);
+    const status = document.createElement('span');
+    status.className = 'label status';
+    status.dataset.status = issue.status;
+    status.textContent = issue.status;
+    top.append(status);
+
+    const h3 = document.createElement('h3');
+    h3.textContent = issue.title;
+
+    const meta = document.createElement('p');
+    meta.className = 'issue__meta';
+    const link = document.createElement('a');
+    link.href = issue.pdf_url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = issue.pdf_name;
+    meta.append(link, ` · uploaded ${fmt(issue.created_at)}`);
+    if (issue.status === 'sent' && issue.sent_at) meta.append(` · sent ${fmt(issue.sent_at)} to ${issue.sent_count}`);
+    if (issue.status === 'sending' || issue.status === 'failed') meta.append(` · ${issue.sent_count}/${issue.recipient_count} sent`);
+    if (issue.status === 'approved') meta.append(' · will send on Sunday 08:00 UTC');
+
+    li.append(top, h3, meta);
+
+    if (issue.error) {
+      const err = document.createElement('p');
+      err.className = 'issue__error';
+      err.textContent = issue.error;
+      li.append(err);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'issue__actions';
+    const run = (action: string, done: string, confirmText?: string) => async () => {
+      if (confirmText && !confirm(confirmText)) return;
+      say('Working…');
+      const r = await act(action, issue.id);
+      if (!r.ok) return say(r.data.error ?? r.data.message ?? 'Something went wrong.', 'error');
+      say(r.data.message ?? done, 'success');
+      await refresh();
+    };
+
+    if (issue.status !== 'sent' && issue.status !== 'sending') {
+      actions.append(button('Send test to me', run('test', 'Test sent.'), 'btn--ghost'));
+    }
+    if (issue.status === 'draft') {
+      actions.append(button('Approve for Sunday', run('approve', 'Approved. It will go out on Sunday.')));
+      actions.append(button('Delete', run('delete', 'Deleted.', `Delete "${issue.title}" and its PDF?`), 'btn--danger'));
+    }
+    if (issue.status === 'approved') {
+      actions.append(button('Send now', run('send-now', 'Sent.', `Email "${issue.title}" to all active subscribers now? This cannot be undone.`)));
+      actions.append(button('Back to draft', run('unapprove', 'Moved back to draft.'), 'btn--ghost'));
+    }
+    if (issue.status === 'failed' || issue.status === 'sending') {
+      actions.append(button('Resume send', run('resume', 'Resumed.', 'Check SendGrid’s activity feed first. Resume emails only the people not yet reached. Continue?')));
+    }
+    if (issue.status === 'failed') {
+      actions.append(button('Delete', run('delete', 'Deleted.', `Delete "${issue.title}" and its PDF?`), 'btn--danger'));
+    }
+    li.append(actions);
+    return li;
+  }
+
+  function show(authed: boolean) {
+    loginPanel.hidden = authed;
+    dash.hidden = !authed;
+  }
+
+  async function refresh() {
+    const r = await api('/api/admin/issues/');
+    if (r.status === 401) return show(false);
+    if (!r.ok) {
+      show(true);
+      return say(r.data.error ?? 'Could not load issues.', 'error');
+    }
+    show(true);
+    const issues = r.data.issues as Issue[];
+    subs.textContent = `${r.data.activeSubscribers} active subscriber${r.data.activeSubscribers === 1 ? '' : 's'}`;
+    list.replaceChildren(...issues.map(card));
+    empty.hidden = issues.length > 0;
+  }
+
+  $<HTMLFormElement>('[data-login-form]').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = $<HTMLInputElement>('#admin-password');
+    say('Signing in…');
+    const r = await api('/api/admin/login/', { method: 'POST', body: { password: input.value } });
+    input.value = '';
+    if (!r.ok) return say(r.data.error ?? 'Could not sign in.', 'error');
+    say('');
+    await refresh();
+  });
+
+  $<HTMLButtonElement>('[data-logout]').addEventListener('click', async () => {
+    await api('/api/admin/login/', { method: 'DELETE' });
+    say('');
+    show(false);
+  });
+
+  $<HTMLFormElement>('[data-upload-form]').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const submit = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    const title = $<HTMLInputElement>('#issue-title').value.trim();
+    const note = $<HTMLTextAreaElement>('#issue-note').value.trim();
+    const file = $<HTMLInputElement>('#issue-pdf').files?.[0];
+    if (!title) return say('Add a title.', 'error');
+    if (!file) return say('Choose a PDF to upload.', 'error');
+    if (!/\.pdf$/i.test(file.name) || (file.type && file.type !== 'application/pdf')) return say('That file is not a PDF.', 'error');
+    if (file.size > 50 * 1024 * 1024) return say('That PDF is over 50 MB.', 'error');
+
+    submit.disabled = true;
+    try {
+      say('Uploading…');
+      const prep = await api('/api/admin/issues/', { method: 'POST', body: { action: 'prepare', filename: file.name } });
+      if (!prep.ok) return say(prep.data.error ?? 'Could not start the upload.', 'error');
+
+      // Same request Supabase's own client makes for a signed upload URL.
+      const body = new FormData();
+      body.append('cacheControl', '3600');
+      body.append('', file);
+      const put = await fetch(prep.data.signedUrl as string, { method: 'PUT', headers: { 'x-upsert': 'false' }, body });
+      if (!put.ok) return say(`The upload failed (${put.status}). Try again.`, 'error');
+
+      const created = await api('/api/admin/issues/', {
+        method: 'POST',
+        body: { action: 'create', title, note, path: prep.data.path, filename: file.name },
+      });
+      if (!created.ok) return say(created.data.error ?? 'Could not save the issue.', 'error');
+      form.reset();
+      say('Uploaded as a draft. Send yourself a test, then approve it.', 'success');
+      await refresh();
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  refresh();
+</script>
