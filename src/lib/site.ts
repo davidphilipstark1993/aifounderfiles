@@ -6,7 +6,7 @@ export const SITE = {
   description:
     'A weekly publication profiling one AI founder and their company in depth: the founder, the product, the funding and the business model, told in full.',
   // Set these up as real mailboxes before launch (see README).
-  contactEmail: 'hello@aifounderfiles.com',
+  contactEmail: 'info@aifounderfiles.com',
   correctionsEmail: 'corrections@aifounderfiles.com',
   nav: [
     { label: 'Latest', href: '/#latest' },

@@ -14,7 +14,7 @@ export const unsubscribeGroupId = (): number | undefined => {
 };
 
 const from = () => ({
-  email: env('SENDGRID_FROM_EMAIL') || 'hello@aifounderfiles.com',
+  email: env('SENDGRID_FROM_EMAIL') || 'info@aifounderfiles.com',
   name: env('SENDGRID_FROM_NAME') || 'AI Founder Files',
 });
 
