@@ -7,6 +7,7 @@ const detail = (c: (typeof companies)[number]) =>
   [c.sector, c.stage, c.hq].filter((v) => v && !/^undisclosed$/i.test(v)).join(' · ');
 ---
 <PageLayout
+  noindex={companies.length === 0}
   title="Companies"
   description="Every company profiled in an AI Founder Files deep dive, one file each."
   label="The index"

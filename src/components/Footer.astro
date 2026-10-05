@@ -1,6 +1,8 @@
 ---
 import Logo from './Logo.astro';
 import { SITE } from '../lib/site';
+import { getPublishedFiles } from '../lib/files';
+const hasFiles = (await getPublishedFiles()).length > 0;
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -15,7 +17,7 @@ const year = new Date().getFullYear();
           <li><a class="label" href="/about/">About</a></li>
           <li><a class="label" href="/editorial-policy/">Editorial policy</a></li>
           <li><a class="label" href="/subscribe/">Subscribe</a></li>
-          <li><a class="label" href="/rss.xml">RSS</a></li>
+          {hasFiles && <li><a class="label" href="/rss.xml">RSS</a></li>}
           <li><a class="label" href="/privacy/">Privacy</a></li>
         </ul>
       </nav>

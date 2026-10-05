@@ -1,7 +1,12 @@
 ---
 import Logo from './Logo.astro';
 import { SITE } from '../lib/site';
+import { getPublishedFiles } from '../lib/files';
 
+const hasFiles = (await getPublishedFiles()).length > 0;
+// Founders, Companies and Archive are indexes of published articles, so they only appear once there are some.
+const needsFiles = ['/founders/', '/companies/', '/archive/'];
+const navItems = SITE.nav.filter((item) => hasFiles || !needsFiles.includes(item.href));
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href);
 ---
@@ -21,7 +26,7 @@ const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href)
 
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul role="list">
-        {SITE.nav.map((item) => (
+        {navItems.map((item) => (
           <li>
             <a class="label" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
           </li>

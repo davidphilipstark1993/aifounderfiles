@@ -2,6 +2,14 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import fs from 'node:fs';
+
+// Founders, Companies and Archive are empty (and noindex) until an article is published, so keep them out of the sitemap.
+const hasPublishedFiles = fs
+  .readdirSync('src/content/files')
+  .filter((f) => /\.mdx?$/.test(f))
+  .some((f) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(`src/content/files/${f}`, 'utf8')));
+const emptyIndexes = ['/founders/', '/companies/', '/archive/'];
 
 export default defineConfig({
   site: 'https://aifounderfiles.com',
@@ -10,7 +18,11 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [
     mdx(),
-    // The privacy page is a noindex placeholder until it has been reviewed, so keep it out of the sitemap.
-    sitemap({ filter: (page) => !page.includes('/privacy/') && !page.includes('/subscribed/') && !page.includes('/admin/') }),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/subscribed/') &&
+        !page.includes('/admin/') &&
+        (hasPublishedFiles || !emptyIndexes.some((p) => page.endsWith(p))),
+    }),
   ],
 });

@@ -5,6 +5,7 @@ import { fileNumberLabel, fileUrl, getFounders } from '../lib/files';
 const founders = await getFounders();
 ---
 <PageLayout
+  noindex={founders.length === 0}
   title="Founders"
   description="Every founder profiled in an AI Founder Files deep dive, one file each."
   label="The index"

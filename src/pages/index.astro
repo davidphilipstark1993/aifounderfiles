@@ -6,18 +6,19 @@ import NewsletterBand from '../components/NewsletterBand.astro';
 import Arrow from '../components/Arrow.astro';
 import { factFields, fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
 import { SITE } from '../lib/site';
+import { currentIssue } from '../data/current-issue';
 
 const files = await getPublishedFiles();
 const [latest, ...rest] = files;
 const previous = rest.slice(0, 6);
 
-const daysOld = latest ? (Date.now() - latest.data.publishDate.getTime()) / 86_400_000 : 0;
-const eyebrow = latest
-  ? `Founder File ${fileNumberLabel(latest.data.fileNumber)} · ${daysOld <= 8 ? 'This week' : 'Latest file'}${latest.data.draft ? ' · Draft' : ''}`
-  : 'Founder File #001 · Coming soon';
-
-const tbc = 'To be announced';
-const emptyFields = ['Founder', 'Company', 'Founded', 'HQ', 'Sector', 'Funding'].map((label) => ({ label, value: tbc }));
+const published = latest?.data.publishDate ?? currentIssue.publishDate;
+const issueNumber = latest?.data.fileNumber ?? currentIssue.fileNumber;
+const daysOld = (Date.now() - published.getTime()) / 86_400_000;
+const eyebrow = `Founder File ${fileNumberLabel(issueNumber)} · ${daysOld <= 8 ? 'This week' : 'Latest file'}${latest?.data.draft ? ' · Draft' : ''}`;
+const title = latest?.data.title ?? currentIssue.title;
+const standfirst = latest?.data.standfirst ?? currentIssue.standfirst;
+const facts = latest ? factFields(latest.data, true) : currentIssue.facts;
 
 const jsonLd = [
   {
@@ -53,51 +54,37 @@ const jsonLd = [
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <p class="label label--signal">{eyebrow}</p>
+        <h2 id="hero-title" class="display hero__title">{title}</h2>
+        <p class="hero__standfirst">{standfirst}</p>
         {latest ? (
-          <>
-            <h2 id="hero-title" class="display hero__title">{latest.data.title}</h2>
-            <p class="hero__standfirst">{latest.data.standfirst}</p>
-            <a class="link-arrow" href={fileUrl(latest)}>
-              <span>Read the file<span class="visually-hidden">: {latest.data.title}</span></span><Arrow />
-            </a>
-          </>
+          <a class="link-arrow" href={fileUrl(latest)}>
+            <span>Read the file<span class="visually-hidden">: {title}</span></span><Arrow />
+          </a>
         ) : (
-          <>
-            <h2 id="hero-title" class="display hero__title">One founder. One company. One deep dive.</h2>
-            <p class="hero__standfirst">
-              Every week we open one file: the founder, the product, the funding and the business model behind a new AI company, told in full.
-            </p>
-            <a class="link-arrow" href="/subscribe/"><span>Get file #001 in your inbox</span><Arrow /></a>
-          </>
+          <a class="link-arrow" href="/subscribe/"><span>Get the file in your inbox<span class="visually-hidden">: {title}</span></span><Arrow /></a>
         )}
       </div>
       <div class="hero__fact">
-        <FactBox id="hero-fact" fields={latest ? factFields(latest.data, true) : emptyFields} />
+        <FactBox id="hero-fact" fields={facts} />
       </div>
     </div>
   </section>
 
-  <section class="section section--rule" aria-labelledby="previous-title">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="previous-title">Previous files</h2>
-        {files.length > 0 && <a class="link-arrow" href="/archive/"><span>All files</span><Arrow /></a>}
-      </div>
-      {previous.length > 0 ? (
+  {previous.length > 0 && (
+    <section class="section section--rule" aria-labelledby="previous-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="previous-title">Previous files</h2>
+          <a class="link-arrow" href="/archive/"><span>All files</span><Arrow /></a>
+        </div>
         <ul class="grid" role="list">
           {previous.map((entry) => (
             <li><FileCard entry={entry} /></li>
           ))}
         </ul>
-      ) : (
-        <div class="empty-state">
-          <p class="label label--signal">Archive</p>
-          <p><strong>No earlier files yet.</strong> {latest ? 'This is the first one.' : 'File #001 is on its way.'} Each week’s file will be added here and to the archive.</p>
-          <a class="link-arrow" href="/subscribe/"><span>Subscribe</span><Arrow /></a>
-        </div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
   <NewsletterBand id="home-subscribe" />
 </BaseLayout>
