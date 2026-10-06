@@ -1,0 +1,26 @@
+name: Daily Rebuild
+
+# The site is static, so date-driven changes (this week's file moving on, an early read becoming
+# the latest file) only appear after a new deploy. This asks Vercel for one each morning.
+# It does nothing until the VERCEL_DEPLOY_HOOK_URL secret exists (Vercel > Settings > Git > Deploy Hooks).
+
+on:
+  schedule:
+    - cron: '10 0 * * *' # 00:10 UTC daily, just after midnight so a new issue date is live all day
+  workflow_dispatch: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger a Vercel deploy
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::notice::VERCEL_DEPLOY_HOOK_URL is not set, so no rebuild was triggered. See the README."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST "$HOOK" > /dev/null
+          echo "Deploy requested."

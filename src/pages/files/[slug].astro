@@ -11,6 +11,8 @@ import {
   formatDate,
   getPublishedFiles,
   isoDate,
+  isUpcoming,
+  notAfterNow,
   readingTime,
   relatedFiles,
   type FileEntry,
@@ -31,6 +33,7 @@ const { data } = entry;
 const { Content } = await render(entry);
 
 const minutes = readingTime(entry.body);
+const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
 const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -61,8 +64,8 @@ const jsonLd = {
   headline: data.title,
   description: data.standfirst,
   image: [new URL(ogPath, SITE.url).href],
-  datePublished: data.publishDate.toISOString(),
-  dateModified: (data.updatedDate ?? data.publishDate).toISOString(),
+  datePublished: notAfterNow(data.publishDate).toISOString(),
+  dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
   author: { '@type': 'Person', name: data.author },
   publisher: {
     '@type': 'Organization',
@@ -87,11 +90,20 @@ const jsonLd = {
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
   noindex={data.draft}
   jsonLd={jsonLd}
-  article={{ published: data.publishDate, modified: data.updatedDate, author: data.author, section: data.company.sector, tags: data.tags }}
+  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: data.company.sector, tags: data.tags }}
 >
   {data.draft && (
     <div class="draft-banner">
       <p class="label">Draft · visible in dev only · excluded from production builds</p>
+    </div>
+  )}
+
+  {upcoming && (
+    <div class="early-banner on-manila">
+      <div class="wrap early-banner__inner">
+        <p class="label"><strong>Early read.</strong> This file goes out to subscribers on {formatDate(data.publishDate)}.</p>
+        <a class="early-banner__link label" href="/subscribe/">Get it in your inbox</a>
+      </div>
     </div>
   )}
 
@@ -164,6 +176,29 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
+  .early-banner {
+    background: var(--manila);
+    padding-block: 0.65rem;
+  }
+  .early-banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem 1.25rem;
+    text-align: center;
+  }
+  .early-banner__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
   .file-head {
     padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
   }

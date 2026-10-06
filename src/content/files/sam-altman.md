@@ -60,7 +60,7 @@ sources:
     url: "https://siliconangle.com/2026/09/13/sam-altman-and-elon-musk-back-dario-amodeis-call-to-slow-down-the-frontier-of-ai-development/"
   - title: "The exit and return of Sam Altman to OpenAI: a timeline, YourStory (2023)"
     url: "https://yourstory.com/2023/11/the-exit-and-return-of-sam-altman-greg-brockman-microsoft-openai-a-timeline"
-draft: true
+draft: false
 ---
 
 Hello, and welcome to the very first Founder File. We're so glad you're here at the beginning.

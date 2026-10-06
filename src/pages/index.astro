@@ -3,14 +3,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FactBox from '../components/FactBox.astro';
 import FileCard from '../components/FileCard.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
+import SampleIssue from '../components/SampleIssue.astro';
 import Arrow from '../components/Arrow.astro';
-import { factFields, fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
+import { factFields, fileNumberLabel, fileUrl, getPublishedFiles, isUpcoming } from '../lib/files';
 import { SITE } from '../lib/site';
 import { currentIssue } from '../data/current-issue';
 
 const files = await getPublishedFiles();
-const [latest, ...rest] = files;
-const previous = rest.slice(0, 6);
+// This week's file is the newest one that has already gone out. Files dated in the future are
+// "early reads" and are listed under "Coming up" until their Sunday.
+const issued = files.filter((f) => !isUpcoming(f));
+const latest = issued.find((f) => !f.data.draft) ?? issued[0] ?? files.at(-1);
+const comingUp = files.filter((f) => isUpcoming(f) && f.id !== latest?.id).reverse(); // soonest first
+const previous = issued.filter((f) => f.id !== latest?.id).slice(0, 6);
 
 const published = latest?.data.publishDate ?? currentIssue.publishDate;
 const issueNumber = latest?.data.fileNumber ?? currentIssue.fileNumber;
@@ -70,6 +75,23 @@ const jsonLd = [
     </div>
   </section>
 
+  {comingUp.length > 0 && (
+    <section class="section section--rule" aria-labelledby="coming-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="coming-title">Coming up</h2>
+          <a class="link-arrow" href="/archive/"><span>All files</span><Arrow /></a>
+        </div>
+        <p class="coming-note">Early reads. Each goes out to subscribers on the date shown. Read them now, or <a href="/subscribe/">subscribe</a> to get each one in your inbox on the day.</p>
+        <ul class="grid" role="list">
+          {comingUp.map((entry) => (
+            <li><FileCard entry={entry} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
   {previous.length > 0 && (
     <section class="section section--rule" aria-labelledby="previous-title">
       <div class="wrap">
@@ -85,6 +107,8 @@ const jsonLd = [
       </div>
     </section>
   )}
+
+  <div class="section--rule"><SampleIssue id="home-sample" /></div>
 
   <NewsletterBand id="home-subscribe" />
 </BaseLayout>
@@ -127,6 +151,18 @@ const jsonLd = [
     .hero__grid {
       grid-template-columns: minmax(0, 1fr) 25rem;
     }
+  }
+  .coming-note {
+    margin: -0.5rem 0 1.5rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    color: var(--slate);
+  }
+  .coming-note a {
+    color: var(--ink);
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
   }
   .grid {
     display: grid;

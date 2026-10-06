@@ -26,4 +26,5 @@ const { title, description, label, heading, lede, noindex, prose = true } = Astr
       {prose ? <div class="prose"><slot /></div> : <slot />}
     </div>
   </div>
+  <slot name="after" />
 </BaseLayout>

@@ -58,7 +58,7 @@ sources:
     url: "https://www.kucoin.com/news/flash/openai-and-anthropic-founders-split-revealed-in-new-book"
   - title: "Sam Altman and Elon Musk back Dario Amodei's call to slow down the frontier of AI, SiliconANGLE (13 September 2026)"
     url: "https://siliconangle.com/2026/09/13/sam-altman-and-elon-musk-back-dario-amodeis-call-to-slow-down-the-frontier-of-ai-development/"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome back to the Founder Files. Thank you for coming back for number two. It means a lot.

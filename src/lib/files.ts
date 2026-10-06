@@ -14,6 +14,15 @@ export async function getPublishedFiles(): Promise<FileEntry[]> {
   );
 }
 
+/**
+ * An "early read": published on the site before its issue date (the Sunday it goes out to subscribers).
+ * Upcoming files are listed under "Coming up", never featured as this week's file.
+ */
+export const isUpcoming = (entry: FileEntry, now = new Date()) => entry.data.publishDate.getTime() > now.getTime();
+
+/** For machine-readable dates (JSON-LD, RSS, meta): a date is never in the future. */
+export const notAfterNow = (d: Date, now = new Date()) => (d.getTime() > now.getTime() ? now : d);
+
 export const fileNumberLabel = (n: number) => `#${String(n).padStart(3, '0')}`;
 
 export const fileUrl = (entry: FileEntry) => `/files/${entry.id}/`;

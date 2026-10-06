@@ -1,0 +1,156 @@
+---
+/**
+ * "See what you get": features one real published file (SAMPLE_ISSUE) with a preview of the PDF
+ * subscribers receive, a link to read it on the site and the PDF download. Renders nothing if the
+ * sample file isn't published.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import cover from '../assets/sample-issue-001-page-1.png';
+import Arrow from './Arrow.astro';
+import { fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
+import { SAMPLE_ISSUE } from '../lib/site';
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+
+const entry = (await getPublishedFiles()).find((f) => f.id === SAMPLE_ISSUE.slug);
+const headings = entry ? (await render(entry)).headings.filter((h) => h.depth === 2).map((h) => h.text) : [];
+const pdfKb = (() => {
+  try {
+    return Math.round(fs.statSync(path.join(process.cwd(), 'public', SAMPLE_ISSUE.pdf)).size / 1024);
+  } catch {
+    return undefined;
+  }
+})();
+---
+{entry && (
+  <section class="sample" aria-labelledby={`${id}-title`}>
+    <div class="wrap sample__grid">
+      <div class="sample__copy">
+        <p class="label label--signal">See what you get</p>
+        <h2 id={`${id}-title`} class="display sample__title">Every Sunday, one file. Here’s the first.</h2>
+        <p class="sample__text">
+          Each week we send one Founder File as a branded PDF you can read, save or forward. Founder File {fileNumberLabel(entry.data.fileNumber)},
+          on {entry.data.founder.name} and {entry.data.company.name}, runs to {SAMPLE_ISSUE.pdfPages} pages: a fact box up front, the whole
+          story in plain English, and every source listed at the end.
+        </p>
+
+        {headings.length > 0 && (
+          <div class="sample__inside">
+            <p class="label label--muted">What’s inside</p>
+            <ol role="list">
+              {headings.map((h) => <li>{h}</li>)}
+              <li>Sources</li>
+            </ol>
+          </div>
+        )}
+
+        <div class="sample__actions">
+          <a class="btn" href={SAMPLE_ISSUE.pdf} target="_blank" rel="noopener">
+            Download the sample PDF<span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+          <a class="link-arrow" href={fileUrl(entry)}><span>Read it on the site</span><Arrow /></a>
+        </div>
+        <p class="label label--muted sample__meta">PDF · {SAMPLE_ISSUE.pdfPages} pages{pdfKb ? ` · ${pdfKb} KB` : ''}</p>
+      </div>
+
+      <a class="sample__cover" href={SAMPLE_ISSUE.pdf} target="_blank" rel="noopener">
+        <Image
+          src={cover}
+          alt={`First page of Founder File ${fileNumberLabel(entry.data.fileNumber)} as a PDF: the headline “${entry.data.title}”, “The File” fact box and the opening paragraphs. Opens the PDF in a new tab.`}
+          widths={[360, 480, 720]}
+          sizes="(min-width: 900px) 420px, 80vw"
+          loading="lazy"
+        />
+      </a>
+    </div>
+  </section>
+)}
+
+<style>
+  .sample {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .sample__grid {
+    display: grid;
+    gap: 2.5rem 4rem;
+    align-items: center;
+  }
+  .sample__title {
+    margin-top: 0.75rem;
+    font-size: clamp(2rem, 5.2vw, 3.25rem);
+    max-width: 14ch;
+  }
+  .sample__text {
+    margin-top: 1.1rem;
+    max-width: 48ch;
+    font-size: 1.125rem;
+    color: var(--slate);
+  }
+  .sample__inside {
+    margin-top: 1.5rem;
+    max-width: 30rem;
+  }
+  .sample__inside ol {
+    margin: 0.6rem 0 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 1.5rem;
+    counter-reset: inside;
+  }
+  .sample__inside li {
+    counter-increment: inside;
+    break-inside: avoid;
+    padding-block: 0.3rem;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sample__inside li::before {
+    content: counter(inside, decimal-leading-zero);
+    margin-right: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--graphite);
+  }
+  .sample__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1.75rem;
+  }
+  .sample__meta {
+    margin-top: 0.5rem;
+  }
+  .sample__cover {
+    display: block;
+    justify-self: center;
+    width: min(100%, 26rem);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transform: rotate(1.5deg);
+  }
+  .sample__cover :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 900px) {
+    .sample__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sample__cover {
+      transform: none;
+    }
+  }
+</style>

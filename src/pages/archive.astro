@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
-import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles } from '../lib/files';
+import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../lib/files';
 
 const files = await getPublishedFiles(); // already newest first
 const byYear = new Map<number, typeof files>();
@@ -32,7 +32,7 @@ for (const f of files) {
                   <span class="index__title">{f.data.title}</span>
                   <span class="index__sub">{f.data.founder.name} · {f.data.company.name}{f.data.draft ? ' · DRAFT' : ''}</span>
                 </span>
-                <span class="index__meta label label--muted"><time datetime={f.data.publishDate.toISOString()}>{formatDate(f.data.publishDate)}</time></span>
+                <span class="index__meta label label--muted">{isUpcoming(f) ? 'Early read · out ' : ''}<time datetime={f.data.publishDate.toISOString()}>{formatDate(f.data.publishDate)}</time></span>
                 <span class="index__go" aria-hidden="true"><Arrow /></span>
               </a>
             </li>

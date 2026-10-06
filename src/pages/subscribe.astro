@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import SubscribeForm from '../components/SubscribeForm.astro';
+import SampleIssue from '../components/SampleIssue.astro';
 ---
 <PageLayout
   title="Subscribe"
@@ -25,6 +26,7 @@ import SubscribeForm from '../components/SubscribeForm.astro';
       </ul>
     </aside>
   </div>
+  <div slot="after" class="subscribe-sample"><SampleIssue id="subscribe-sample" /></div>
 </PageLayout>
 
 <script>
@@ -41,6 +43,9 @@ import SubscribeForm from '../components/SubscribeForm.astro';
 </script>
 
 <style>
+  .subscribe-sample {
+    border-top: 1px solid var(--rule);
+  }
   .subscribe-grid {
     display: grid;
     gap: 3rem 4rem;

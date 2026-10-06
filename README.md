@@ -24,11 +24,19 @@ Requires Node 22.12 or newer.
 2. Name it after the URL you want. `acme-ai.md` publishes at `/files/acme-ai/`. Lowercase, hyphens, no spaces.
 3. Fill in the frontmatter (below) and write the body in Markdown. `.mdx` also works.
 4. Set `draft: false`.
-5. Commit and push. The host rebuilds and the file appears on the home page, archive, founders/companies indexes, RSS feed and sitemap, and the next Sunday send emails it to subscribers. Its social image (`/og/<slug>.png`) is generated automatically.
+5. Commit and push. Vercel rebuilds and the file appears on the home page, archive, founders/companies indexes, RSS feed and sitemap, Its social image (`/og/<slug>.png`) is generated automatically.
 
 **Drafts** (`draft: true`) show in `npm run dev` with a banner and `noindex`, and are **excluded from production builds**. Run `PUBLIC_SHOW_DRAFTS=false npm run dev` to preview the site exactly as production will show it.
 
 The home page features the most recent file by `publishDate`, so publishing a newer file replaces it automatically. The "This week" label is worked out at build time (it reads "Latest file" if the newest file is more than 8 days old), so rebuild weekly or trigger a rebuild when you publish.
+
+**Publishing a file does not email anyone.** The newsletter is sent separately: upload the issue PDF on `/admin/` and approve it (see "The newsletter" below).
+
+**Early reads.** A file whose `publishDate` is in the future is still shown on the site when `draft: false`, but it is labelled "Early read", listed under "Coming up" on the home page, and never featured as this week's file. When its date arrives (the site is rebuilt every morning by `.github/workflows/daily-rebuild.yml`) it moves up automatically. Machine-readable dates (JSON-LD, RSS) are never in the future. Keep `publishDate` equal to the Sunday the issue goes out, because the PDF builder prints that date in the PDF header.
+
+**The sample issue.** "See what you get" on the home page and `/subscribe/` shows one real file, chosen by `SAMPLE_ISSUE` in `src/lib/site.ts`: a preview of the PDF's first page, a list of its sections (read from the article's headings), a link to read it, and the PDF download from `public/sample/`. To change the sample, update that setting, copy the PDF into `public/sample/`, and replace `src/assets/sample-issue-001-page-1.png` with a picture of its first page.
+
+**Daily rebuild (one-time setup).** In Vercel go to Settings, then Git, then Deploy Hooks, and create a hook for the `main` branch. Copy its URL and save it as a GitHub secret named `VERCEL_DEPLOY_HOOK_URL` (`gh secret set VERCEL_DEPLOY_HOOK_URL`). Until you do, the workflow does nothing and the site only updates when you push.
 
 ### Frontmatter fields
 
@@ -160,7 +168,7 @@ The pages are plain static files in `dist/`, but signup and the SendGrid webhook
 - [ ] Mailbox: `info@aifounderfiles.com` (Namecheap Private Email) is used for the sender, contact and corrections addresses (`src/lib/site.ts`).
 - [ ] Read `/editorial-policy/` and `/about/` and edit the wording to match how you actually work. The fact-checking section is a draft. Add the "Who's behind it" paragraph on `/about/`.
 - [ ] Complete the newsletter one-time setup above (Supabase, SendGrid domain authentication, Vercel env vars, GitHub secrets) and run a `test` send.
-- [ ] Publish file #001 (`draft: false`). Until then the home page, archive and indexes show "coming soon" empty states.
+- [ ] Create the Vercel Deploy Hook and the `VERCEL_DEPLOY_HOOK_URL` secret so date-driven changes appear without a push.
 
 ---
 

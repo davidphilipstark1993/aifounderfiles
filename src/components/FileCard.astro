@@ -1,5 +1,5 @@
 ---
-import { fileNumberLabel, fileUrl, formatDate, type FileEntry } from '../lib/files';
+import { fileNumberLabel, fileUrl, formatDate, isUpcoming, type FileEntry } from '../lib/files';
 interface Props {
   entry: FileEntry;
   level?: 2 | 3;
@@ -7,10 +7,12 @@ interface Props {
 const { entry, level = 3 } = Astro.props;
 const { data } = entry;
 const Heading = `h${level}` as 'h2' | 'h3';
+const upcoming = isUpcoming(entry);
 ---
 <article class="card">
   <p class="label label--muted card__meta">
-    File {fileNumberLabel(data.fileNumber)} · <time datetime={data.publishDate.toISOString()}>{formatDate(data.publishDate, 'short')}</time>
+    File {fileNumberLabel(data.fileNumber)} · {upcoming ? 'Out ' : ''}<time datetime={data.publishDate.toISOString()}>{formatDate(data.publishDate, 'short')}</time>
+    {upcoming && <span class="tag">Early read</span>}
     {data.draft && <span class="tag tag--draft">Draft</span>}
   </p>
   <Heading class="display card__title"><a href={fileUrl(entry)}>{data.title}</a></Heading>

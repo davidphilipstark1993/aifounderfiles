@@ -62,7 +62,7 @@ sources:
     url: "https://wislawjournal.com/2026/08/11/ai-puts-pressure-on-law-firms-billable-hour-model/"
   - title: "Legora raises $550 million at a $5.5 billion valuation, Tech Insider (2026)"
     url: "https://tech-insider.org/legora-550-million-series-d-5-5-billion-valuation-harvey-ai-2026/"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #003. Thank you for staying with us.

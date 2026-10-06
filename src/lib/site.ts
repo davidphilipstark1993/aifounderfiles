@@ -15,3 +15,13 @@ export const SITE = {
     { label: 'Archive', href: '/archive/' },
   ],
 } as const;
+
+/**
+ * The file shown to visitors as "this is what you get" (home page and /subscribe/).
+ * `slug` is the article's filename in src/content/files; the PDF is the same issue as emailed to subscribers.
+ */
+export const SAMPLE_ISSUE = {
+  slug: 'sam-altman',
+  pdf: '/sample/founder-file-001-sam-altman.pdf',
+  pdfPages: 7,
+} as const;
