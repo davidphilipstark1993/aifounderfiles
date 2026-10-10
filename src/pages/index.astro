@@ -4,6 +4,7 @@ import FactBox from '../components/FactBox.astro';
 import FileCard from '../components/FileCard.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
 import SampleIssue from '../components/SampleIssue.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
 import Arrow from '../components/Arrow.astro';
 import { factFields, fileNumberLabel, fileUrl, getPublishedFiles, isUpcoming } from '../lib/files';
 import { SITE } from '../lib/site';
@@ -16,6 +17,8 @@ const issued = files.filter((f) => !isUpcoming(f));
 const latest = issued.find((f) => !f.data.draft) ?? issued[0] ?? files.at(-1);
 const comingUp = files.filter((f) => isUpcoming(f) && f.id !== latest?.id).reverse(); // soonest first
 const previous = issued.filter((f) => f.id !== latest?.id).slice(0, 6);
+
+const archiveSoFar = [...files].filter((f) => !f.data.draft).sort((a, b) => a.data.fileNumber - b.data.fileNumber);
 
 const published = latest?.data.publishDate ?? currentIssue.publishDate;
 const issueNumber = latest?.data.fileNumber ?? currentIssue.fileNumber;
@@ -53,9 +56,72 @@ const jsonLd = [
   description={SITE.description}
   jsonLd={jsonLd}
 >
-  <h1 class="visually-hidden">{SITE.name}: {SITE.tagline}</h1>
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="wrap intro__grid">
+      <div class="intro__copy on-ink">
+        <p class="label label--signal">A weekly newsletter on AI founders</p>
+        <h1 id="intro-title" class="display intro__title">
+          <span class="intro__line">One founder.</span>
+          <span class="intro__line">One company.</span>
+          <span class="intro__line">One deep dive.</span>
+        </h1>
+        <p class="intro__lede">
+          Every Sunday we open one file on a founder building an AI company: who they are, what they’ve built, who has funded it
+          and how it makes money. Told in full, with every source listed.
+        </p>
+        <a class="link-arrow" href="#sample"><span>See a sample issue</span><Arrow /></a>
+      </div>
 
-  <section id="latest" class="hero" aria-labelledby="hero-title">
+      <div class="intro__card" role="region" aria-labelledby="intro-card-title">
+        <p class="label label--signal">The weekly file</p>
+        <h2 id="intro-card-title" class="display intro__card-title">Get it in your inbox</h2>
+        <SubscribeForm id="intro-subscribe" source="home-hero" />
+      </div>
+
+      <div class="intro__proof on-ink">
+        <ul role="list">
+          <li><strong>Weekly.</strong> One email, every Sunday.</li>
+          <li><strong>Sourced.</strong> Every figure is traced to a source, listed at the end.</li>
+          <li><strong>Independent.</strong> Coverage is never paid for. <a href="/editorial-policy/">Our policy</a></li>
+        </ul>
+        {archiveSoFar.length > 0 && (
+          <p class="intro__recent label label--muted">
+            Files so far:
+            {archiveSoFar.map((f, i) => (
+              <>
+                {i > 0 ? ' · ' : ' '}<a href={fileUrl(f)}>{f.data.founder.name}</a>
+              </>
+            ))}
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="how section" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head"><h2 id="how-title">How it works</h2></div>
+      <ol class="how__steps" role="list">
+        <li>
+          <span class="how__num label">01</span>
+          <h3 class="display how__title">We pick one founder</h3>
+          <p>One AI founder and one company a week. Not a roundup, not a press release.</p>
+        </li>
+        <li>
+          <span class="how__num label">02</span>
+          <h3 class="display how__title">We open the file</h3>
+          <p>The founder, the product, the funding and the business model, checked against sources.</p>
+        </li>
+        <li>
+          <span class="how__num label">03</span>
+          <h3 class="display how__title">It lands on Sunday</h3>
+          <p>In your inbox as a PDF you can read, save or forward, and on this site.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="latest" class="hero hero--latest" aria-labelledby="hero-title">
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <p class="label label--signal">{eyebrow}</p>
@@ -74,6 +140,8 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <div id="sample" class="section--rule"><SampleIssue id="home-sample" /></div>
 
   {comingUp.length > 0 && (
     <section class="section section--rule" aria-labelledby="coming-title">
@@ -108,12 +176,162 @@ const jsonLd = [
     </section>
   )}
 
-  <div class="section--rule"><SampleIssue id="home-sample" /></div>
-
   <NewsletterBand id="home-subscribe" />
 </BaseLayout>
 
 <style>
+  /* ---- Intro: what we do + sign-up ---- */
+  .intro {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(1.5rem, 6vw, 4.5rem);
+  }
+  .intro__grid {
+    display: grid;
+    gap: 1.5rem 4rem;
+    grid-template-areas: 'copy' 'card' 'proof';
+  }
+  .intro__copy { grid-area: copy; background: none; }
+  .intro__card { grid-area: card; }
+  .intro__proof { grid-area: proof; background: none; }
+  .intro__title {
+    margin-top: 0.9rem;
+    font-size: clamp(2.25rem, 9.5vw, 4rem);
+    color: var(--paper);
+  }
+  .intro__line {
+    display: block;
+  }
+  @media (min-width: 900px) {
+    .intro__title {
+      font-size: clamp(2.75rem, 5.2vw, 4.25rem);
+    }
+  }
+  .intro__lede {
+    margin-top: 1.25rem;
+    max-width: 46ch;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: var(--paper);
+  }
+  @media (min-width: 600px) {
+    .intro__lede {
+      font-size: 1.25rem;
+    }
+  }
+  .intro__copy .link-arrow {
+    margin-top: 0.25rem;
+  }
+  /* The sign-up card is a paper "folder" with the logo's tab. */
+  .intro__card {
+    --tab: 1.25rem;
+    position: relative;
+    margin-top: var(--tab);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 0 var(--radius) var(--radius) var(--radius);
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+  .intro__card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--tab) * -1 + 1px);
+    width: 38%;
+    max-width: 11rem;
+    height: var(--tab);
+    background: var(--paper);
+    border-radius: var(--radius) 0 0 0;
+    clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 100%, 0 100%);
+  }
+  .intro__card-title {
+    margin: 0.5rem 0 1.1rem;
+    font-size: clamp(1.75rem, 3.4vw, 2.25rem);
+  }
+  .intro__proof ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 34rem;
+  }
+  .intro__proof li {
+    padding-block: 0.75rem;
+    border-top: 1px solid var(--ink-rule);
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    color: var(--ink-muted);
+  }
+  .intro__proof li strong {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-right: 0.4rem;
+  }
+  .intro__proof a {
+    color: var(--paper);
+    text-decoration-color: var(--signal-light);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+  .intro__recent {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--ink-rule);
+    line-height: 1.9;
+  }
+  @media (min-width: 900px) {
+    .intro__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      grid-template-areas: 'copy card' 'proof card';
+      align-items: start;
+    }
+    .intro__card {
+      margin-top: 0.4rem;
+    }
+  }
+
+  /* ---- How it works ---- */
+  .how__steps {
+    display: grid;
+    gap: 1.75rem 2.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .how__steps li {
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+  .how__num {
+    color: var(--signal);
+    font-weight: 700;
+  }
+  .how__title {
+    margin: 0.4rem 0 0.5rem;
+    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  }
+  .how__steps p {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--slate);
+  }
+  @media (min-width: 800px) {
+    .how__steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---- This week's file (demoted from the page hero) ---- */
+  .hero--latest {
+    border-top: 1px solid var(--rule);
+  }
+  .hero--latest .hero__title {
+    font-size: clamp(2rem, 5.2vw, 3.5rem);
+  }
+
   .hero {
     padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 7vw, 5rem);
   }
