@@ -163,8 +163,44 @@ def flush():
     bullets = []
 
 
+def table_flowable(block):
+    rows = [[c.strip() for c in ln.strip().strip("|").split("|")] for ln in block.split("\n")]
+    rows = [r for r in rows if not all(re.fullmatch(r":?-{2,}:?", c) for c in r)]
+    head, data = rows[0], rows[1:]
+    n = len(head)
+    cell = ParagraphStyle("cell", fontName="SS", fontSize=9.4, leading=12.6, textColor=INK)
+    hcell = ParagraphStyle("hcell", fontName="MONO-B", fontSize=7.6, leading=10, textColor=INK)
+    weights = [max(12, min(60, max(len(r[i]) for r in rows if i < len(r)))) for i in range(n)]
+    widths = [fw * w / sum(weights) for w in weights]
+    data_rows = [[Paragraph(inline(c.upper()), hcell) for c in head]] + [[Paragraph(inline(c), cell) for c in r] for r in data]
+    t = Table(data_rows, colWidths=widths, repeatRows=1)
+    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), MANILA), ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                           ("LINEBELOW", (0, 0), (-1, -1), 0.5, RULE), ("TOPPADDING", (0, 0), (-1, -1), 5),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 5), ("LEFTPADDING", (0, 0), (-1, -1), 6),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 6)]))
+    return t
+
+
+def callout_flowable(block):
+    paras = [ln[1:].strip() for ln in block.split("\n")]
+    items = []
+    for ptxt in [x for x in "\n".join(paras).split("\n\n") if x.strip()]:
+        items.append(Paragraph(inline(ptxt.replace("\n", " ")), ParagraphStyle(
+            "co", fontName="SS", fontSize=10.2, leading=15, textColor=INK, spaceAfter=6)))
+    t = Table([[items]], colWidths=[fw])
+    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), MANILA), ("LEFTPADDING", (0, 0), (-1, -1), 6 * mm),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 6 * mm), ("TOPPADDING", (0, 0), (-1, -1), 4 * mm),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 2 * mm),
+                           ("LINEBEFORE", (0, 0), (0, -1), 3, SIGNAL)]))
+    return t
+
+
 for b in [b.strip() for b in body.strip().split("\n\n") if b.strip()]:
-    if b.startswith("## "):
+    if b.startswith("|"):
+        flush(); S += [table_flowable(b), Spacer(1, 8)]
+    elif b.startswith(">"):
+        flush(); S += [callout_flowable(b), Spacer(1, 8)]
+    elif b.startswith("## "):
         flush(); S.append(Paragraph(inline(b[3:]).upper(), st["h2"]))
     elif b == "---":
         flush(); closing_start = len(S); S += [Spacer(1, 4), Rule(fw), Spacer(1, 6)]
