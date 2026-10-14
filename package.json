@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test": "tsx --test tests/*.test.ts",
     "brand": "node scripts/build-brand-assets.mjs",
     "newsletter:dry-run": "tsx scripts/newsletter/weekly-send.ts --dry-run"
   },

@@ -82,6 +82,7 @@ Built the same way as listentruecrime.com. Everything runs without a server of y
 | Signup form | `src/components/SubscribeForm.astro` | Validates, requires a consent tick, posts to `/api/subscribe`. Shows real success and error messages. |
 | `POST /api/subscribe` | `api/subscribe.ts` (Vercel Function) | Saves the subscriber to Supabase **first**, then adds them to your SendGrid list, then sends the welcome email. A SendGrid failure never loses the subscriber. Re-subscribing lifts an earlier unsubscribe. |
 | `POST /api/sendgrid-webhook` | `api/sendgrid-webhook.ts` (Vercel Function) | Verifies SendGrid's signature, then marks people unsubscribed, bounced or suppressed so later sends skip them. |
+| `GET /api/subscriber-count/` | `api/subscriber-count.ts` + `lib/newsletter/stats.ts` (Vercel Function) | Read-only counts (active total, new and unsubscribed in the last 24h) for the daily stats post. Needs the `X-Stats-Key` header to match the `STATS_API_KEY` env var, else 401. Rate limited, never returns personal data. `npm test` covers it. |
 | Admin page | `src/pages/admin.astro` + `api/admin/*.ts` | `/admin/`: sign in, upload a PDF, send yourself a test, approve it for Sunday (or send now). |
 | Weekly send | `scripts/newsletter/weekly-send.ts` + `.github/workflows/weekly-newsletter-send.yml` | Sundays 08:00 UTC: emails the oldest **approved** PDF issue to every active subscriber, once. |
 | Email design | `lib/newsletter/templates.ts` | Welcome email and the weekly PDF email (title, short note, "Download the PDF" button), in the brand colours. |
