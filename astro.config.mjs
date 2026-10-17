@@ -22,6 +22,7 @@ const emptyIndexes = ['/founders/', '/companies/', '/archive/'];
 // <lastmod> for the sitemap: a file's updatedDate, else its publishDate. Never in the future. An early read
 // (dated in the future) falls back to the last git commit that touched it, or no lastmod.
 const now = new Date();
+/** @param {string} path */
 function gitDate(path) {
   try {
     const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', path], { encoding: 'utf8' }).trim();
@@ -30,11 +31,13 @@ function gitDate(path) {
     return undefined;
   }
 }
+/** @param {(typeof files)[number]} f */
 const fileLastmod = (f) => {
   const d = new Date(f.data.updatedDate ?? f.data.publishDate);
   return d > now ? gitDate(f.path) : d;
 };
-const newest = (dates) => dates.filter(Boolean).sort((a, b) => b.getTime() - a.getTime())[0];
+/** @param {(Date | undefined)[]} dates */
+const newest = (dates) => dates.filter((d) => d instanceof Date).sort((a, b) => b.getTime() - a.getTime())[0];
 
 /** @type {Map<string, Date | undefined>} */
 const lastmod = new Map();
