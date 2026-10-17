@@ -503,3 +503,33 @@ a {
     text-align: right;
   }
 }
+
+/* ---------- Inline citations ---------- */
+.cite {
+  margin-left: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.68em;
+  font-weight: 500;
+  line-height: 0;
+  white-space: nowrap;
+}
+.prose .cite a,
+.cite a {
+  color: var(--signal);
+  text-decoration: none;
+  /* A 44px tap target without changing the line height */
+  padding: 0.35em 0.1em;
+  margin: -0.35em 0;
+}
+.prose .cite a:hover,
+.cite a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.sources li:target {
+  background: var(--manila);
+}
+.sources li,
+.cite__link {
+  scroll-margin-top: 1.5rem;
+}

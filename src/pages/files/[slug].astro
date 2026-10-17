@@ -18,6 +18,7 @@ import {
   type FileEntry,
 } from '../../lib/files';
 import { authorAbsoluteUrl, authorUrl, getFileAuthor } from '../../lib/authors';
+import { citationCounts, citeAnchor, sourceAnchor } from '../../lib/citations';
 import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -35,6 +36,7 @@ const { Content } = await render(entry);
 const author = await getFileAuthor(entry);
 
 const minutes = readingTime(entry.body);
+const cited = citationCounts(entry.body);
 const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
 const ogPath = `/og/${entry.id}.png`;
@@ -157,10 +159,22 @@ const jsonLd = {
         <section class="sources" aria-labelledby="sources-title">
           <h2 id="sources-title" class="label">Sources</h2>
           <ol>
-            {data.sources.map((s) => (
-              <li>
+            {data.sources.map((s, i) => (
+              <li id={sourceAnchor(i + 1)}>
                 <a href={s.url} rel="noopener noreferrer" target="_blank">{s.title}<span class="visually-hidden"> (opens in a new tab)</span></a>
-                <span class="sources__host label label--muted">{hostOf(s.url)}</span>
+                <span class="sources__host label label--muted">
+                  {hostOf(s.url)}
+                  {(cited.get(i + 1) ?? 0) > 0 && (
+                    <span class="sources__back">
+                      {Array.from({ length: cited.get(i + 1)! }, (_, k) => (
+                        <a href={`#${citeAnchor(i + 1, k + 1)}`}>
+                          <span aria-hidden="true">↩{cited.get(i + 1)! > 1 ? k + 1 : ''}</span>
+                          <span class="visually-hidden">Back to where source {i + 1} is cited{cited.get(i + 1)! > 1 ? ` (${k + 1} of ${cited.get(i + 1)})` : ''}</span>
+                        </a>
+                      ))}
+                    </span>
+                  )}
+                </span>
               </li>
             ))}
           </ol>
@@ -307,6 +321,16 @@ const jsonLd = {
     display: block;
     font-size: 0.75rem;
     margin-top: 0.15rem;
+  }
+  .sources__back {
+    margin-left: 0.75rem;
+  }
+  .sources__back a {
+    display: inline-block;
+    min-width: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--signal);
   }
   .related {
     display: grid;

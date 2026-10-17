@@ -12,6 +12,7 @@
     "newsletter:dry-run": "tsx scripts/newsletter/weekly-send.ts --dry-run"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.2",
     "@astrojs/mdx": "^8.0.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
@@ -23,7 +24,8 @@
     "@supabase/supabase-js": "^2.117.2",
     "astro": "^7.3.5",
     "gray-matter": "^4.0.3",
-    "satori": "^0.33.5"
+    "satori": "^0.33.5",
+    "satteri": "0.10.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
