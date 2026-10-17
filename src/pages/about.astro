@@ -1,5 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { authorUrl, getAuthors } from '../lib/authors';
+const authors = await getAuthors();
 ---
 <PageLayout
   title="About"
@@ -22,6 +24,16 @@ import PageLayout from '../layouts/PageLayout.astro';
   <h2>Why one at a time</h2>
   <p>
     Most coverage of AI companies is a headline about a funding round. We think a single company deserves a full read: what is it, who is behind it, who is paying for it, and whether the business holds together. One a week keeps us honest about depth.
+  </p>
+
+  <h2>Who writes it</h2>
+  {/* TODO(owner): once a named author exists in src/content/authors/, add one or two sentences here about who they are and why they write about AI founders. */}
+  <p>
+    Every file carries a byline that links to its author’s page.
+    Files are published under
+    {authors.map((a, i) => (
+      <>{' '}{i > 0 && (i === authors.length - 1 ? 'and ' : ', ')}<a href={authorUrl(a)}>{a.data.name}</a></>
+    ))}.
   </p>
 
   <h2>How we work</h2>

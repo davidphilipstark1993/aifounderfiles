@@ -7,7 +7,7 @@ standfirst: "[One-line standfirst: the problem, the product and what makes this 
 fileNumber: 1
 publishDate: 2026-10-04
 # updatedDate: 2026-10-11
-author: "[Author name]"
+author: editorial # slug of a file in src/content/authors/
 founder:
   name: "[Founder name]"
   role: "[Role, e.g. Co-founder and CEO]"

@@ -17,6 +17,7 @@ import {
   relatedFiles,
   type FileEntry,
 } from '../../lib/files';
+import { authorAbsoluteUrl, authorUrl, getFileAuthor } from '../../lib/authors';
 import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -31,6 +32,7 @@ interface Props {
 const { entry, files } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
+const author = await getFileAuthor(entry);
 
 const minutes = readingTime(entry.body);
 const upcoming = isUpcoming(entry);
@@ -66,7 +68,13 @@ const jsonLd = {
   image: [new URL(ogPath, SITE.url).href],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
-  author: { '@type': 'Person', name: data.author },
+  author: {
+    '@type': author.data.type === 'person' ? 'Person' : 'Organization',
+    '@id': `${authorAbsoluteUrl(author)}#${author.data.type}`,
+    name: author.data.name,
+    url: authorAbsoluteUrl(author),
+    ...(Object.values(author.data.sameAs).length > 0 && { sameAs: Object.values(author.data.sameAs) }),
+  },
   publisher: {
     '@type': 'Organization',
     name: SITE.name,
@@ -90,7 +98,7 @@ const jsonLd = {
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
   noindex={data.draft}
   jsonLd={jsonLd}
-  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: data.company.sector, tags: data.tags }}
+  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: authorAbsoluteUrl(author), section: data.company.sector, tags: data.tags }}
 >
   {data.draft && (
     <div class="draft-banner">
@@ -115,7 +123,7 @@ const jsonLd = {
           <h1 class="display file-title">{data.title}</h1>
           <p class="file-standfirst">{data.standfirst}</p>
           <p class="byline label label--muted">
-            <span>By {data.author}</span>
+            <span>By <a href={authorUrl(author)} rel="author">{author.data.name}</a></span>
             <span aria-hidden="true">·</span>
             <time datetime={isoDate(data.publishDate)}>{formatDate(data.publishDate)}</time>
             <span aria-hidden="true">·</span>
@@ -217,6 +225,13 @@ const jsonLd = {
     font-size: 1.3125rem;
     line-height: 1.5;
     color: var(--slate);
+  }
+  .byline a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
   }
   .byline {
     display: flex;

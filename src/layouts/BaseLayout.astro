@@ -24,6 +24,7 @@ interface Props {
   type?: 'website' | 'article';
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** `author` is the absolute URL of the author's profile page (Open Graph `article:author`). */
   article?: { published: Date; modified?: Date; author: string; section?: string; tags?: string[] };
 }
 

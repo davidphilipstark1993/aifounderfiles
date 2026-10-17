@@ -1,6 +1,29 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+
+/**
+ * Bylines. One file per author in src/content/authors/; the filename is the slug (/authors/<slug>/).
+ * A file's `author` field is that slug.
+ */
+const authors = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/authors' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      /** Use 'organization' for a house byline. It changes the schema.org type from Person to Organization. */
+      type: z.enum(['person', 'organization']).default('person'),
+      jobTitle: z.string().optional(),
+      bio: z.string().optional(),
+      photo: z.object({ src: image(), alt: z.string() }).optional(),
+      sameAs: z
+        .object({
+          linkedin: z.url().optional(),
+          x: z.url().optional(),
+        })
+        .default({}),
+    }),
+});
 
 const files = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/files' }),
@@ -11,7 +34,7 @@ const files = defineCollection({
       fileNumber: z.number().int().positive(),
       publishDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
-      author: z.string(),
+      author: reference('authors'),
       founder: z.object({
         name: z.string(),
         role: z.string(),
@@ -35,4 +58,4 @@ const files = defineCollection({
     }),
 });
 
-export const collections = { files };
+export const collections = { files, authors };

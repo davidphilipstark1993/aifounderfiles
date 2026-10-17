@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { authorUrl, getAuthors } from '../lib/authors';
 import { SITE } from '../lib/site';
+const authors = await getAuthors();
 ---
 <PageLayout
   title="Editorial policy"
@@ -31,6 +33,14 @@ import { SITE } from '../lib/site';
     <li>Where a figure can’t be verified, we say it is undisclosed or unverified. We don’t estimate it and present the estimate as fact.</li>
     <li>Before publication we check facts about the company and founder with them. They don’t get to approve or change our conclusions.</li>
   </ul>
+
+  <h2>Who writes the files</h2>
+  <p>
+    Every file carries a byline that links to its author’s page.
+    {authors.map((a, i) => (
+      <>{i === 0 ? ' Current ' + (authors.length === 1 ? 'byline: ' : 'bylines: ') : ', '}<a href={authorUrl(a)}>{a.data.name}</a></>
+    ))}{authors.length > 0 && '.'}
+  </p>
 
   <h2 id="corrections">Corrections</h2>
   <p>

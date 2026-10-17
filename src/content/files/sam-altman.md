@@ -3,7 +3,7 @@ title: "Sam Altman and the company he doesn't own"
 standfirst: "He runs the company behind ChatGPT on a salary of roughly $65,000 to $76,000, and holds no direct stake in a business last valued at $852 billion. This is how Sam Altman got there, and what could still go wrong."
 fileNumber: 1
 publishDate: 2026-10-04
-author: "AI Founder Files"
+author: editorial
 founder:
   name: "Sam Altman"
   role: "Co-founder and CEO"

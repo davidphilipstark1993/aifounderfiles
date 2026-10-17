@@ -3,7 +3,7 @@ title: "Winston Weinberg and the associate who cold-emailed Sam Altman"
 standfirst: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed the results to OpenAI. Four years later Harvey is valued at $15.5 billion, and the roommates still share the flat."
 fileNumber: 3
 publishDate: 2026-10-18
-author: "AI Founder Files"
+author: editorial
 founder:
   name: "Winston Weinberg"
   role: "Co-founder and CEO"

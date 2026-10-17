@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Arrow from '../../components/Arrow.astro';
+import { authorLinks, getAuthors, getFileAuthor } from '../../lib/authors';
+import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../../lib/files';
+
+export async function getStaticPaths() {
+  const authors = await getAuthors();
+  const files = await getPublishedFiles();
+  const withAuthors = await Promise.all(files.map(async (f) => ({ f, author: await getFileAuthor(f) })));
+  return authors.map((author) => ({
+    params: { slug: author.id },
+    props: { author, files: withAuthors.filter((x) => x.author.id === author.id).map((x) => x.f) },
+  }));
+}
+
+const { author, files } = Astro.props;
+const { data } = author;
+const links = authorLinks(author);
+const description =
+  data.bio && data.bio.length <= 155
+    ? data.bio
+    : `Founder Files by ${data.name}: one AI founder and their company, in depth, with every source listed.`;
+---
+<PageLayout
+  title={data.name}
+  description={description}
+  label="Author"
+  heading={data.name}
+  lede={data.jobTitle}
+  prose={false}
+>
+  <div class="author">
+    {data.photo && (
+      <Image class="author__photo" src={data.photo.src} alt={data.photo.alt} width={240} height={240} />
+    )}
+    <div class="author__text prose">
+      {data.bio && <p>{data.bio}</p>}
+      {links.length > 0 && (
+        <p class="author__links label">
+          {links.map((l) => (
+            <a href={l.href} rel="me noopener noreferrer" target="_blank">{l.label}<span class="visually-hidden"> (opens in a new tab)</span></a>
+          ))}
+        </p>
+      )}
+      <p><a href="/editorial-policy/">How we work: the editorial policy</a></p>
+    </div>
+  </div>
+
+  <h2 class="index__year">Files by {data.name}</h2>
+  {files.length > 0 ? (
+    <ul class="index" role="list">
+      {files.map((f) => (
+        <li>
+          <a class="index__row" href={fileUrl(f)}>
+            <span class="index__num label label--muted">{fileNumberLabel(f.data.fileNumber)}</span>
+            <span class="index__main">
+              <span class="index__title">{f.data.title}</span>
+              <span class="index__sub">{f.data.founder.name} · {f.data.company.name}</span>
+            </span>
+            <span class="index__meta label label--muted">{isUpcoming(f) ? 'Early read · out ' : ''}<time datetime={f.data.publishDate.toISOString()}>{formatDate(f.data.publishDate)}</time></span>
+            <span class="index__go" aria-hidden="true"><Arrow /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No files yet.</p>
+  )}
+</PageLayout>
+
+<style>
+  .author {
+    display: grid;
+    gap: 1.5rem 2.5rem;
+    margin-bottom: 3rem;
+  }
+  .author__photo {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .author__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+  @media (min-width: 700px) {
+    .author:has(.author__photo) {
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+    }
+  }
+</style>

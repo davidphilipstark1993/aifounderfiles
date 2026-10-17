@@ -3,7 +3,7 @@ title: "The Amodei siblings and the lab built on saying no"
 standfirst: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion, locked in a fight with the Pentagon, and heading for a stock-market listing that could be the largest ever."
 fileNumber: 2
 publishDate: 2026-10-11
-author: "AI Founder Files"
+author: editorial
 founder:
   name: "Dario and Daniela Amodei"
   role: "CEO and President"
