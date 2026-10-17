@@ -43,16 +43,20 @@ The home page features the most recent file by `publishDate`, so publishing a ne
 | Field | Type | Notes |
 | --- | --- | --- |
 | `title` | string | Headline. Shown in uppercase; write it in sentence case. |
-| `standfirst` | string | One-line summary. Also the meta description and RSS description. |
+| `standfirst` | string | One-line summary. Also the RSS description, and the meta description unless `description` is set. |
+| `description` | string, optional | Meta description (also Open Graph and JSON-LD). Up to 160 characters; aim for about 155. |
 | `fileNumber` | integer | Shown as `FOUNDER FILE #001`. |
 | `publishDate` | date | `2026-10-04`. Newest first everywhere. |
-| `updatedDate` | date, optional | Shows an "Updated" date and sets `dateModified` for search engines. |
-| `author` | string | Byline. Becomes the `author` in the NewsArticle JSON-LD. |
+| `updatedDate` | date, optional | Shows "Published ... · Updated ...", sets `dateModified` and the sitemap `lastmod`. Can't be earlier than `publishDate`. |
+| `author` | string | Slug of an author in `src/content/authors/` (the filename without `.md`). Shown as a linked "By ..." byline and used as the `author` in the NewsArticle JSON-LD. |
 | `founder.name`, `founder.role` | string | |
 | `founder.linkedin` | URL, optional | |
+| `founder.sameAs` | URL[], optional | Wikipedia or other profile pages (schema.org `sameAs`). |
+| `founder.members` | `{ name, jobTitle?, sameAs? }[]`, optional | For a file about more than one founder: one Person each in the JSON-LD. |
 | `company.name` | string | |
 | `company.sector` | string | |
 | `company.website` | URL, optional | |
+| `company.sameAs` | URL[], optional | Wikipedia or other profile pages. The website is added automatically. |
 | `company.founded` | string, optional | A year, or `Undisclosed`. |
 | `company.hq` | string, optional | |
 | `company.stage` | string, optional | e.g. `Seed`. |
@@ -60,16 +64,33 @@ The home page features the most recent file by `publishDate`, so publishing a ne
 | `company.businessModel` | string, optional | Adds a "MODEL" row to the fact box. |
 | `tags` | string[] | Used to pick related files. |
 | `heroImage` | `{ src, alt }`, optional | `src` is a path to an image relative to the file, e.g. `../../assets/acme.jpg`. `alt` is required. |
-| `sources` | `{ title, url }[]` | Rendered as the "Sources" list at the end. |
+| `faq` | `{ question, answer }[]`, optional | A "Quick answers" section before Sources, plus `FAQPage` JSON-LD. Answers can use `[^n]` markers. Only answer from facts already in the file. |
+| `sources` | `{ title, url }[]` | Rendered as the numbered "Sources" list at the end. |
 | `draft` | boolean | Defaults to `false`. |
 
 **Fact box:** any optional `company` field you leave out is shown as "Undisclosed". You can also write `Undisclosed` explicitly.
 
 The build fails with a readable error if a required field is missing or a URL is malformed, so mistakes can't ship.
 
+### Authors
+
+Bylines live in `src/content/authors/<slug>.md` (name, `type: person | organization`, optional `jobTitle`, `bio`, `photo`, `sameAs.linkedin` and `sameAs.x`). Each author gets a page at `/authors/<slug>/` with `ProfilePage` JSON-LD. The seed author, `editorial`, is the house byline; copy it to add a named person and point each file's `author` at the new slug.
+
+### Inline citations
+
+Write `[^3]` (or `[^3,5]`) after a claim in the body. It renders as a superscript link to the 3rd entry of `sources`, and that source gets a back-link to every place it is cited. A marker with no matching source fails the build. This works in `.md` files (see `src/lib/citations.ts`).
+
+### Checks
+
+`npm run check:content` reports (and never edits) header figures that the body doesn't repeat or contradicts, sentences with a number and no citation, unlinked mentions of other files, US spellings, long meta descriptions and `TODO(owner)` markers. Add `-- --strict` to fail on anything flagged.
+
 ### Founders and companies pages
 
-`/founders/` and `/companies/` are generated from the frontmatter of published files: one row per founder or company, linking to their file. If the same founder or company appears in more than one file, the newest file is linked. There is no separate directory to maintain.
+`/founders/` and `/companies/` are generated from the frontmatter of published files: one row per founder or company, linking to their newest file, with "Also the subject of" and "Also mentioned in" links to every other file. There is no separate directory to maintain.
+
+### Machine-readable extras
+
+`/llms.txt` (editorial policy in brief, every file and hub), `/rss.xml` (full article text and author), `/sitemap-index.xml` (with `lastmod`) and `/robots.txt` (AI crawlers named and allowed) are all generated or kept alongside the site. `vercel.json` 301-redirects `www.aifounderfiles.com` to the apex; the `www` domain still has to be added to the Vercel project.
 
 ---
 

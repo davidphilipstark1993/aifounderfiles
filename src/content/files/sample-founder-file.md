@@ -7,6 +7,7 @@ standfirst: "[One-line standfirst: the problem, the product and what makes this 
 fileNumber: 1
 publishDate: 2026-10-04
 # updatedDate: 2026-10-11
+# description: "[Meta description, about 155 characters. Falls back to the standfirst if left out.]"
 author: editorial # slug of a file in src/content/authors/
 founder:
   name: "[Founder name]"
@@ -25,6 +26,9 @@ tags: ["[tag-one]", "[tag-two]"]
 # heroImage:
 #   src: ../../assets/[company]-hero.jpg
 #   alt: "[Describe the image for people who can't see it]"
+# faq:   # optional "Quick answers"; answer only from facts in the file, cite with [^n]
+#   - question: "[A question people search for]"
+#     answer: "[Answer from the file.[^1]]"
 sources:
   - title: "[Source title, e.g. Company announcement]"
     url: "https://example.com/source-1"
