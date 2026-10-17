@@ -28,6 +28,7 @@ const files = defineCollection({
         funding: z.string().optional(),
         businessModel: z.string().optional(),
       }),
+      pillar: z.enum(['founder-files', 'company-files', 'how-they-built-it', 'business-models']).default('founder-files'),
       tags: z.array(z.string()),
       heroImage: z.object({ src: image(), alt: z.string() }).optional(),
       sources: z.array(z.object({ title: z.string(), url: z.url() })),

@@ -11,6 +11,22 @@ const hasPublishedFiles = fs
   .some((f) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(`src/content/files/${f}`, 'utf8')));
 const emptyIndexes = ['/founders/', '/companies/', '/archive/'];
 
+// Topic hubs are noindex until they hold HUB_MIN_FILES articles (see src/lib/site.ts), so keep thin ones out of the sitemap too.
+const HUB_MIN_FILES = 3;
+/** @type {Record<string, number>} */
+const pillarCounts = {};
+for (const f of fs.readdirSync('src/content/files').filter((f) => /\.mdx?$/.test(f))) {
+  const text = fs.readFileSync(`src/content/files/${f}`, 'utf8');
+  if (/^draft:\s*true\s*$/m.test(text)) continue;
+  const pillar = text.match(/^pillar:\s*"?([\w-]+)"?\s*$/m)?.[1] ?? 'founder-files';
+  pillarCounts[pillar] = (pillarCounts[pillar] ?? 0) + 1;
+}
+/** @param {string} page */
+const isThinHub = (page) => {
+  const slug = page.match(/\/topics\/([\w-]+)\/$/)?.[1];
+  return slug !== undefined && (pillarCounts[slug] ?? 0) < HUB_MIN_FILES;
+};
+
 export default defineConfig({
   site: 'https://aifounderfiles.com',
   output: 'static',
@@ -22,6 +38,7 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/subscribed/') &&
         !page.includes('/admin/') &&
+        !isThinHub(page) &&
         (hasPublishedFiles || !emptyIndexes.some((p) => page.endsWith(p))),
     }),
   ],

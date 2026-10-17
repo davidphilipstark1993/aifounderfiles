@@ -4,11 +4,13 @@ interface Props {
   id: string;
   heading?: string;
   text?: string;
+  source?: string; // recorded with the subscriber; defaults to the id
 }
 const {
   id,
   heading = 'One founder. One company. One deep dive.',
   text = 'Every week we open one file: the founder, the product, the funding and the business model behind a new AI company, told in full. Get it in your inbox.',
+  source = id,
 } = Astro.props;
 ---
 <section class="band on-ink" aria-labelledby={`${id}-title`}>
@@ -19,7 +21,7 @@ const {
       <p class="band__text">{text}</p>
     </div>
     <div class="band__form">
-      <SubscribeForm id={id} theme="dark" />
+      <SubscribeForm id={id} theme="dark" source={source} />
     </div>
   </div>
 </section>

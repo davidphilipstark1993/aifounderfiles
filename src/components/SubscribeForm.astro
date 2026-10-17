@@ -179,6 +179,12 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
 <script>
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+  // GA4 conversion event; the source says which placement (and article) drove the signup. No email is sent to GA.
+  const track = (name: string, form: HTMLFormElement) => {
+    const source = (form.elements.namedItem('source') as HTMLInputElement | null)?.value;
+    (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.('event', name, { source, page_path: location.pathname });
+  };
+
   document.querySelectorAll<HTMLFormElement>('form[data-subscribe]').forEach((form) => {
     const input = form.querySelector<HTMLInputElement>('input[type="email"]')!;
     const consent = form.querySelector<HTMLInputElement>('input[name="consent"]')!;
@@ -232,6 +238,7 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
         const data = await res.json().catch(() => null);
         if (res.ok && data?.ok) {
           show('success', 'Thanks, you’re on the list. A welcome email is on its way.');
+          track('newsletter_signup', form);
           form.reset();
         } else if (res.status === 400 && data?.error) {
           invalid(input, data.error);
@@ -239,6 +246,7 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
           show('error', 'Signup isn’t available just yet. Please check back soon.');
         } else {
           show('error', 'Something went wrong. Please try again in a moment.');
+          track('newsletter_signup_error', form);
         }
       } catch {
         show('error', 'We couldn’t reach the server. Check your connection and try again.');

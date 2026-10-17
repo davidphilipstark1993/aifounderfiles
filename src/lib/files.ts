@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { PILLARS } from './site';
 
 export type FileEntry = CollectionEntry<'files'>;
 
@@ -113,4 +114,10 @@ export function factFields(data: FileEntry['data'], compact = false): FactField[
   rows.push({ label: 'Funding', value: u(c.funding) });
   if (!compact && c.businessModel) rows.push({ label: 'Model', value: c.businessModel });
   return rows;
+}
+
+export const pillarOf = (entry: FileEntry) => PILLARS.find((p) => p.slug === entry.data.pillar) ?? PILLARS[0];
+
+export async function getFilesByPillar(slug: string): Promise<FileEntry[]> {
+  return (await getPublishedFiles()).filter((f) => f.data.pillar === slug);
 }

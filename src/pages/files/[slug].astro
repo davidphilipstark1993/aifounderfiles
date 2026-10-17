@@ -8,6 +8,7 @@ import NewsletterBand from '../../components/NewsletterBand.astro';
 import {
   factFields,
   fileNumberLabel,
+  pillarOf,
   formatDate,
   getPublishedFiles,
   isoDate,
@@ -35,6 +36,7 @@ const { Content } = await render(entry);
 const minutes = readingTime(entry.body);
 const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
+const pillar = pillarOf(entry);
 const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
@@ -58,7 +60,23 @@ const companyLd = {
   founder: { '@type': 'Person', name: data.founder.name },
 };
 
-const jsonLd = {
+// The byline is the publication itself unless a named person wrote it.
+const authorLd =
+  data.author === SITE.name
+    ? { '@type': 'Organization', name: SITE.name, url: SITE.url }
+    : { '@type': 'Person', name: data.author };
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { name: 'Home', path: '/' },
+    { name: pillar.name, path: `/topics/${pillar.slug}/` },
+    { name: data.title, path: Astro.url.pathname },
+  ].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.path, SITE.url).href })),
+};
+
+const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   headline: data.title,
@@ -66,7 +84,7 @@ const jsonLd = {
   image: [new URL(ogPath, SITE.url).href],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
-  author: { '@type': 'Person', name: data.author },
+  author: authorLd,
   publisher: {
     '@type': 'Organization',
     name: SITE.name,
@@ -76,11 +94,12 @@ const jsonLd = {
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
   about: [founderLd, companyLd],
   keywords: data.tags.join(', '),
-  articleSection: data.company.sector,
+  articleSection: pillar.name,
   inLanguage: 'en-GB',
   isAccessibleForFree: true,
   citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
 };
+const jsonLd = [articleLd, breadcrumbLd];
 ---
 <BaseLayout
   title={data.title}
@@ -90,7 +109,7 @@ const jsonLd = {
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
   noindex={data.draft}
   jsonLd={jsonLd}
-  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: data.company.sector, tags: data.tags }}
+  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: pillar.name, tags: data.tags }}
 >
   {data.draft && (
     <div class="draft-banner">
@@ -111,6 +130,9 @@ const jsonLd = {
     <header class="file-head">
       <div class="wrap file-head__grid">
         <div>
+          <nav class="crumbs label label--muted" aria-label="Breadcrumb">
+            <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/topics/${pillar.slug}/`}>{pillar.name}</a>
+          </nav>
           <p class="label label--signal">Founder File {fileNumberLabel(data.fileNumber)}</p>
           <h1 class="display file-title">{data.title}</h1>
           <p class="file-standfirst">{data.standfirst}</p>
@@ -161,7 +183,7 @@ const jsonLd = {
     </div>
   </article>
 
-  <NewsletterBand id="file-subscribe" heading="Get next week’s file" text="One founder, one company, one deep dive, in your inbox every week." />
+  <NewsletterBand id="file-subscribe" source={`article:${entry.id}`} heading="Get next week’s file" text="One founder, one company, one deep dive, in your inbox every week." />
 
   {related.length > 0 && (
     <section class="section" aria-labelledby="related-title">
@@ -206,6 +228,20 @@ const jsonLd = {
     display: grid;
     gap: 2.5rem 4rem;
     align-items: start;
+  }
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .file-title {
     margin-top: 1rem;

@@ -15,6 +15,7 @@ company:
   stage: "Bootstrapped, one-person company"
   funding: "Undisclosed (started as an evenings-and-weekends side business)"
   businessModel: "Charged per vehicle, invoiced monthly"
+pillar: "how-they-built-it"
 tags: ["claude-code", "small-business", "netherlands", "automation", "solo-founder"]
 sources:
   - title: "Case Study 01: Maarten, road exemptions, Create With (interview of 4 September 2026)"

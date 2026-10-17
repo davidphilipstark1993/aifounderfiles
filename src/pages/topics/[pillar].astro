@@ -1,0 +1,56 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import FileCard from '../../components/FileCard.astro';
+import Arrow from '../../components/Arrow.astro';
+import { getFilesByPillar } from '../../lib/files';
+import { HUB_MIN_FILES, PILLARS, SITE } from '../../lib/site';
+
+export function getStaticPaths() {
+  return PILLARS.map((pillar) => ({ params: { pillar: pillar.slug }, props: { pillar } }));
+}
+
+const { pillar } = Astro.props;
+const files = await getFilesByPillar(pillar.slug);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { name: 'Home', path: '/' },
+    { name: pillar.name, path: Astro.url.pathname },
+  ].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.path, SITE.url).href })),
+};
+---
+<PageLayout
+  noindex={files.length < HUB_MIN_FILES}
+  title={pillar.name}
+  description={pillar.blurb}
+  label="Topic"
+  heading={pillar.name}
+  lede={pillar.blurb}
+  prose={false}
+  jsonLd={jsonLd}
+>
+  {files.length > 0 ? (
+    <ul class="hub" role="list">
+      {files.map((f) => <li><FileCard entry={f} /></li>)}
+    </ul>
+  ) : (
+    <div class="empty-state">
+      <p class="label label--signal">Nothing filed yet</p>
+      <p><strong>No files in this topic yet.</strong> Subscribe and we’ll send the first one when it’s ready.</p>
+      <a class="link-arrow" href="/subscribe/"><span>Subscribe to hear first</span><Arrow /></a>
+    </div>
+  )}
+</PageLayout>
+
+<style>
+  .hub {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>

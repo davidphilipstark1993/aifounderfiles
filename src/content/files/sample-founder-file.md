@@ -21,6 +21,8 @@ company:
   stage: "[Stage, e.g. Seed]"
   funding: "[£ amount or Undisclosed]"
   businessModel: "[How it makes money, in a few words]"
+# pillar picks the topic hub: founder-files | company-files | how-they-built-it | business-models
+pillar: "founder-files"
 tags: ["[tag-one]", "[tag-two]"]
 # heroImage:
 #   src: ../../assets/[company]-hero.jpg
@@ -36,6 +38,17 @@ draft: true
 [Opening paragraph: the scene or the claim that makes a reader want to keep going. Say what the company does in plain English by the end of the second paragraph.]
 
 [Second paragraph: why now, and why this founder.]
+
+<!--
+EVIDENCE LABELS (see /editorial-policy/#evidence). Attribute every number in the sentence that carries it:
+  Confirmed ............ "According to its Series B announcement, ..." (primary source)
+  Company-reported ..... "The company says ... ; we could not verify this." (claim, attributed)
+  Independently reported "TechCrunch reported ..." (name the outlet)
+  Estimate ............. "Contrary Research estimates ..." (always the word "estimate")
+  Our view ............. "Our read: ..." (opinion, written as ours)
+Never write a revenue, customer, funding or growth figure, or a quote, that is not in a listed source.
+Use only the sections below that fit this company; delete the rest.
+-->
 
 ## The short version
 
@@ -66,9 +79,21 @@ draft: true
 
 [How [Company] makes money today, who pays, and what the unit economics would need to look like to work.]
 
+## Customers and distribution
+
+[How [Company] finds customers and gets the product in front of them: sales motion, channels, partnerships, pricing page. Attribute anything the company says about its own traction.]
+
+## Competitors and defensibility
+
+[Who else does this, what stops a bigger rival or a model provider copying it, and where the moat is thin. Label this as our view.]
+
 ## What could go wrong
 
 [The strongest case against. Competitors, dependencies, regulation, and anything the company declined to answer.]
+
+## Lessons for founders
+
+[Two or three takeaways another founder could act on. Label them as our view.]
 
 ## What to watch
 
