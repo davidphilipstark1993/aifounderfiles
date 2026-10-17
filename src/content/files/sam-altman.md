@@ -9,9 +9,11 @@ author: editorial
 founder:
   name: "Sam Altman"
   role: "Co-founder and CEO"
+  sameAs: ["https://en.wikipedia.org/wiki/Sam_Altman"]
 company:
   name: "OpenAI"
   website: "https://openai.com"
+  sameAs: ["https://en.wikipedia.org/wiki/OpenAI"]
   founded: "2015"
   hq: "San Francisco"
   sector: "Frontier AI"

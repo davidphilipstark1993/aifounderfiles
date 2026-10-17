@@ -1,8 +1,10 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import Arrow from '../../components/Arrow.astro';
-import { authorLinks, getAuthors, getFileAuthor } from '../../lib/authors';
+import { getAuthors, getFileAuthor } from '../../lib/authors';
+import { breadcrumbLd, profilePageLd } from '../../lib/schema';
+import { authorAbsoluteUrl, authorLinks } from '../../lib/authors';
 import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../../lib/files';
 
 export async function getStaticPaths() {
@@ -22,6 +24,11 @@ const description =
   data.bio && data.bio.length <= 155
     ? data.bio
     : `Founder Files by ${data.name}: one AI founder and their company, in depth, with every source listed.`;
+const photo = data.photo && (await getImage({ src: data.photo.src, width: 480, height: 480 }));
+const jsonLd = [
+  profilePageLd(author, photo && new URL(photo.src, authorAbsoluteUrl(author)).href),
+  breadcrumbLd([{ name: 'Home', path: '/' }, { name: data.name, path: `/authors/${author.id}/` }]),
+];
 ---
 <PageLayout
   title={data.name}
@@ -30,6 +37,7 @@ const description =
   heading={data.name}
   lede={data.jobTitle}
   prose={false}
+  jsonLd={jsonLd}
 >
   <div class="author">
     {data.photo && (

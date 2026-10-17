@@ -10,6 +10,7 @@ founder:
 company:
   name: "Harvey"
   website: "https://www.harvey.ai"
+  sameAs: ["https://en.wikipedia.org/wiki/Harvey_(software)"]
   founded: "2022"
   hq: "San Francisco"
   sector: "Legal AI"

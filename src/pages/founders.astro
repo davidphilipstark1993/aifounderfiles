@@ -3,12 +3,19 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import FileLinks from '../components/FileLinks.astro';
 import { fileNumberLabel, fileUrl, getFounders } from '../lib/files';
+import { breadcrumbLd, collectionPageLd } from '../lib/schema';
 const founders = await getFounders();
+const description = 'Every founder profiled in an AI Founder Files deep dive, one file each.';
+const jsonLd = [
+  breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Founders', path: '/founders/' }]),
+  collectionPageLd({ name: 'Founders', description, path: '/founders/', items: founders.map((f) => ({ name: f.name, entry: f.entry })) }),
+];
 ---
 <PageLayout
   noindex={founders.length === 0}
   title="Founders"
-  description="Every founder profiled in an AI Founder Files deep dive, one file each."
+  description={description}
+  jsonLd={jsonLd}
   label="The index"
   heading="Founders"
   lede="Every founder we’ve profiled, with a link to their file."

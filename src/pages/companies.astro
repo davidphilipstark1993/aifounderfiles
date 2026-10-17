@@ -3,14 +3,21 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import FileLinks from '../components/FileLinks.astro';
 import { fileNumberLabel, fileUrl, getCompanies } from '../lib/files';
+import { breadcrumbLd, collectionPageLd } from '../lib/schema';
 const companies = await getCompanies();
+const description = 'Every company profiled in an AI Founder Files deep dive, one file each.';
+const jsonLd = [
+  breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Companies', path: '/companies/' }]),
+  collectionPageLd({ name: 'Companies', description, path: '/companies/', items: companies.map((c) => ({ name: c.name, entry: c.entry })) }),
+];
 const detail = (c: (typeof companies)[number]) =>
   [c.sector, c.stage, c.hq].filter((v) => v && !/^undisclosed$/i.test(v)).join(' · ');
 ---
 <PageLayout
   noindex={companies.length === 0}
   title="Companies"
-  description="Every company profiled in an AI Founder Files deep dive, one file each."
+  description={description}
+  jsonLd={jsonLd}
   label="The index"
   heading="Companies"
   lede="Every company we’ve profiled, with a link to its file."

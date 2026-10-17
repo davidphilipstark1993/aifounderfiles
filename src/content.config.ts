@@ -41,10 +41,18 @@ const files = defineCollection({
         name: z.string(),
         role: z.string(),
         linkedin: z.url().optional(),
+        /** Wikipedia or other profile pages for the founder, used as schema.org sameAs. */
+        sameAs: z.array(z.url()).optional(),
+        /** For a file about more than one founder: one entry per person, so each becomes its own Person in the JSON-LD. */
+        members: z
+          .array(z.object({ name: z.string(), jobTitle: z.string().optional(), sameAs: z.array(z.url()).optional() }))
+          .optional(),
       }),
       company: z.object({
         name: z.string(),
         website: z.url().optional(),
+        /** Wikipedia or other profile pages for the company, used as schema.org sameAs (the website is added automatically). */
+        sameAs: z.array(z.url()).optional(),
         // Any of these can be omitted (shown as "Undisclosed") or written as "Undisclosed".
         founded: z.coerce.string().optional(),
         hq: z.string().optional(),

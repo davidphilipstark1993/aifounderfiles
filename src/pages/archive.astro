@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../lib/files';
+import { breadcrumbLd, collectionPageLd } from '../lib/schema';
 
 const files = await getPublishedFiles(); // already newest first
 const byYear = new Map<number, typeof files>();
@@ -9,11 +10,17 @@ for (const f of files) {
   const y = f.data.publishDate.getUTCFullYear();
   byYear.set(y, [...(byYear.get(y) ?? []), f]);
 }
+const description = 'Every AI Founder Files deep dive, newest first.';
+const jsonLd = [
+  breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Archive', path: '/archive/' }]),
+  collectionPageLd({ name: 'All files', description, path: '/archive/', items: files.map((f) => ({ name: f.data.title, entry: f })) }),
+];
 ---
 <PageLayout
   noindex={files.length === 0}
   title="Archive"
-  description="Every AI Founder Files deep dive, newest first."
+  description={description}
+  jsonLd={jsonLd}
   label="The archive"
   heading="All files"
   lede="Every Founder File, newest first."

@@ -7,9 +7,17 @@ author: editorial
 founder:
   name: "Dario and Daniela Amodei"
   role: "CEO and President"
+  members:
+    - name: "Dario Amodei"
+      jobTitle: "CEO"
+      sameAs: ["https://en.wikipedia.org/wiki/Dario_Amodei"]
+    - name: "Daniela Amodei"
+      jobTitle: "President"
+      sameAs: ["https://en.wikipedia.org/wiki/Daniela_Amodei"]
 company:
   name: "Anthropic"
   website: "https://www.anthropic.com"
+  sameAs: ["https://en.wikipedia.org/wiki/Anthropic"]
   founded: "2021"
   hq: "San Francisco"
   sector: "Frontier AI"

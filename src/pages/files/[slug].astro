@@ -8,6 +8,7 @@ import NewsletterBand from '../../components/NewsletterBand.astro';
 import {
   factFields,
   fileNumberLabel,
+  fileUrl,
   formatDate,
   getPublishedFiles,
   isoDate,
@@ -18,6 +19,7 @@ import {
   type FileEntry,
 } from '../../lib/files';
 import { authorAbsoluteUrl, authorUrl, getFileAuthor } from '../../lib/authors';
+import { authorLd, breadcrumbLd, companyLd, founderLds, publisherLd } from '../../lib/schema';
 import { citationCounts, citeAnchor, sourceAnchor, stripCitations, textWithCitations } from '../../lib/citations';
 import { SITE } from '../../lib/site';
 
@@ -43,25 +45,6 @@ const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 
-const isRealYear = (v?: string) => (v && /^\d{4}$/.test(v.trim()) ? v.trim() : undefined);
-const isNamed = (v?: string) => (v && !/^undisclosed$/i.test(v.trim()) ? v : undefined);
-
-const founderLd = {
-  '@type': 'Person',
-  name: data.founder.name,
-  jobTitle: data.founder.role,
-  ...(data.founder.linkedin && { sameAs: [data.founder.linkedin] }),
-  worksFor: { '@type': 'Organization', name: data.company.name },
-};
-const companyLd = {
-  '@type': 'Organization',
-  name: data.company.name,
-  ...(data.company.website && { url: data.company.website }),
-  ...(isRealYear(data.company.founded) && { foundingDate: isRealYear(data.company.founded) }),
-  ...(isNamed(data.company.hq) && { location: { '@type': 'Place', name: data.company.hq } }),
-  founder: { '@type': 'Person', name: data.founder.name },
-};
-
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
@@ -70,27 +53,22 @@ const articleLd = {
   image: [new URL(ogPath, SITE.url).href],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
-  author: {
-    '@type': author.data.type === 'person' ? 'Person' : 'Organization',
-    '@id': `${authorAbsoluteUrl(author)}#${author.data.type}`,
-    name: author.data.name,
-    url: authorAbsoluteUrl(author),
-    ...(Object.values(author.data.sameAs).length > 0 && { sameAs: Object.values(author.data.sameAs) }),
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: SITE.name,
-    url: SITE.url,
-    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },
-  },
+  author: authorLd(author),
+  publisher: publisherLd,
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-  about: [founderLd, companyLd],
+  about: [...founderLds(data), companyLd(data)],
   keywords: data.tags.join(', '),
   articleSection: data.company.sector,
   inLanguage: 'en-GB',
   isAccessibleForFree: true,
   citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
 };
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Archive', path: '/archive/' },
+  { name: data.title, path: fileUrl(entry) },
+];
 
 const faq = data.faq ?? [];
 const faqLd = faq.length > 0 && {
@@ -102,7 +80,7 @@ const faqLd = faq.length > 0 && {
     acceptedAnswer: { '@type': 'Answer', text: stripCitations(q.answer) },
   })),
 };
-const jsonLd = [articleLd, ...(faqLd ? [faqLd] : [])];
+const jsonLd = [articleLd, breadcrumbLd(crumbs), ...(faqLd ? [faqLd] : [])];
 ---
 <BaseLayout
   title={data.title}
@@ -133,6 +111,9 @@ const jsonLd = [articleLd, ...(faqLd ? [faqLd] : [])];
     <header class="file-head">
       <div class="wrap file-head__grid">
         <div>
+          <nav class="crumbs label label--muted" aria-label="Breadcrumb">
+            <a href="/">Home</a><span aria-hidden="true"> / </span><a href="/archive/">Archive</a><span aria-hidden="true"> / </span><span aria-current="page">File {fileNumberLabel(data.fileNumber)}</span>
+          </nav>
           <p class="label label--signal">Founder File {fileNumberLabel(data.fileNumber)}</p>
           <h1 class="display file-title">{data.title}</h1>
           <p class="file-standfirst">{data.standfirst}</p>
@@ -263,6 +244,13 @@ const jsonLd = [articleLd, ...(faqLd ? [faqLd] : [])];
     font-size: 1.3125rem;
     line-height: 1.5;
     color: var(--slate);
+  }
+  .crumbs {
+    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+  }
+  .crumbs a {
+    color: inherit;
   }
   .byline a {
     color: var(--ink);
