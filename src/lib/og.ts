@@ -36,14 +36,17 @@ function headlineSize(title: string) {
 }
 
 /** "Social card" from brand sheet 04: ink ground, headline, NEW FILE stamp, logo + domain. */
-export async function renderFileOg(opts: { title: string; fileNumber: number }): Promise<Buffer> {
+export async function renderFileOg(opts: { title: string; fileNumber: number; founder: string; company: string }): Promise<Buffer> {
   const num = String(opts.fileNumber).padStart(3, '0');
   const tree = h(
     'div',
     { width: 1200, height: 630, flexDirection: 'column', justifyContent: 'space-between', background: INK, padding: '56px 64px' },
     [
       h('div', { justifyContent: 'space-between', alignItems: 'flex-start' }, [
-        h('div', { color: INK_MUTED, fontFamily: 'JetBrains Mono', fontSize: 24, fontWeight: 500, letterSpacing: 4, paddingTop: 10 }, `FOUNDER FILE #${num}`),
+        h('div', { flexDirection: 'column', gap: 12, paddingTop: 10, maxWidth: 800 }, [
+          h('div', { color: INK_MUTED, fontFamily: 'JetBrains Mono', fontSize: 24, fontWeight: 500, letterSpacing: 4 }, `FOUNDER FILE #${num}`),
+          h('div', { color: PAPER, fontFamily: 'JetBrains Mono', fontSize: 28, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase' }, `${opts.founder} · ${opts.company}`),
+        ]),
         h(
           'div',
           {
