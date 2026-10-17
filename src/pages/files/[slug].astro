@@ -18,7 +18,7 @@ import {
   type FileEntry,
 } from '../../lib/files';
 import { authorAbsoluteUrl, authorUrl, getFileAuthor } from '../../lib/authors';
-import { citationCounts, citeAnchor, sourceAnchor } from '../../lib/citations';
+import { citationCounts, citeAnchor, sourceAnchor, stripCitations, textWithCitations } from '../../lib/citations';
 import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -62,7 +62,7 @@ const companyLd = {
   founder: { '@type': 'Person', name: data.founder.name },
 };
 
-const jsonLd = {
+const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   headline: data.title,
@@ -91,6 +91,18 @@ const jsonLd = {
   isAccessibleForFree: true,
   citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
 };
+
+const faq = data.faq ?? [];
+const faqLd = faq.length > 0 && {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((q) => ({
+    '@type': 'Question',
+    name: q.question,
+    acceptedAnswer: { '@type': 'Answer', text: stripCitations(q.answer) },
+  })),
+};
+const jsonLd = [articleLd, ...(faqLd ? [faqLd] : [])];
 ---
 <BaseLayout
   title={data.title}
@@ -155,6 +167,18 @@ const jsonLd = {
         <div class="prose file-prose">
           <Content />
         </div>
+
+        {faq.length > 0 && (
+          <section class="faq" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="label">Quick answers</h2>
+            {faq.map((q, i) => (
+              <div class="faq__item">
+                <h3>{q.question}</h3>
+                <p set:html={textWithCitations(q.answer, data.sources.length, `faq${i + 1}`)} />
+              </div>
+            ))}
+          </section>
+        )}
 
         <section class="sources" aria-labelledby="sources-title">
           <h2 id="sources-title" class="label">Sources</h2>
@@ -254,7 +278,7 @@ const jsonLd = {
     margin-top: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid var(--rule);
-    max-width: 46ch;
+    max-width: 56ch;
   }
   .file-head__fact {
     max-width: 28rem;
@@ -283,8 +307,29 @@ const jsonLd = {
     padding-bottom: clamp(3rem, 6vw, 5rem);
   }
   .file-prose,
+  .faq,
   .sources {
     margin-inline: auto;
+  }
+  .faq {
+    max-width: var(--measure);
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+  }
+  .faq__item {
+    margin-top: 1.5rem;
+  }
+  .faq h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 90%;
+    font-size: 1.1875rem;
+    line-height: 1.2;
+  }
+  .faq p {
+    margin-top: 0.4rem;
+    line-height: 1.55;
   }
   .sources {
     max-width: var(--measure);

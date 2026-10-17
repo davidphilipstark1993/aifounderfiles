@@ -53,6 +53,8 @@ const files = defineCollection({
       }),
       tags: z.array(z.string()),
       heroImage: z.object({ src: image(), alt: z.string() }).optional(),
+      /** Optional "Quick answers" section, rendered before Sources and published as FAQPage JSON-LD. Answers may use [^n] citation markers. */
+      faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
       sources: z.array(z.object({ title: z.string(), url: z.url() })),
       draft: z.boolean().default(false),
     })

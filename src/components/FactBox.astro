@@ -13,7 +13,7 @@ const isUndisclosed = (v: string) => /^(undisclosed|to be announced)$/i.test(v);
   <dl class="factbox__list">
     {fields.map((f) => (
       <div class="factbox__row">
-        <dt><span>{f.label}</span><span class="factbox__dots" aria-hidden="true">{'.'.repeat(40)}</span></dt>
+        <dt>{f.label}</dt>
         <dd class:list={{ 'is-undisclosed': isUndisclosed(f.value) }}>{f.value}</dd>
       </div>
     ))}
@@ -73,13 +73,12 @@ const isUndisclosed = (v: string) => /^(undisclosed|to be announced)$/i.test(v);
     white-space: nowrap;
     overflow: hidden;
   }
-  dt > span:first-child {
-    flex: none;
-    padding-right: 0.5ch;
-  }
-  .factbox__dots {
+  /* The dot leaders are drawn here, not in the HTML, so parsers read just the label. */
+  dt::after {
+    content: '........................................';
     flex: 1;
     overflow: hidden;
+    padding-left: 0.5ch;
     letter-spacing: 0;
   }
   dd {

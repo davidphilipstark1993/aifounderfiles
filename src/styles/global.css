@@ -506,7 +506,9 @@ a {
 
 /* ---------- Inline citations ---------- */
 .cite {
-  margin-left: 0.1em;
+  position: relative;
+  top: -0.45em;
+  vertical-align: baseline; /* a real <sup> would push the line apart */
   font-family: var(--font-mono);
   font-size: 0.68em;
   font-weight: 500;

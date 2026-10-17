@@ -25,8 +25,31 @@ export function citationHtml(numbers: number[], occurrence: (n: number) => numbe
         `<a class="cite__link" id="${escapeAttr(citeAnchor(n, occurrence(n), scope))}" href="#${sourceAnchor(n)}" aria-label="Source ${n}">[${n}]</a>`,
     )
     .join('\u2009');
-  return `<sup class="cite">${links}</sup>`;
+  // The word joiner stops the marker wrapping onto a line of its own.
+  return `\u2060<sup class="cite">${links}</sup>`;
 }
+
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** A frontmatter string (a FAQ answer) as inline HTML, with `[^n]` markers turned into the same superscript links. */
+export function textWithCitations(text: string, sourceCount: number, scope: string): string {
+  let occurrences = 0;
+  const parts: string[] = [];
+  let last = 0;
+  for (const m of text.matchAll(CITATION_RE)) {
+    const numbers = parseCitationNumbers(m[1]);
+    for (const n of numbers) {
+      if (n < 1 || n > sourceCount) throw new Error(`citation [^${n}] in "${text.slice(0, 40)}…" has no matching source (the file lists ${sourceCount}).`);
+    }
+    parts.push(escapeHtml(text.slice(last, m.index)), citationHtml(numbers, () => ++occurrences, scope));
+    last = m.index! + m[0].length;
+  }
+  parts.push(escapeHtml(text.slice(last)));
+  return parts.join('');
+}
+
+/** The same string as plain text (for JSON-LD): markers removed. */
+export const stripCitations = (text: string) => text.replace(CITATION_RE, '').replace(/\s+([.,;:])/g, '$1').trim();
 
 /**
  * Sätteri (mdast) plugin: turns `[^n]` markers in text into superscript links and checks them against

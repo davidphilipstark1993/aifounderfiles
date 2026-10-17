@@ -17,6 +17,21 @@ company:
   funding: "$122bn round at an $852bn valuation (March 2026)"
   businessModel: "Subscriptions, business and API, advertising"
 tags: ["openai", "chatgpt", "frontier-ai", "y-combinator", "energy"]
+# TODO(owner): review these answers before they stay live. They're drafted only from facts already in this file, with the source numbers the body uses.
+faq:
+  - question: "Does Sam Altman own OpenAI?"
+    answer: "No, not directly. Court filings and Forbes show no direct OpenAI equity, and he has said as much.[^12] Since the October 2025 reorganisation the nonprofit OpenAI Foundation holds about 26% and Microsoft about 27%.[^10] His biggest disclosed holding is Helion Energy, a fusion-power startup, put at around $1.7 billion in filings from the Musk trial (as of the end of 2025).[^12]"
+  - question: "What is Sam Altman’s salary?"
+    # TODO(owner): add a source for the salary figure; none of the 21 listed sources is clearly about it.
+    answer: "It is reported at somewhere between $65,000 and $76,000 a year, depending on the source."
+  - question: "How much is OpenAI worth?"
+    answer: "On 31 March 2026 OpenAI closed a record $122 billion round at an $852 billion valuation.[^2] In late September 2026, reports said it was in early talks to raise at least $30 billion more at a valuation of around $1.4 trillion.[^3]"
+  - question: "Why was Sam Altman fired in 2023?"
+    answer: "On 17 November 2023 OpenAI’s board told him he was being fired, and said he had not been “consistently candid” with them.[^21] Within five days he had the job back, the board that fired him was gone, and almost the whole company had signed a letter saying they would follow him out of the door.[^21]"
+  - question: "Will OpenAI go public in 2026?"
+    answer: "No. Altman has said an IPO this year would be “ill-advised”, given the current mood around AI safety, and that it won’t happen in 2026.[^4]"
+  - question: "Was Sam Altman fired from Y Combinator?"
+    answer: "Not according to Paul Graham. Graham’s account is that he and Jessica Livingston told Altman that if he was going to work full time on OpenAI, YC should find someone else to run it, and that Altman agreed straight away.[^19]"
 sources:
   - title: "Sam Altman (biography, with citations), Wikipedia"
     url: "https://en.wikipedia.org/wiki/Sam_Altman"
