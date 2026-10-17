@@ -26,8 +26,8 @@ faq:
   - question: "Does Sam Altman own OpenAI?"
     answer: "No, not directly. Court filings and Forbes show no direct OpenAI equity, and he has said as much.[^12] Since the October 2025 reorganisation the nonprofit OpenAI Foundation holds about 26% and Microsoft about 27%.[^10] His biggest disclosed holding is Helion Energy, a fusion-power startup, put at around $1.7 billion in filings from the Musk trial (as of the end of 2025).[^12]"
   - question: "What is Sam Altman’s salary?"
-    # TODO(owner): add a source for the salary figure; none of the 21 listed sources is clearly about it.
-    answer: "It is reported at somewhere between $65,000 and $76,000 a year, depending on the source."
+    # TODO(owner): $76,001 (2023) is confirmed by source 22; I could not open source 11 to confirm the $65,000 low end.
+    answer: "It is reported at somewhere between $65,000 and $76,000 a year, depending on the source.[^11,22]"
   - question: "How much is OpenAI worth?"
     answer: "On 31 March 2026 OpenAI closed a record $122 billion round at an $852 billion valuation.[^2] In late September 2026, reports said it was in early talks to raise at least $30 billion more at a valuation of around $1.4 trillion.[^3]"
   - question: "Why was Sam Altman fired in 2023?"
@@ -35,7 +35,7 @@ faq:
   - question: "Will OpenAI go public in 2026?"
     answer: "No. Altman has said an IPO this year would be “ill-advised”, given the current mood around AI safety, and that it won’t happen in 2026.[^4]"
   - question: "Was Sam Altman fired from Y Combinator?"
-    answer: "Not according to Paul Graham. Graham’s account is that he and Jessica Livingston told Altman that if he was going to work full time on OpenAI, YC should find someone else to run it, and that Altman agreed straight away.[^19]"
+    answer: "Not according to Paul Graham. Graham’s account is that he and Jessica Livingston told Altman that if he was going to work full time on OpenAI, YC should find someone else to run it, and that Altman agreed.[^19] Reporting in the Wall Street Journal and the Washington Post said instead that he was forced out.[^19]"
 sources:
   - title: "Sam Altman (biography, with citations), Wikipedia"
     url: "https://en.wikipedia.org/wiki/Sam_Altman"
@@ -79,6 +79,16 @@ sources:
     url: "https://siliconangle.com/2026/09/13/sam-altman-and-elon-musk-back-dario-amodeis-call-to-slow-down-the-frontier-of-ai-development/"
   - title: "The exit and return of Sam Altman to OpenAI: a timeline, YourStory (2023)"
     url: "https://yourstory.com/2023/11/the-exit-and-return-of-sam-altman-greg-brockman-microsoft-openai-a-timeline"
+  - title: "OpenAI CEO received $76,001 in pay last year, filing shows, Bloomberg (20 November 2024)"
+    url: "https://www.bloomberg.com/news/articles/2024-11-20/openai-ceo-received-76-001-in-pay-last-year-filing-shows"
+  - title: "Green Dot to acquire Loopt, Green Dot (9 March 2012)"
+    url: "https://ir.greendot.com/news-releases/news-release-details/green-dot-acquire-loopt"
+  - title: "Sam Altman invested $180 million into a longevity startup, MIT Technology Review (8 March 2023)"
+    url: "https://www.technologyreview.com/2023/03/08/1069523/sam-altman-investment-180-million-retro-biosciences-longevity-death/"
+  - title: "OpenAI starts testing ads in ChatGPT, Engadget (9 February 2026)"
+    url: "https://www.engadget.com/ai/openai-starts-testing-ads-in-chatgpt-191756493.html"
+  - title: "Sam Altman's home targeted in a second attack, San Francisco Standard (12 April 2026)"
+    url: "https://sfstandard.com/2026/04/12/sam-altman-s-home-targeted-second-attack/"
 draft: false
 ---
 
@@ -88,7 +98,7 @@ At about noon on Friday 17 November 2023, Sam Altman was asked to join a video c
 
 Within the hour, the most visible founder in technology had lost the job of his life. Within five days he had it back, the board that fired him was gone, and almost the whole company had signed a letter saying they would follow him out of the door if that's what it took.[^21]
 
-Hold on to that week, because it explains more about Sam Altman than any résumé could. And here is the odd part, the reason he is File #001: the man at the centre of OpenAI, the company behind ChatGPT, has no direct stake in it.[^12] His salary is reported at somewhere between $65,000 and $76,000 a year, depending on the source. His fortune, which Forbes put at about $3.3 billion this spring, was built almost entirely elsewhere. And still, when a board tried to remove him, it found that it couldn't.
+Hold on to that week, because it explains more about Sam Altman than any résumé could. And here is the odd part, the reason he is File #001: the man at the centre of OpenAI, the company behind ChatGPT, has no direct stake in it.[^12] His salary is reported at somewhere between $65,000 and $76,000 a year, depending on the source.[^11,22] His fortune, which Forbes put at about $3.3 billion this spring, was built almost entirely elsewhere. And still, when a board tried to remove him, it found that it couldn't.
 
 This is the story of how that happens: a Missouri kid with a Mac, a first startup that didn't quite work, a decade running the most famous startup school in the world, and a bet on artificial intelligence so large that it needed more money than any charity could ever raise. (All figures are in US dollars.)
 
@@ -103,7 +113,7 @@ This is the story of how that happens: a Missouri kid with a Mac, a first startu
 
 Sam was born in Chicago on 22 April 1985, the eldest of four children, and grew up in Clayton, just outside St. Louis. His mother, Connie Gibstine, is a dermatologist, and his father, Jerry, was a real estate broker. When he was eight he was given an Apple Macintosh and taught himself to code, which he has since described as the glory days of computing, when you could make the machine do whatever you wanted and it was just crazy fun. At John Burroughs School he built the school's website. He came out at 17, after an incident at school around National Coming Out Day, in a part of the world where that was not nothing.
 
-He went to Stanford to study computer science and left after two years, in 2005, to build Loopt, an app that let friends see where each other were. It was a location app before the iPhone existed, and it became part of the very first batch at Y Combinator, the startup accelerator. Loopt raised more than $30 million from investors including Sequoia, never found a mass audience, and was sold to the payments company Green Dot in 2012 for $43.4 million. By Silicon Valley standards it was a modest ending. Reporting since then says that senior colleagues twice asked the board to replace him as CEO, and that the board declined both times.
+He went to Stanford to study computer science and left after two years, in 2005, to build Loopt, an app that let friends see where each other were. It was a location app before the iPhone existed, and it became part of the very first batch at Y Combinator, the startup accelerator. Loopt raised more than $30 million from investors including Sequoia, never found a mass audience, and was sold to the payments company Green Dot in 2012 for $43.4 million.[^23] By Silicon Valley standards it was a modest ending. Reporting since then says that senior colleagues twice asked the board to replace him as CEO, and that the board declined both times.
 
 But here is the thing worth noticing. The real prize from Loopt wasn't the sale price. It was the people. Paul Graham, Y Combinator's co-founder, had spotted something early. He compared Altman to a young Bill Gates, and later said you could drop him on an island of cannibals and come back in five years to find him king. Altman became a part-time YC partner in 2011, and in 2014, at 28, Graham handed him the whole thing. His job stopped being to build one company and became to see a thousand of them. He pushed YC towards much bigger batches and "hard technology", and the alumni list is a roll call of the decade: Stripe, Airbnb, Coinbase, Instacart, Reddit. For eight days in 2014 he was even Reddit's CEO, a cameo that previewed a habit of stepping into an institution and then keeping the relationship. He stayed on Reddit's board until 2022.
 
@@ -145,13 +155,13 @@ OpenAI's money has come in stages, each one bigger than the last.
 - **31 March 2026:** OpenAI closes a record $122 billion round at an $852 billion valuation, co-led by SoftBank alongside Andreessen Horowitz, D.E. Shaw, MGX, TPG and T. Rowe Price-advised accounts, with Amazon, Nvidia and Microsoft joining.[^2]
 - **Late September 2026:** reports say OpenAI is in early talks to raise at least $30 billion more at a valuation of around $1.4 trillion.[^3] Altman has said an IPO this year would be "ill-advised", given the current mood around AI safety, and that it won't happen in 2026.[^4]
 
-Notice who is missing from that cap table. Altman is. Court filings and Forbes show no direct OpenAI equity, and he has said as much.[^12] His own money sits in a private portfolio of more than 400 companies. The biggest disclosed position is Helion Energy, a fusion-power startup he has backed for over a decade, put at around $1.7 billion in filings from the Musk trial (as of the end of 2025).[^12] Others include early stakes in Stripe and Reddit and the longevity company Retro Biosciences, where he put in $180 million of his own money.
+Notice who is missing from that cap table. Altman is. Court filings and Forbes show no direct OpenAI equity, and he has said as much.[^12] His own money sits in a private portfolio of more than 400 companies. The biggest disclosed position is Helion Energy, a fusion-power startup he has backed for over a decade, put at around $1.7 billion in filings from the Musk trial (as of the end of 2025).[^12] Others include early stakes in Stripe and Reddit and the longevity company Retro Biosciences, where he put in $180 million of his own money.[^12,24]
 
 ## The business model
 
 OpenAI earns money in four ways: paid ChatGPT subscriptions for individuals, subscriptions and contracts for businesses, access to its models through the API, and, new this year, advertising.
 
-The ads are the story of 2026. They began testing in the US in February, appear at the bottom of ChatGPT's answers, are clearly labelled, and are not shown to under-18s. OpenAI says they don't influence the answers. By late August the ad business had reached a $1 billion annualised run rate in about 200 days.[^8]
+The ads are the story of 2026. They began testing in the US in February, appear at the bottom of ChatGPT's answers, are clearly labelled, and are not shown to under-18s. OpenAI says they don't influence the answers.[^25] By late August the ad business had reached a $1 billion annualised run rate in about 200 days.[^8]
 
 The overall numbers are huge and so are the costs. OpenAI made $13.1 billion in revenue in 2025 and burned about $8 billion. Its annualised revenue is now reported to be nearing $70 billion. It forecasts more than $280 billion of revenue in 2030, split roughly evenly between consumers and businesses.[^7] But it also expects to spend around $600 billion on computing by 2030, down from the $1.4 trillion Altman talked about last November,[^5] and the Financial Times reports its own projections show a cumulative cash burn of about $278 billion between 2026 and 2030.[^6]
 
@@ -159,19 +169,19 @@ That is the business model in one sentence: spend almost unimaginable sums now, 
 
 Altman's own business model is different, and quietly clever. He didn't make his money by owning the thing everyone uses. He made it by investing in the things that thing needs. Compute needs energy, so there is Helion, and earlier the nuclear company Oklo, which he chaired until April 2025. A web full of convincing machines needs a way to prove you're human, so in 2019 he co-founded Tools for Humanity, whose World project scans irises to issue a proof-of-personhood credential. Regulators in several countries have objected to that rollout, and it hasn't yet settled whether it's infrastructure for the future or a solution looking for permission.
 
-Which brings up the obvious awkward question. In March this year Altman stepped down as Helion's board chair as the fusion company entered early talks to supply OpenAI with power (reportedly 12.5% of its output, five gigawatts by 2030).[^13] He still holds the financial stake, but says he has recused himself from the negotiations. He made the same move at Oklo. Both are sensible. Neither makes the overlap go away.
+Which brings up the obvious awkward question. In March this year Altman stepped down as Helion's board chair as the fusion company entered early talks to supply OpenAI with power (reportedly 12.5% of its output, five gigawatts by 2030).[^13] He still holds the financial stake, but says he has recused himself from the negotiations. He made the same move at Oklo.[^13] Both are sensible. Neither makes the overlap go away.
 
 ## What could go wrong
 
-**Trust.** In April, the New Yorker published a 16,000-word investigation by Ronan Farrow and Andrew Marantz, based on more than a hundred interviews, asking whether Altman can be trusted with so much influence. Many of those sources raised concerns about candour. Altman answered in a blog post, accepting that he handles conflict badly.[^16] The question is not settled, and it follows him into every negotiation.
+**Trust.** In April, the New Yorker published a 16,000-word investigation by Ronan Farrow and Andrew Marantz, based on more than a hundred interviews, asking whether Altman can be trusted with so much influence.[^16] Many of those sources raised concerns about candour. Altman answered in a blog post, accepting that he handles conflict badly.[^16] The question is not settled, and it follows him into every negotiation.
 
 **The money.** A company burning this fast depends on investors continuing to say yes. The $600 billion reset shows that even OpenAI is adjusting its ambitions to the market.[^5] If revenue growth slows, the bills don't.
 
-**The founding story.** Musk sued, seeking up to $150 billion and arguing that OpenAI betrayed its nonprofit mission. In May 2026 a jury ruled unanimously, in under two hours, that he had waited too long to sue.[^14,15] That was a win on timing rather than on the underlying question, and Musk has said he will appeal.
+**The founding story.** Musk sued, seeking up to $150 billion and arguing that OpenAI betrayed its nonprofit mission.[^15] In May 2026 a jury ruled unanimously, in under two hours, that he had waited too long to sue.[^14,15] That was a win on timing rather than on the underlying question, and Musk has said he will appeal.[^15]
 
 **Safety, and the pace of it all.** In mid-September, [Anthropic's Dario Amodei](/files/amodei-siblings/) published an essay urging AI labs to slow the pace of their most advanced models. Both Altman and Musk backed it, and Altman said OpenAI would give independent evaluators employee-like access to its work, with details to follow.[^20] It was a notable change of tone from a company known for shipping fast. Caution as policy, acceleration as strategy: that is the Altman tension in one sentence.
 
-**The human cost of being him.** On 10 April a man threw a Molotov cocktail at Altman's San Francisco home, setting fire to part of a gate. No one was hurt.[^17] The suspect, a 20-year-old, had reportedly written essays about AI ending humanity. Altman responded by posting a photo of his family and asking everyone to turn down the rhetoric.[^16] A second incident followed days later. Whatever you think of him, the stakes of this story have become very personal.
+**The human cost of being him.** On 10 April a man threw a Molotov cocktail at Altman's San Francisco home, setting fire to part of a gate. No one was hurt.[^17] The suspect, a 20-year-old, had reportedly written essays about AI ending humanity. Altman responded by posting a photo of his family and asking everyone to turn down the rhetoric. A second incident followed days later.[^26] Whatever you think of him, the stakes of this story have become very personal.
 
 ## What to watch
 

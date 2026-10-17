@@ -3,44 +3,46 @@
 Everything here was found while making the changes on the `seo-aeo-improvements` branch. No article figures were changed.
 Re-run the automated parts any time with `npm run check:content`.
 
-## 1. Citations I could not match to a listed source (Sam Altman file)
+## 1. Research on the unsourced and unverified claims (Sam Altman file)
 
-The 21 listed sources were matched to claims by **title only**; I did not open the pages. Please check each marker I added (28 of them) against its source, especially the ones in the second table.
+I looked these up myself (web search plus opening the pages I could reach). Where a page was behind a 403/503 I say so. I added five sources (22 to 26, appended so existing numbers didn't move) and the matching markers. Article copy and figures are unchanged.
 
-### Numeric claims with no matching source
+### Confirmed, and now cited
 
-| Claim | Where | Closest candidate |
+| Claim | Result | Source added or used |
 | --- | --- | --- |
-| Salary "$65,000 to $76,000" | intro, FAQ | none listed |
-| "Forbes put [his fortune] at about $3.3 billion" | intro | #11 (NewsNation net worth) might carry it; Forbes itself is not listed |
-| "$0 ... according to Forbes and the evidence in his own court case" | short version | #12 says "no OpenAI equity" but the Forbes attribution is not listed |
-| Loopt "raised more than $30 million" and sold to Green Dot in 2012 "for $43.4 million" | The founder | #1 (Wikipedia) is the only plausible one; not confirmed |
-| OpenAI launched Dec 2015 "with $1 billion in pledges"; "only about $130 million ... collected" by 2019 | The problem, funding list | none listed |
-| Microsoft invested $1 billion in 2019 | The problem, funding list | none listed |
-| "Around 700 of OpenAI's roughly 770 employees" signed the letter | Five days in November | #21 (YourStory timeline) probably; marker is on the paragraph's last sentence, not this one |
-| "Early stakes in Stripe and Reddit ... Retro Biosciences, where he put in $180 million" | The funding | none listed |
-| "More than 400 companies" in his portfolio | The funding | #12 might |
-| OpenAI "$13.1 billion in revenue in 2025 and burned about $8 billion" | The business model | none listed |
-| "Annualised revenue ... nearing $70 billion" | The business model, What to watch | none listed |
-| "Close to a billion" ChatGPT users | The product | none listed (#9 covers 900 million) |
-| Musk "seeking up to $150 billion"; "Musk has said he will appeal" | What could go wrong | #14/#15 may carry it |
-| "A million people signed up in five days" (ChatGPT) | The product | none listed |
-| Ads "began testing in the US in February ... not shown to under-18s" | The business model | #8 covers the $1 billion run rate only |
-| Oklo "chaired until April 2025"; Tools for Humanity co-founded 2019 | The business model | none listed |
-| "16,000-word investigation ... more than a hundred interviews" (New Yorker) | What could go wrong | #16 covers Altman's response, not the article's size |
-| 2027 as "the widely reported" IPO target | What to watch | none listed |
-| Date and biography claims (born 22 April 1985, married January 2024, Giving Pledge May 2024, son born 23 February 2025, Reddit CEO for eight days, left YC March 2019) | The founder | #1 (Wikipedia) probably; not marked |
+| Loopt sold to Green Dot for $43.4 million, 2012 | Confirmed: announced 9 March 2012, $43.4m cash including a ~$9.8m retention pool. The release does not say how much Loopt raised, so "raised more than $30 million" is still unsourced. | 23 (Green Dot release, opened) |
+| Salary, upper end | $76,001 for 2023 ($73,546 for 2022), from OpenAI's nonprofit tax filing. | 22 (Bloomberg, via search results) |
+| $180 million into Retro Biosciences | Confirmed: Altman put up the whole sum, cheques totalling $180m in 2021. | 24 (MIT Technology Review, opened) and 12 |
+| Musk verdict: unanimous, under two hours, $150bn suit, Musk will appeal | All confirmed. | 14/15 (Al Jazeera, opened) |
+| "Not proud" of how he handled the old board; conflict-averse; New Yorker piece by Farrow and Marantz with 100+ interviews | Confirmed. | 16 (TechCrunch, opened) |
+| Molotov attack 10 April: gate set alight, no one hurt, 20-year-old arrested | Confirmed. | 17 (Al Jazeera, opened) |
+| Second incident "days later" | Confirmed: 12 April, a shot fired outside the house, two arrests. | 26 (SF Standard, opened) |
+| Ads: US test from February 2026, bottom of answers, labelled, not shown to under-18s, no effect on answers | Confirmed. | 25 (Engadget, opened) |
+| Helion: Altman left the board; talks to supply OpenAI power, 12.5% of output, 5 GW by 2030 | Confirmed as *reported* (Axios), not confirmed by Helion. He also stepped down as Oklo chair in 2025. | 13 (TechCrunch, opened) |
+| No direct OpenAI equity; Helion ~$1.7bn as of 31 Dec 2025; Stripe, Reddit, Retro | Confirmed, from May 2026 court filings. | 12 (StartupHub, opened) |
+| Altman will not take OpenAI public in 2026; "ill-advised" | Confirmed. | 4 (Fortune, opened) |
+| ChatGPT launch 30 Nov 2022; a million users in five days | Confirmed by several outlets and Altman's own post, but I found no strong primary page to cite. Left unmarked. | none added |
+| $122bn round at $852bn, 31 March 2026 | Confirmed (post-money; the February target was $110bn at $730bn pre-money). Reports differ on which investors "co-led". | 2 (could not open; SiliconANGLE and Yahoo also report it) |
+| Marriage (Hawaii, January 2024), son born "early" in February 2025 | Confirmed by several outlets; not cited. | none added |
 
-The script lists these sentence by sentence (`npm run check:content`, section "Sentences with a number and no [^n] citation"). The Amodei and Weinberg files have no inline markers yet, so every numeric sentence in them is listed there.
+### Not confirmed, or contradicted by what I found
 
-### Markers I added that are plausible but unverified
+- **Forbes $3.3 billion.** I could not reach Forbes. Secondary sites give $3.3bn, but one cites a Forbes figure of **$4bn (Reuters, 13 May 2026)** and others differ. Check Forbes directly.
+- **"A private portfolio of more than 400 companies."** Source 12 says his disclosed positions are **nine**, worth over $2bn. PitchBook lists 172 investments. I found nothing for 400. Needs a source or a rewrite.
+- **"Nearing $70 billion" annualised revenue.** This was reported by Axios on 29 September. On **8 October the Financial Times reported OpenAI told investors about $50 billion at the end of September**, because the $70bn figure counted gross cloud-partner sales on Anthropic's basis. The file is dated 4 October, so it was right at the time, but it is now disputed and appears in the body and "What to watch". I'd update it. I could not open Axios or the FT.
+- **"$13.1 billion revenue in 2025 and burned about $8 billion."** The $13.1bn matches reported leaked financials ($13.07bn). The "$8 billion burn" matches OpenAI's *projection* from 2025; leaked 2025 costs of about $34bn imply a much larger loss, so "burned" may be wrong. Needs a source and a definition.
+- **"$130 million collected by 2019" of the $1 billion pledged.** Wikipedia gives **$133 million by 2021** (from tax filings), and other reporting differs on the year. OpenAI later said Musk's contributions were under $45m.
+- **New Yorker "16,000-word".** TechCrunch calls it "lengthy" and doesn't give a word count.
+- **Suspect "had reportedly written essays about AI ending humanity" and Altman "posting a photo of his family".** Neither is in sources 16, 17 or 26; police had given no motive. I removed my marker from the photo sentence. These need a source or a cut.
+- **Giving Pledge in May 2024.** I found nothing. (Marriage and the baby are fine.)
+- **Son born "on 23 February 2025" and "spent his first days in intensive care".** Fortune (source 18) gives only "February 2025" and no ICU detail. Altman announced the birth on 22 February and said the baby came early and would be in the NICU. Worth checking the date.
+- **"Helion's board chair".** The TechCrunch quote says "Board of Directors"; I didn't see "chair" confirmed. Oklo chair is confirmed, but only "in 2025", not "April 2025".
+- **"Altman agreed straight away".** Graham's post says "he agreed"; "straight away" and "didn't want him to leave" are additions. Source 19 also notes that the WSJ and Washington Post reported he was forced out, which the FAQ answer now says.
+- **"Around 700 of 770 employees".** Widely reported (NYT; NPR's earlier count was 500, later updates reached about 700, with 743 cited on 21 November). I could not open NPR (503). Left unmarked; NPR is the one to add.
+- Not researched or still unsourced: Microsoft's $1bn in 2019, OpenAI's capped-profit arm, Tools for Humanity/World founded 2019, "2027 is the widely reported IPO target" (Fortune does not say it), the "close to a billion" users line, born/childhood/YC dates.
 
-- #21 on the November 2023 sequence (fired call, five days, new board, Sutskever regret): matches the source's subject, but I haven't confirmed each detail.
-- #16 on "accepting that he handles conflict badly" and on the post about the family: the source is Altman's response to the New Yorker piece; the "not proud" quote in "Five days in November" is **not** marked.
-- #12 on "no direct OpenAI equity", the $1.7 billion Helion stake and "(as of the end of 2025)".
-- #10 on the 26% / 27% split.
-- #5 on the $600 billion compute target and on "down from the $1.4 trillion ... last November".
-- #14 and #15 together on the jury verdict "in under two hours".
+Where a marker I added is only partly supported, I kept it and listed the gap above: 23 (price confirmed, "$30 million raised" not), 22 and 11 on the salary (22 confirms $76,001; I could not open 11 to confirm $65,000), 17 and 26 (events confirmed, suspect's essays not).
 
 ## 2. Inconsistencies (copy not changed)
 
@@ -49,8 +51,11 @@ The script lists these sentence by sentence (`npm run check:content`, section "S
 3. **Cross-file: OpenAI's valuation.** The Amodei file says "OpenAI is raising at $1.4 trillion" as a fact (What to watch #5); the Altman file says "reports say ... early talks". Align the wording.
 4. **Amodei: valuation.** Header says $965 billion (May); body says shares could price "at a valuation of more than $2 trillion" after November, from a leaked prospectus. Same situation as Altman.
 5. **Weinberg: valuation.** Header says $15.5 billion; the body notes "some outlets, citing Bloomberg, put the valuation at $15.6 billion". The body already acknowledges it; one of the listed source URLs also says 15.6.
-6. **Altman: salary.** Standfirst says "roughly $65,000 to $76,000", body says "reported ... depending on the source", FAQ repeats the body. No source is listed for any of them.
-7. **Spelling and style.** Altman uses "%", Amodei and Weinberg used "percent". I changed "percent" to "per cent" in those two (figures unchanged). "%" and "per cent" are both acceptable British house style, so pick one. "Defense Department" in the Amodei file is a proper noun and was left.
+6. **Altman: salary.** Standfirst says "roughly $65,000 to $76,000", body says "reported ... depending on the source". $76,001 is confirmed; $65,000 is not yet.
+7. **Altman: revenue.** The "nearing $70 billion" annualised revenue was revised to about $50 billion by the FT on 8 October (see section 1).
+8. **Altman: portfolio.** "More than 400 companies" conflicts with source 12, which lists nine disclosed positions.
+9. **Altman: net worth.** Forbes is quoted at $3.3bn; other reporting cites a Forbes figure of $4bn in May 2026.
+10. **Spelling and style.** Altman uses "%", Amodei and Weinberg used "percent". I changed "percent" to "per cent" in those two (figures unchanged). "%" and "per cent" are both acceptable British house style, so pick one. "Defense Department" in the Amodei file is a proper noun and was left.
 
 ## 3. Heading proposals (not applied)
 
@@ -90,8 +95,8 @@ The Amodei and Weinberg files follow the same template, so the same pattern appl
 
 1. `src/content/authors/editorial.md`: add the real author (name, `type: person`, bio, photo, LinkedIn, X), then point each file's `author` at it. Until then bylines read "By AI Founder Files" and the schema author is an Organization.
 2. `src/pages/about.astro`: add a sentence or two about the named author (the old "Who's behind it" gap).
-3. `src/content/files/sam-altman.md`: review the six FAQ answers (they go live with this branch and into `FAQPage` JSON-LD).
-4. `src/content/files/sam-altman.md`: add a source for the salary figure (and the FAQ answer that repeats it).
+3. `src/content/files/sam-altman.md`: review the six FAQ answers (they go live with this branch and into `FAQPage` JSON-LD). The salary answer needs source 11 checked for the $65,000 figure.
+4. Decide what to do with the claims in section 1 that I could not confirm or that conflict with sources (revenue, 400 companies, Forbes, suspect's essays, Giving Pledge).
 5. `src/content/files/sam-altman.md`: approve the shortened meta description.
 6. Not marked in the code: set `updatedDate` on the Altman file when this ships (it gained citations, a FAQ, links and a new description), so "Updated", `dateModified` and the sitemap `lastmod` move.
 7. Not marked in the code: confirm the Wikipedia `sameAs` URLs. Sam Altman, Anthropic, both Amodeis and Harvey come from each file's own Sources list. OpenAI's (`https://en.wikipedia.org/wiki/OpenAI`) is not in a source list; I checked it resolves.
