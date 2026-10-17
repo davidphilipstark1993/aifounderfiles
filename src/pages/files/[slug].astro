@@ -127,15 +127,15 @@ const jsonLd = {
           <p class="byline label label--muted">
             <span>By <a href={authorUrl(author)} rel="author">{author.data.name}</a></span>
             <span aria-hidden="true">·</span>
-            <time datetime={isoDate(data.publishDate)}>{formatDate(data.publishDate)}</time>
-            <span aria-hidden="true">·</span>
-            <span>{minutes} min read</span>
+            <span>Published <time datetime={isoDate(data.publishDate)}>{formatDate(data.publishDate)}</time></span>
             {data.updatedDate && (
               <>
                 <span aria-hidden="true">·</span>
                 <span>Updated <time datetime={isoDate(data.updatedDate)}>{formatDate(data.updatedDate)}</time></span>
               </>
             )}
+            <span aria-hidden="true">·</span>
+            <span>{minutes} min read</span>
           </p>
         </div>
         <div class="file-head__fact">

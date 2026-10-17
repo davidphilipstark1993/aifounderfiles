@@ -55,6 +55,10 @@ const files = defineCollection({
       heroImage: z.object({ src: image(), alt: z.string() }).optional(),
       sources: z.array(z.object({ title: z.string(), url: z.url() })),
       draft: z.boolean().default(false),
+    })
+    .refine((d) => !d.updatedDate || d.updatedDate >= d.publishDate, {
+      message: 'updatedDate is earlier than publishDate',
+      path: ['updatedDate'],
     }),
 });
 
