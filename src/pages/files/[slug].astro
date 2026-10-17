@@ -66,7 +66,7 @@ const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   headline: data.title,
-  description: data.standfirst,
+  description: data.description ?? data.standfirst,
   image: [new URL(ogPath, SITE.url).href],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
@@ -106,7 +106,7 @@ const jsonLd = [articleLd, ...(faqLd ? [faqLd] : [])];
 ---
 <BaseLayout
   title={data.title}
-  description={data.standfirst}
+  description={data.description ?? data.standfirst}
   type="article"
   image={ogPath}
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}

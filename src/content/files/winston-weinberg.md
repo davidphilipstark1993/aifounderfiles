@@ -102,7 +102,7 @@ That is also exactly why law firms had not embraced earlier AI tools. They have 
 
 The idea started with a test. Pereyra showed Weinberg GPT-3 at the end of 2021. They didn't write a pitch deck. They wrote a careful prompt around California landlord-tenant law, took 100 real questions from Reddit's r/legaladvice forum, and had the model answer them. Then they hid who had written the answers and asked three landlord-tenant lawyers to review them. According to Weinberg, for 86 of the 100 questions the lawyers said the answer was good enough to send to a client without changes.
 
-It's worth being clear about what that does and doesn't prove. The test was small, and the scoring has never been published. It is not evidence that a model is 86 percent accurate at law. It is evidence that practising lawyers, looking blind, might treat the output as usable. That is a different and more commercial fact, and it was enough.
+It's worth being clear about what that does and doesn't prove. The test was small, and the scoring has never been published. It is not evidence that a model is 86 per cent accurate at law. It is evidence that practising lawyers, looking blind, might treat the output as usable. That is a different and more commercial fact, and it was enough.
 
 They emailed the results to Sam Altman and to Jason Kwon, then OpenAI's general counsel. On the morning of 4 July 2022 they pitched OpenAI's leadership, and the backing followed. In November, Harvey came out of hiding with a $5 million seed round led by the OpenAI Startup Fund. They had no customers yet. The first institutional money came from the lab whose model they were building on.
 
@@ -132,7 +132,7 @@ The round history is a chart of how fast a market can reprice when its buyers ge
 - **March 2026:** $200 million at $11 billion, co-led by GIC and Sequoia.
 - **9 September 2026:** $550 million at $15.5 billion, co-led by Lightspeed and Diffusion, with Sapphire Ventures and Whale Rock joining Sequoia, Kleiner Perkins, Andreessen Horowitz, Coatue, GIC and others. Some outlets, citing Bloomberg, put the valuation at $15.6 billion.
 
-Put differently, the valuation grew about 41 percent in six months, and Harvey has now raised more than $1.5 billion in total. On the same day it announced the round, Harvey bought Guardrails AI, a San Francisco company that builds safety controls for AI agents. It was Harvey's fourth acquisition this year.
+Put differently, the valuation grew about 41 per cent in six months, and Harvey has now raised more than $1.5 billion in total. On the same day it announced the round, Harvey bought Guardrails AI, a San Francisco company that builds safety controls for AI agents. It was Harvey's fourth acquisition this year.
 
 ## The business model
 
@@ -142,26 +142,26 @@ Here is what has been confirmed or widely reported:
 
 - Annual recurring revenue passed $100 million in August 2025, about three years after founding, and ended the year at around $190 million.
 - This September it was reported to be above $400 million. That figure is widely repeated but wasn't in Harvey's funding announcement, so treat it as the company's number, not a verified one.
-- Harvey says 80 percent of the Am Law 100, the biggest US law firms, now use it, along with five Fortune 10 companies. Customer counts have also grown, from about 1,300 in March to a reported 3,000 or more by September. For context, an independent report in April 2025 had Harvey in 28 percent of the Am Law 100. Growth like that is very fast, and it comes from the company itself.
-- The mix is shifting. At the start of 2025 about 96 percent of the business was law firms and 4 percent corporate legal teams. By late 2025 corporate teams were about a third.
+- Harvey says 80 per cent of the Am Law 100, the biggest US law firms, now use it, along with five Fortune 10 companies. Customer counts have also grown, from about 1,300 in March to a reported 3,000 or more by September. For context, an independent report in April 2025 had Harvey in 28 per cent of the Am Law 100. Growth like that is very fast, and it comes from the company itself.
+- The mix is shifting. At the start of 2025 about 96 per cent of the business was law firms and 4 per cent corporate legal teams. By late 2025 corporate teams were about a third.
 
 At $400 million of revenue, $15.5 billion is roughly 39 times sales. That is a growth multiple, not an earnings multiple. Investors pay it when they believe the workflow could become the system of record for professional services, not just law. Harvey is already talking about tax and finance.
 
 ## What could go wrong
 
-**The model still makes things up.** Stanford's RegLab tested the leading AI legal research tools in 2024-era versions and found they gave wrong or misleading answers between about 17 and 34 percent of the time, better than a general chatbot but nowhere near safe to trust blindly. Courts have kept pace: a public database of cases involving AI-fabricated citations passed 2,000 by September. Harvey's answer is sourcing, the Lexis partnership and a lawyer who still signs off. That helps, but the risk never fully goes away, and a single bad case in a famous firm would sting.
+**The model still makes things up.** Stanford's RegLab tested the leading AI legal research tools in 2024-era versions and found they gave wrong or misleading answers between about 17 and 34 per cent of the time, better than a general chatbot but nowhere near safe to trust blindly. Courts have kept pace: a public database of cases involving AI-fabricated citations passed 2,000 by September. Harvey's answer is sourcing, the Lexis partnership and a lawyer who still signs off. That helps, but the risk never fully goes away, and a single bad case in a famous firm would sting.
 
 **Everyone wants this market.** Legora, a Stockholm company, raised $550 million at a $5.5 billion valuation in March. Thomson Reuters has CoCounsel built into Westlaw, and Clio has bought the legal-research company vLex. Even Harvey's own partner, LexisNexis, is also a rival. And there is the question Weinberg raised himself: what happens if the labs ship a good enough legal agent?
 
 **The billable hour.** If a first-pass contract summary takes minutes, a bill for six hours of associate time is harder to defend. Law firms are Harvey's customers, and they make their money from the very thing Harvey makes faster. Weinberg has said he cares about this, and that AI should help junior lawyers learn faster, not vanish. But if the work that used to train juniors goes to machines, the next generation of partners has to come from somewhere.
 
-**The price tag.** Thirty-nine times revenue assumes the growth continues, and the 80 percent figure comes from the company. Earning the valuation every day is the right goal. It is also what founders tend to say when the number has gotten a little ahead of the proof.
+**The price tag.** Thirty-nine times revenue assumes the growth continues, and the 80 per cent figure comes from the company. Earning the valuation every day is the right goal. It is also what founders tend to say when the number has gotten a little ahead of the proof.
 
 **The supply chain.** Harvey's new model starts from a Chinese lab's open-weight base. That is a legitimate and increasingly common technique, and the model is a research preview. But a profession built on confidentiality and caution is likely to ask where the model came from and what it was trained on.
 
 ## What to watch
 
-1. **The 80 percent.** Does Harvey keep winning inside the Am Law 100, and does it spread to firms outside the top tier, where the price per seat is harder to justify?
+1. **The 80 per cent.** Does Harvey keep winning inside the Am Law 100, and does it spread to firms outside the top tier, where the price per seat is harder to justify?
 2. **Tenet.** Does Harvey's own model make it cheaper and better, or does it prompt clients to ask harder questions about its origins?
 3. **The labs.** Do OpenAI, Anthropic or Google ship a legal agent that is good enough, and does Harvey's workflow, its vault and its audit trail hold up as the moat?
 4. **The incumbents.** Do Thomson Reuters, LexisNexis and Clio decide the partnership era is over?

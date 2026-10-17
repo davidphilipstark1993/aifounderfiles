@@ -2,6 +2,8 @@
 title: "Sam Altman and the company he doesn't own"
 standfirst: "He runs the company behind ChatGPT on a salary of roughly $65,000 to $76,000, and holds no direct stake in a business last valued at $852 billion. This is how Sam Altman got there, and what could still go wrong."
 fileNumber: 1
+# Shortened from the 211-character standfirst, which search results cut off. TODO(owner): approve the wording.
+description: "Sam Altman runs OpenAI, maker of ChatGPT, on a reported salary of $65,000 to $76,000, with no direct stake in a company last valued at $852 billion."
 publishDate: 2026-10-04
 author: editorial
 founder:
@@ -16,7 +18,7 @@ company:
   stage: "Private, late stage (no IPO in 2026)"
   funding: "$122bn round at an $852bn valuation (March 2026)"
   businessModel: "Subscriptions, business and API, advertising"
-tags: ["openai", "chatgpt", "frontier-ai", "y-combinator", "energy"]
+tags: ["openai", "chatgpt", "frontier-ai", "y-combinator", "sam-altman"]
 # TODO(owner): review these answers before they stay live. They're drafted only from facts already in this file, with the source numbers the body uses.
 faq:
   - question: "Does Sam Altman own OpenAI?"

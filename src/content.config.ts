@@ -31,6 +31,8 @@ const files = defineCollection({
     z.object({
       title: z.string(),
       standfirst: z.string(),
+      /** Meta description (also Open Graph and JSON-LD). About 155 characters; falls back to the standfirst. */
+      description: z.string().max(160).optional(),
       fileNumber: z.number().int().positive(),
       publishDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
