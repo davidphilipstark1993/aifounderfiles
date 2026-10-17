@@ -492,7 +492,14 @@ a {
   width: 100%;
   height: 100%;
 }
+.index__also {
+  margin: -0.5rem 0.5rem 1.25rem;
+  font-size: 0.75rem;
+}
 @media (min-width: 800px) {
+  .index__also {
+    margin-left: calc(5.5rem + 1.5rem + 0.75rem);
+  }
   .index__row {
     grid-template-columns: 5.5rem minmax(0, 1.6fr) minmax(0, 1fr) 1.5rem;
     grid-template-areas: 'num main meta go';

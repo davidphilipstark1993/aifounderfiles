@@ -73,7 +73,7 @@ Hold on to that, because it is the best way into this week's file. It is the sto
 
 - **Who:** Dario Amodei, CEO, and his sister Daniela Amodei, president, co-founders of Anthropic.
 - **What:** Anthropic builds Claude, the AI model and assistant that businesses, developers and coders have made one of the most used in the world.
-- **Why it matters:** Anthropic is the counter-argument to OpenAI, built by people who left it. Its bet is that safety is not a blog post beside the product. It is the product, and in 2026 it cost them a fight with the Pentagon.
+- **Why it matters:** Anthropic is the counter-argument to [OpenAI](/files/sam-altman/), built by people who left it. Its bet is that safety is not a blog post beside the product. It is the product, and in 2026 it cost them a fight with the Pentagon.
 - **The number to remember:** $965 billion. That is what Anthropic was valued at in May, more than OpenAI's $852 billion at the time.
 
 ## The founders
@@ -92,9 +92,9 @@ You can read the whole company in that split. He is the research bet. She is the
 
 ## The problem
 
-By 2020 the Amodeis wanted something OpenAI was no longer offering. The public line was "directional differences". The longer account, pieced together since, is sharper. The journalist Kevin Roose reports, based on interviews and Dario's own private notes, that Dario lost trust in Sam Altman's candour, objected to an early idea of selling access to advanced AI to governments, and failed to win a veto for the safety team over product launches. Dario has himself said that when you cannot trust someone, it is very hard to keep working with a company.
+By 2020 the Amodeis wanted something OpenAI was no longer offering. The public line was "directional differences". The longer account, pieced together since, is sharper. The journalist Kevin Roose reports, based on interviews and Dario's own private notes, that Dario lost trust in [Sam Altman](/files/sam-altman/)'s candour, objected to an early idea of selling access to advanced AI to governments, and failed to win a veto for the safety team over product launches. Dario has himself said that when you cannot trust someone, it is very hard to keep working with a company.
 
-That is one side, reported through one author, and Altman and his colleagues would tell it differently. (If you read File #001, you will remember Altman's own admission that he handles conflict badly.) What no one disputes is the outcome. At the end of 2020 Dario, Daniela and a group of senior researchers left together.
+That is one side, reported through one author, and Altman and his colleagues would tell it differently. (If you read [File #001](/files/sam-altman/), you will remember Altman's own admission that he handles conflict badly.) What no one disputes is the outcome. At the end of 2020 Dario, Daniela and a group of senior researchers left together.
 
 In early 2021 they founded Anthropic with five other former OpenAI colleagues: Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish and Chris Olah. (Some accounts count an eighth, Ben Mann.) The name means "of or relating to human beings", which is a clue to the mission. The problem they wanted to solve was how to build very powerful AI with the safeguards built in from day one, not bolted on after launch.
 
@@ -124,7 +124,7 @@ On 1 June Anthropic confidentially filed for a stock-market listing. The prospec
 
 Now the part that is easy to miss. The seven co-founders each own about 1.6 per cent of the company. Forbes estimated each fortune at about $15.5 billion after the May round, and six of them appeared on this year's Forbes 400. In January all seven pledged to give away 80 per cent of their wealth. Dario's reasoning, in the Fortune interview, is that the thing to worry about is a level of wealth concentration that could break society.
 
-It is a very different shape from File #001. Altman owns no direct stake in OpenAI and builds his wealth through a private portfolio. The Amodeis own a small slice of the thing they run, and have promised most of it away.
+It is a very different shape from [File #001](/files/sam-altman/). Altman owns no direct stake in OpenAI and builds his wealth through a private portfolio. The Amodeis own a small slice of the thing they run, and have promised most of it away.
 
 ## The business model
 

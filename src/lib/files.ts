@@ -54,41 +54,97 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
-export type Founder = { name: string; role: string; company: string; entry: FileEntry };
-export type Company = FileEntry['data']['company'] & { founder: string; entry: FileEntry };
+/**
+ * The names a file's founder and company go by in other files' text, e.g. "Dario and Daniela Amodei"
+ * -> Dario Amodei, Daniela Amodei, Amodei, Amodeis.
+ */
+export function entityAliases(data: FileEntry['data']): { founder: string[]; company: string[] } {
+  const parts = data.founder.name.split(/\s+and\s+/);
+  const surname = parts.at(-1)!.split(' ').slice(1).pop();
+  const founder = new Set<string>();
+  parts.forEach((p, i) => founder.add(i < parts.length - 1 && !p.includes(' ') && surname ? `${p} ${surname}` : p));
+  if (parts.length > 1 && surname) [surname, `${surname}s`].forEach((s) => founder.add(s));
+  return { founder: [...founder], company: [data.company.name] };
+}
 
-/** One row per founder. If a founder is covered twice, the newest file wins. */
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Other files whose text names one of `aliases`. */
+function mentionedIn(aliases: string[], own: FileEntry[], all: FileEntry[]) {
+  const re = new RegExp(`\\b(?:${aliases.map(escapeRe).join('|')})\\b`);
+  return all.filter((f) => !own.includes(f) && re.test(f.body ?? ''));
+}
+
+export type Founder = {
+  name: string;
+  role: string;
+  company: string;
+  /** The newest file about them. */
+  entry: FileEntry;
+  /** Every file about them, newest first. */
+  entries: FileEntry[];
+  /** Other files that name them in the text. */
+  mentionedIn: FileEntry[];
+};
+export type Company = FileEntry['data']['company'] & {
+  founder: string;
+  entry: FileEntry;
+  entries: FileEntry[];
+  mentionedIn: FileEntry[];
+};
+
+/** One row per founder, with every file they are the subject of. */
 export async function getFounders(): Promise<Founder[]> {
-  const seen = new Map<string, Founder>();
-  for (const entry of await getPublishedFiles()) {
+  const all = await getPublishedFiles();
+  const groups = new Map<string, FileEntry[]>();
+  for (const entry of all) {
     const key = slugify(entry.data.founder.name);
-    if (!seen.has(key)) {
-      seen.set(key, {
+    groups.set(key, [...(groups.get(key) ?? []), entry]);
+  }
+  return [...groups.values()]
+    .map((entries) => {
+      const [entry] = entries; // newest first
+      return {
         name: entry.data.founder.name,
         role: entry.data.founder.role,
         company: entry.data.company.name,
         entry,
-      });
-    }
-  }
-  return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
+        entries,
+        mentionedIn: mentionedIn(entityAliases(entry.data).founder, entries, all),
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
 }
 
 export async function getCompanies(): Promise<Company[]> {
-  const seen = new Map<string, Company>();
-  for (const entry of await getPublishedFiles()) {
+  const all = await getPublishedFiles();
+  const groups = new Map<string, FileEntry[]>();
+  for (const entry of all) {
     const key = slugify(entry.data.company.name);
-    if (!seen.has(key)) seen.set(key, { ...entry.data.company, founder: entry.data.founder.name, entry });
+    groups.set(key, [...(groups.get(key) ?? []), entry]);
   }
-  return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
+  return [...groups.values()]
+    .map((entries) => {
+      const [entry] = entries;
+      return {
+        ...entry.data.company,
+        founder: entry.data.founder.name,
+        entry,
+        entries,
+        mentionedIn: mentionedIn(entityAliases(entry.data).company, entries, all),
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
 }
 
-/** Files that share tags or a sector with `current`, topped up with the newest others. */
+/** Files about the same company or founder first, then files that share tags or a sector, topped up with the newest others. */
 export function relatedFiles(current: FileEntry, all: FileEntry[], count = 3): FileEntry[] {
   const others = all.filter((f) => f.id !== current.id);
   const score = (f: FileEntry) =>
     f.data.tags.filter((t) => current.data.tags.includes(t)).length +
-    (f.data.company.sector === current.data.company.sector ? 2 : 0);
+    (f.data.company.sector === current.data.company.sector ? 2 : 0) +
+    (slugify(f.data.company.name) === slugify(current.data.company.name) ? 6 : 0) +
+    (slugify(f.data.founder.name) === slugify(current.data.founder.name) ? 6 : 0);
   return others
     .map((f, i) => ({ f, s: score(f), i }))
     .sort((a, b) => b.s - a.s || a.i - b.i)

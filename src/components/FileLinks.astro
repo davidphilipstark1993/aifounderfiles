@@ -1,0 +1,29 @@
+---
+import { fileNumberLabel, fileUrl, type FileEntry } from '../lib/files';
+interface Props {
+  prefix: string;
+  entries: FileEntry[];
+}
+const { prefix, entries } = Astro.props;
+---
+{entries.length > 0 && (
+  <span class="file-links">
+    {prefix}
+    {entries.map((e, i) => (
+      <>{i > 0 && ', '}<a href={fileUrl(e)} title={e.data.title}>File {fileNumberLabel(e.data.fileNumber)}</a></>
+    ))}
+  </span>
+)}
+
+<style>
+  .file-links {
+    display: block;
+  }
+  .file-links a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+</style>

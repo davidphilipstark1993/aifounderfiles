@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
+import FileLinks from '../components/FileLinks.astro';
 import { fileNumberLabel, fileUrl, getFounders } from '../lib/files';
 const founders = await getFounders();
 ---
@@ -26,6 +27,12 @@ const founders = await getFounders();
             <span class="index__meta label label--muted">{f.company} · {f.entry.data.company.sector}</span>
             <span class="index__go" aria-hidden="true"><Arrow /></span>
           </a>
+          {(f.entries.length > 1 || f.mentionedIn.length > 0) && (
+            <p class="index__also label label--muted">
+              <FileLinks prefix="Also the subject of: " entries={f.entries.slice(1)} />
+              <FileLinks prefix="Also mentioned in: " entries={f.mentionedIn} />
+            </p>
+          )}
         </li>
       ))}
     </ul>

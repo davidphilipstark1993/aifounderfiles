@@ -71,7 +71,7 @@ Picture a first-year litigation associate at a big Los Angeles law firm. He has 
 
 That associate was Winston Weinberg. The roommate was Gabe Pereyra. And what happened next is the shortest route we know from "I wonder if this works" to a company valued at $15.5 billion.
 
-In File #001 we met Sam Altman, the most powerful person in AI. This week we meet someone who emailed him. Weinberg wasn't a researcher, an engineer or a Silicon Valley insider. He didn't grow up in San Francisco and had no tech connections. What he had was a job, a roommate, and a hundred questions from Reddit. (All figures are in US dollars.)
+In [File #001](/files/sam-altman/) we met Sam Altman, the most powerful person in AI. This week we meet someone who emailed him. Weinberg wasn't a researcher, an engineer or a Silicon Valley insider. He didn't grow up in San Francisco and had no tech connections. What he had was a job, a roommate, and a hundred questions from Reddit. (All figures are in US dollars.)
 
 ## The short version
 
@@ -104,7 +104,7 @@ The idea started with a test. Pereyra showed Weinberg GPT-3 at the end of 2021. 
 
 It's worth being clear about what that does and doesn't prove. The test was small, and the scoring has never been published. It is not evidence that a model is 86 per cent accurate at law. It is evidence that practising lawyers, looking blind, might treat the output as usable. That is a different and more commercial fact, and it was enough.
 
-They emailed the results to Sam Altman and to Jason Kwon, then OpenAI's general counsel. On the morning of 4 July 2022 they pitched OpenAI's leadership, and the backing followed. In November, Harvey came out of hiding with a $5 million seed round led by the OpenAI Startup Fund. They had no customers yet. The first institutional money came from the lab whose model they were building on.
+They emailed the results to Sam Altman and to Jason Kwon, then [OpenAI](/files/sam-altman/)'s general counsel. On the morning of 4 July 2022 they pitched OpenAI's leadership, and the backing followed. In November, Harvey came out of hiding with a $5 million seed round led by the OpenAI Startup Fund. They had no customers yet. The first institutional money came from the lab whose model they were building on.
 
 **The name** is a small piece of strategy. It is a human name, so a lawyer can think of the tool as a colleague. It nods to Harvey Specter, the lawyer in the TV drama *Suits* who made a generation want the job. This year Harvey even signed a brand deal with Gabriel Macht, the actor who played him, and launched an Instagram account under the handle @askharvey. For a buyer as cautious as a law firm, a friendly brand is part of the product.
 
@@ -163,7 +163,7 @@ At $400 million of revenue, $15.5 billion is roughly 39 times sales. That is a g
 
 1. **The 80 per cent.** Does Harvey keep winning inside the Am Law 100, and does it spread to firms outside the top tier, where the price per seat is harder to justify?
 2. **Tenet.** Does Harvey's own model make it cheaper and better, or does it prompt clients to ask harder questions about its origins?
-3. **The labs.** Do OpenAI, Anthropic or Google ship a legal agent that is good enough, and does Harvey's workflow, its vault and its audit trail hold up as the moat?
+3. **The labs.** Do OpenAI, [Anthropic](/files/amodei-siblings/) or Google ship a legal agent that is good enough, and does Harvey's workflow, its vault and its audit trail hold up as the moat?
 4. **The incumbents.** Do Thomson Reuters, LexisNexis and Clio decide the partnership era is over?
 5. **The billable hour.** Do firms and their clients start to renegotiate how legal work is priced, and who wins when they do?
 
