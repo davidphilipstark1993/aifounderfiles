@@ -503,3 +503,13 @@ a {
     text-align: right;
   }
 }
+
+.hub-intro {
+  max-width: var(--measure);
+  margin: 0 0 1.5rem;
+}
+.hub-intro a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

@@ -1,6 +1,8 @@
 ---
 title: "The Amodei siblings and the lab built on saying no"
 standfirst: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion, locked in a fight with the Pentagon, and heading for a stock-market listing that could be the largest ever."
+seoTitle: "Amodei Siblings, Anthropic: The Lab Built on Saying No"
+metaDescription: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion and heading for a stock-market listing."
 fileNumber: 2
 publishDate: 2026-10-11
 author: "AI Founder Files"
@@ -73,7 +75,7 @@ Hold on to that, because it is the best way into this week's file. It is the sto
 
 - **Who:** Dario Amodei, CEO, and his sister Daniela Amodei, president, co-founders of Anthropic.
 - **What:** Anthropic builds Claude, the AI model and assistant that businesses, developers and coders have made one of the most used in the world.
-- **Why it matters:** Anthropic is the counter-argument to OpenAI, built by people who left it. Its bet is that safety is not a blog post beside the product. It is the product, and in 2026 it cost them a fight with the Pentagon.
+- **Why it matters:** Anthropic is the counter-argument to [OpenAI](/files/sam-altman/), built by people who left it. Its bet is that safety is not a blog post beside the product. It is the product, and in 2026 it cost them a fight with the Pentagon.
 - **The number to remember:** $965 billion. That is what Anthropic was valued at in May, more than OpenAI's $852 billion at the time.
 
 ## The founders
@@ -124,7 +126,7 @@ On 1 June Anthropic confidentially filed for a stock-market listing. The prospec
 
 Now the part that is easy to miss. The seven co-founders each own about 1.6 percent of the company. Forbes estimated each fortune at about $15.5 billion after the May round, and six of them appeared on this year's Forbes 400. In January all seven pledged to give away 80 percent of their wealth. Dario's reasoning, in the Fortune interview, is that the thing to worry about is a level of wealth concentration that could break society.
 
-It is a very different shape from File #001. Altman owns no direct stake in OpenAI and builds his wealth through a private portfolio. The Amodeis own a small slice of the thing they run, and have promised most of it away.
+It is a very different shape from [File #001](/files/sam-altman/). Altman owns no direct stake in OpenAI and builds his wealth through a private portfolio. The Amodeis own a small slice of the thing they run, and have promised most of it away.
 
 ## The business model
 

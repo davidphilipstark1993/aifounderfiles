@@ -8,6 +8,9 @@ const files = defineCollection({
     z.object({
       title: z.string(),
       standfirst: z.string(),
+      // Search-result overrides: a title of about 60 characters and a description of about 160. Both fall back to title/standfirst.
+      seoTitle: z.string().optional(),
+      metaDescription: z.string().optional(),
       fileNumber: z.number().int().positive(),
       publishDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),

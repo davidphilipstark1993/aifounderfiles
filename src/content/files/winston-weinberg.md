@@ -1,6 +1,8 @@
 ---
 title: "Winston Weinberg and the associate who cold-emailed Sam Altman"
 standfirst: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed the results to OpenAI. Four years later Harvey is valued at $15.5 billion, and the roommates still share the flat."
+seoTitle: "Winston Weinberg, Harvey: The Cold Email to Sam Altman"
+metaDescription: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed OpenAI. Four years later Harvey is valued at $15.5 billion."
 fileNumber: 3
 publishDate: 2026-10-18
 author: "AI Founder Files"
@@ -71,7 +73,7 @@ Picture a first-year litigation associate at a big Los Angeles law firm. He has 
 
 That associate was Winston Weinberg. The roommate was Gabe Pereyra. And what happened next is the shortest route we know from "I wonder if this works" to a company valued at $15.5 billion.
 
-In File #001 we met Sam Altman, the most powerful person in AI. This week we meet someone who emailed him. Weinberg wasn't a researcher, an engineer or a Silicon Valley insider. He didn't grow up in San Francisco and had no tech connections. What he had was a job, a roommate, and a hundred questions from Reddit. (All figures are in US dollars.)
+In [File #001](/files/sam-altman/) we met Sam Altman, the most powerful person in AI. This week we meet someone who emailed him. Weinberg wasn't a researcher, an engineer or a Silicon Valley insider. He didn't grow up in San Francisco and had no tech connections. What he had was a job, a roommate, and a hundred questions from Reddit. (All figures are in US dollars.)
 
 ## The short version
 

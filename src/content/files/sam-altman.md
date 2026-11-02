@@ -1,6 +1,8 @@
 ---
 title: "Sam Altman and the company he doesn't own"
 standfirst: "He runs the company behind ChatGPT on a salary of roughly $65,000 to $76,000, and holds no direct stake in a business last valued at $852 billion. This is how Sam Altman got there, and what could still go wrong."
+seoTitle: "Sam Altman, OpenAI: The Company He Doesn't Own"
+metaDescription: "He runs the company behind ChatGPT on a salary of roughly $65,000 to $76,000 and holds no direct stake in it. How Sam Altman got there, and what could go wrong."
 fileNumber: 1
 publishDate: 2026-10-04
 author: "AI Founder Files"
@@ -150,7 +152,7 @@ Which brings up the obvious awkward question. In March this year Altman stepped 
 
 **The founding story.** Musk sued, seeking up to $150 billion and arguing that OpenAI betrayed its nonprofit mission. In May 2026 a jury ruled unanimously, in under two hours, that he had waited too long to sue. That was a win on timing rather than on the underlying question, and Musk has said he will appeal.
 
-**Safety, and the pace of it all.** In mid-September, Anthropic's Dario Amodei published an essay urging AI labs to slow the pace of their most advanced models. Both Altman and Musk backed it, and Altman said OpenAI would give independent evaluators employee-like access to its work, with details to follow. It was a notable change of tone from a company known for shipping fast. Caution as policy, acceleration as strategy: that is the Altman tension in one sentence.
+**Safety, and the pace of it all.** In mid-September, [Anthropic's Dario Amodei](/files/amodei-siblings/) published an essay urging AI labs to slow the pace of their most advanced models. Both Altman and Musk backed it, and Altman said OpenAI would give independent evaluators employee-like access to its work, with details to follow. It was a notable change of tone from a company known for shipping fast. Caution as policy, acceleration as strategy: that is the Altman tension in one sentence.
 
 **The human cost of being him.** On 10 April a man threw a Molotov cocktail at Altman's San Francisco home, setting fire to part of a gate. No one was hurt. The suspect, a 20-year-old, had reportedly written essays about AI ending humanity. Altman responded by posting a photo of his family and asking everyone to turn down the rhetoric. A second incident followed days later. Whatever you think of him, the stakes of this story have become very personal.
 

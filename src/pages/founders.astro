@@ -1,19 +1,53 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
-import { fileNumberLabel, fileUrl, getFounders } from '../lib/files';
+import { SITE } from '../lib/site';
+import { fileNumberLabel, fileUrl, formatDate, getFounders, isoDate, shortVersion } from '../lib/files';
 const founders = await getFounders();
+const url = `${SITE.url}/founders/`;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Founders',
+    url,
+    description: 'Every AI founder profiled in an AI Founder Files deep dive, with their company, role and a link to the full, sourced file. A new founder every week.',
+    isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: founders.length,
+      itemListElement: founders.map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: new URL(fileUrl(f.entry), SITE.url).href,
+        name: f.name,
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Founders', item: url },
+    ],
+  },
+];
 ---
 <PageLayout
   noindex={founders.length === 0}
-  title="Founders"
-  description="Every founder profiled in an AI Founder Files deep dive, one file each."
+  title="Founders: Every AI Founder We’ve Profiled"
+  description="Every AI founder profiled in an AI Founder Files deep dive, with their company, role and a link to the full, sourced file. A new founder every week."
   label="The index"
   heading="Founders"
   lede="Every founder we’ve profiled, with a link to their file."
   prose={false}
+  jsonLd={jsonLd}
 >
   {founders.length > 0 ? (
+    <>
+    <p class="hub-intro">{founders.length} {founders.length === 1 ? 'founder' : 'founders'} profiled so far. Each entry links to the full, sourced file. See also <a href="/companies/">the companies</a> and <a href="/archive/">the archive</a>.</p>
+    <h2 class="index__year">Founders profiled</h2>
     <ul class="index" role="list">
       {founders.map((f) => (
         <li>
@@ -21,14 +55,16 @@ const founders = await getFounders();
             <span class="index__num label label--muted">{fileNumberLabel(f.entry.data.fileNumber)}</span>
             <span class="index__main">
               <span class="index__title">{f.name}</span>
-              <span class="index__sub">{f.role}</span>
+              <span class="index__sub">{f.role}, {f.company}</span>
+              {shortVersion(f.entry).who && <span class="index__sub">{shortVersion(f.entry).who}</span>}
             </span>
-            <span class="index__meta label label--muted">{f.company} · {f.entry.data.company.sector}</span>
+            <span class="index__meta label label--muted">{f.entry.data.company.sector} · <time datetime={isoDate(f.entry.data.publishDate)}>{formatDate(f.entry.data.publishDate, 'short')}</time></span>
             <span class="index__go" aria-hidden="true"><Arrow /></span>
           </a>
         </li>
       ))}
     </ul>
+    </>
   ) : (
     <div class="empty-state">
       <p class="label label--signal">Nothing filed yet</p>

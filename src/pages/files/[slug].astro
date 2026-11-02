@@ -16,6 +16,7 @@ import {
   notAfterNow,
   readingTime,
   relatedFiles,
+  shortVersion,
   type FileEntry,
 } from '../../lib/files';
 import { SITE } from '../../lib/site';
@@ -37,6 +38,10 @@ const minutes = readingTime(entry.body);
 const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
 const pillar = pillarOf(entry);
+const brief = shortVersion(entry);
+// Search-result title: the brand suffix is dropped when it would push the title past about 60 characters.
+const seoTitle = data.seoTitle ?? data.title;
+const withBrand = `${seoTitle} | ${SITE.name}`;
 const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
@@ -102,8 +107,9 @@ const articleLd = {
 const jsonLd = [articleLd, breadcrumbLd];
 ---
 <BaseLayout
-  title={data.title}
-  description={data.standfirst}
+  title={seoTitle}
+  fullTitle={withBrand.length > 62}
+  description={data.metaDescription ?? data.standfirst}
   type="article"
   image={ogPath}
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
@@ -164,6 +170,13 @@ const jsonLd = [articleLd, breadcrumbLd];
 
     <div class="file-body">
       <div class="wrap">
+        {(brief.who || brief.what) && (
+          <section class="brief" aria-label="In brief">
+            <p class="label label--signal">In brief</p>
+            {brief.who && <p><strong>Who:</strong> {brief.who}</p>}
+            {brief.what && <p><strong>What:</strong> {brief.what}</p>}
+          </section>
+        )}
         <div class="prose file-prose">
           <Content />
         </div>
@@ -179,6 +192,10 @@ const jsonLd = [articleLd, breadcrumbLd];
             ))}
           </ol>
         </section>
+
+        <p class="hubs label label--muted">
+          Browse <a href="/founders/">all founders</a> · <a href="/companies/">all companies</a> · <a href="/archive/">the archive</a>
+        </p>
       </div>
     </div>
   </article>
@@ -278,6 +295,29 @@ const jsonLd = [articleLd, breadcrumbLd];
     .file-head__grid {
       grid-template-columns: minmax(0, 1fr) 25rem;
     }
+  }
+  .brief {
+    max-width: var(--measure);
+    margin: 0 auto 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--manila);
+    border-radius: var(--radius);
+  }
+  .brief p {
+    margin: 0.5rem 0 0;
+    color: var(--ink);
+  }
+  .brief p:first-child {
+    margin-top: 0;
+  }
+  .hubs {
+    max-width: var(--measure);
+    margin: 2rem auto 0;
+  }
+  .hubs a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .file-hero {
     margin-bottom: 2.5rem;

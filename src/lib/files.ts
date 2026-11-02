@@ -24,6 +24,21 @@ export const isUpcoming = (entry: FileEntry, now = new Date()) => entry.data.pub
 /** For machine-readable dates (JSON-LD, RSS, meta): a date is never in the future. */
 export const notAfterNow = (d: Date, now = new Date()) => (d.getTime() > now.getTime() ? now : d);
 
+/** The "Who" and "What" bullets of a file's "The short version" section, as plain text. Missing if the file has no such section. */
+export function shortVersion(entry: FileEntry): { who?: string; what?: string } {
+  const lines = (entry.body ?? '').split('\n');
+  const start = lines.findIndex((l) => /^##\s+The short version\s*$/.test(l));
+  if (start === -1) return {};
+  const end = lines.findIndex((l, i) => i > start && /^##\s/.test(l));
+  const bullets = lines.slice(start + 1, end === -1 ? undefined : end);
+  const plain = (s: string) => s.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').trim();
+  const pick = (label: string) => {
+    const line = bullets.find((l) => l.startsWith(`- **${label}:**`));
+    return line ? plain(line.replace(`- **${label}:**`, '')) : undefined;
+  };
+  return { who: pick('Who'), what: pick('What') };
+}
+
 export const fileNumberLabel = (n: number) => `#${String(n).padStart(3, '0')}`;
 
 export const fileUrl = (entry: FileEntry) => `/files/${entry.id}/`;

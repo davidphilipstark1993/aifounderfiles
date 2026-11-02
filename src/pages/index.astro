@@ -28,6 +28,8 @@ const title = latest?.data.title ?? currentIssue.title;
 const standfirst = latest?.data.standfirst ?? currentIssue.standfirst;
 const facts = latest ? factFields(latest.data, true) : currentIssue.facts;
 
+const listed = [...issued].filter((f) => !f.data.draft).sort((a, b) => b.data.fileNumber - a.data.fileNumber);
+// TODO(David): File #004 (maarten-road-exemptions) is still draft: true and its date (25 Oct 2026) has passed. Set draft: false to publish it, or move its publishDate.
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -48,6 +50,18 @@ const jsonLd = [
     inLanguage: 'en-GB',
     publisher: { '@id': `${SITE.url}/#organization` },
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Published files',
+    numberOfItems: listed.length,
+    itemListElement: listed.map((f, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: new URL(fileUrl(f), SITE.url).href,
+      name: f.data.title,
+    })),
+  },
 ];
 ---
 <BaseLayout
@@ -61,8 +75,8 @@ const jsonLd = [
       <div class="intro__copy on-ink">
         <p class="label label--signal">A weekly newsletter on AI founders</p>
         <h1 id="intro-title" class="display intro__title">
-          <span class="intro__line">One founder.</span>
-          <span class="intro__line">One company.</span>
+          <span class="intro__line">One founder.</span>{' '}
+          <span class="intro__line">One company.</span>{' '}
           <span class="intro__line">One deep dive.</span>
         </h1>
         <p class="intro__lede">
