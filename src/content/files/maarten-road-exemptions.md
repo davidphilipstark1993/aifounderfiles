@@ -1,6 +1,7 @@
 ---
 title: "The man who laminated every card at his kitchen table"
 standfirst: "A Dutch founder with a day job, a mortgage and two kids ran his business on Google Forms for five years. Then he rebuilt it with Claude Code, took a month on a boat, and says the hard part was understanding the process first."
+metaDescription: "A Dutch founder with a day job and two kids ran his business on Google Forms for five years, then rebuilt it with Claude Code and took a month on a boat."
 fileNumber: 4
 publishDate: 2026-10-25
 author: "AI Founder Files"
@@ -28,7 +29,7 @@ sources:
     url: "https://en.wikipedia.org/wiki/Claude_(language_model)"
   - title: "Anthropic funding announcement quoted by Simon Willison (12 February 2026)"
     url: "https://simonwillison.net/2026/Feb/12/anthropic/"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #004. Thank you for staying with us.

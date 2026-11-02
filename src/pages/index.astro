@@ -29,7 +29,6 @@ const standfirst = latest?.data.standfirst ?? currentIssue.standfirst;
 const facts = latest ? factFields(latest.data, true) : currentIssue.facts;
 
 const listed = [...issued].filter((f) => !f.data.draft).sort((a, b) => b.data.fileNumber - a.data.fileNumber);
-// TODO(David): File #004 (maarten-road-exemptions) is still draft: true and its date (25 Oct 2026) has passed. Set draft: false to publish it, or move its publishDate.
 const jsonLd = [
   {
     '@context': 'https://schema.org',
