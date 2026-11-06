@@ -1,0 +1,36 @@
+---
+/**
+ * A place on a page where adverts from the admin (Advertisements tab) can appear.
+ * Renders nothing visible until the browser has fetched a live advert for it, so a page with
+ * no adverts looks exactly as it did before. Placement keys live in lib/ads/shared.ts.
+ */
+import '../styles/ads.css';
+import { slotConfig } from '../../lib/ads/shared';
+
+interface Props {
+  placement: string;
+  /** Section heading shown above the adverts (only when one is shown). */
+  heading?: string;
+  /** Background of the strip. */
+  tone?: 'paper' | 'manila' | 'rule';
+  max?: number;
+}
+const { placement, heading, tone = 'paper', max } = Astro.props;
+if (!slotConfig(placement)) throw new Error(`Unknown ad placement: ${placement}`);
+---
+<section
+  class:list={['ad-slot', `ad-slot--${tone}`]}
+  data-ad-slot={placement}
+  data-ad-max={max}
+  aria-label={heading ?? 'Recommended'}
+  hidden
+>
+  <div class="wrap">
+    {heading && <div class="section-head"><h2>{heading}</h2></div>}
+    <div class="ad-slot__list" data-ad-list></div>
+  </div>
+</section>
+
+<script>
+  import '../lib/ad-slots';
+</script>

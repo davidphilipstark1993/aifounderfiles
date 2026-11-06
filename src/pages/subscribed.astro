@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
+import AdSlot from '../components/AdSlot.astro';
 ---
 <PageLayout
   title="You’re on the list"
@@ -10,6 +11,8 @@ import Arrow from '../components/Arrow.astro';
   lede="A welcome email is on its way. Your first file arrives on Sunday."
   noindex
   prose={false}
+  adSlot={false}
 >
   <a class="link-arrow" href="/archive/"><span>Browse the archive</span><Arrow /></a>
+  <div slot="after"><AdSlot placement="subscribed" tone="rule" /></div>
 </PageLayout>

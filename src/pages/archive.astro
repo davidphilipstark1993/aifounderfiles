@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
+import AdSlot from '../components/AdSlot.astro';
 import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../lib/files';
 
 const files = await getPublishedFiles(); // already newest first
@@ -18,6 +19,7 @@ for (const f of files) {
   heading="All files"
   lede="Every Founder File, newest first."
   prose={false}
+  adSlot={false}
 >
   {files.length > 0 ? (
     [...byYear.entries()].map(([year, items]) => (
@@ -47,4 +49,5 @@ for (const f of files) {
       <a class="link-arrow" href="/subscribe/"><span>Subscribe to hear first</span><Arrow /></a>
     </div>
   )}
+  <div slot="after"><AdSlot placement="newsletter" tone="rule" /></div>
 </PageLayout>

@@ -6,6 +6,7 @@ import NewsletterBand from '../components/NewsletterBand.astro';
 import SampleIssue from '../components/SampleIssue.astro';
 import SubscribeForm from '../components/SubscribeForm.astro';
 import Arrow from '../components/Arrow.astro';
+import AdSlot from '../components/AdSlot.astro';
 import { factFields, fileNumberLabel, fileUrl, getPublishedFiles, isUpcoming } from '../lib/files';
 import { SITE } from '../lib/site';
 import { currentIssue } from '../data/current-issue';
@@ -68,6 +69,7 @@ const jsonLd = [
   title={`${SITE.name} — ${SITE.tagline}`}
   description={SITE.description}
   jsonLd={jsonLd}
+  adSlot={false}
 >
   <section class="intro" aria-labelledby="intro-title">
     <div class="wrap intro__grid">
@@ -156,6 +158,8 @@ const jsonLd = [
 
   <div id="sample" class="section--rule"><SampleIssue id="home-sample" /></div>
 
+  <AdSlot placement="home-between" tone="manila" />
+
   {comingUp.length > 0 && (
     <section class="section section--rule" aria-labelledby="coming-title">
       <div class="wrap">
@@ -188,6 +192,8 @@ const jsonLd = [
       </div>
     </section>
   )}
+
+  <AdSlot placement="home-promo" tone="rule" heading="Also from the publisher" />
 
   <NewsletterBand id="home-subscribe" />
 </BaseLayout>

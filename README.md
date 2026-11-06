@@ -142,6 +142,22 @@ Locally: `npm run newsletter:dry-run`.
 
 ---
 
+## Advertisements and cross-promotion
+
+Manage everything at **/admin/ > Advertisements**: upload an image, write the headline, description and button text, pick placements, set dates and priority, preview on desktop and mobile, then switch it on. No code changes or redeploys are needed.
+
+**One-off setup:** run `supabase/migrations/003_advertisements.sql` in the Supabase SQL editor. It creates `advertisements`, `advertisement_stats` (daily counters only), two functions and a public `ads` image bucket. It uses the same env vars as the newsletter; there is nothing new to configure.
+
+**Placements** (`lib/ads/shared.ts`): homepage promo, homepage between sections, founder pages (pillar `founder-files`), company pages (`company-files`), article pages (the other pillars), newsletter pages (Subscribe and Archive), subscription confirmation, and site-wide. A site-wide advert is eligible in every slot and also fills a slim strip above the footer on pages with no placement of their own. To add a placement, add it to `PLACEMENTS` and drop `<AdSlot placement="..."/>` into a page.
+
+**How it works:** pages stay static. `AdSlot` renders a hidden section; `src/lib/ad-slots.ts` asks `/api/ads/` (cached 30 s) for what is live (active, not archived, inside its dates), fills the slots and de-duplicates across them. Slots stay hidden until filled, so pages without adverts are unchanged. Higher priority shows first; equal priorities take turns.
+
+**Tracking:** an impression is counted once an advert has been at least 50% on screen for 1 second (`/api/ad-event/`). Clicks go through `/api/ad-click/`, which counts and redirects with `utm_source=aifounderfiles`, `utm_medium` (`cross_promo` / `referral` / `sponsored`), `utm_campaign` (the campaign name, else the title) and `utm_content` (the placement). Bots are not counted. No cookie, IP or identifier is stored.
+
+**Types:** *My own site* (“Also from us”), *Recommended resource* (“Recommended”), *Paid sponsor* (“Sponsored”, `rel=sponsored`). Label paid placements as sponsored.
+
+**Images:** the admin crops to 16:9 and converts to WebP (1280x720 plus a 640x360 for phones) in the browser before upload; the server only accepts real WebP under 1 MB.
+
 ## Deploy to Vercel (with aifounderfiles.com)
 
 The repo is at `github.com/davidphilipstark1993/aifounderfiles`. `vercel.json` already sets the build command, output folder and trailing-slash URLs, and `package.json` pins Node 22.12+. No adapter is needed because the site is fully static.
