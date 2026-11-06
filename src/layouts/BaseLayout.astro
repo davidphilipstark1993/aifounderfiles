@@ -11,6 +11,7 @@ import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import AdSlot from '../components/AdSlot.astro';
 import { SITE } from '../lib/site';
 
 interface Props {
@@ -23,6 +24,8 @@ interface Props {
   imageAlt?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
+  /** Show the site-wide advert strip above the footer. Pages with their own ad placement pass false. */
+  adSlot?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   article?: { published: Date; modified?: Date; author: string; section?: string; tags?: string[] };
 }
@@ -35,6 +38,7 @@ const {
   imageAlt = `${SITE.name} — ${SITE.tagline}`,
   type = 'website',
   noindex = false,
+  adSlot = true,
   jsonLd,
   article,
 } = Astro.props;
@@ -111,6 +115,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <main id="main" tabindex="-1">
       <slot />
     </main>
+    {adSlot && <AdSlot placement="sitewide" tone="rule" />}
     <Footer />
   </body>
 </html>

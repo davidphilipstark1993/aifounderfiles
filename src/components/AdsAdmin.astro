@@ -1,0 +1,824 @@
+---
+/**
+ * The "Advertisements" tab of /admin/: list, editor with live preview, and analytics.
+ * Talks to /api/admin/ads/ (session-cookie protected). Loads only when the tab is first opened.
+ */
+import '../styles/ads.css';
+import { AD_TYPES, PLACEMENTS, SITEWIDE_SLOT } from '../../lib/ads/shared';
+const slots = [...PLACEMENTS, SITEWIDE_SLOT];
+---
+<section id="pane-ads" role="tabpanel" aria-labelledby="tab-ads" data-pane="ads" hidden>
+  <p class="msg" data-ads-msg role="status" aria-live="polite"></p>
+
+  <div class="subtabs" role="group" aria-label="Advertisement views">
+    <button class="btn btn--small" type="button" data-ads-nav="list" aria-pressed="true">Adverts</button>
+    <button class="btn btn--small btn--ghost" type="button" data-ads-nav="stats" aria-pressed="false">Analytics</button>
+  </div>
+
+  <!-- ===== List ===== -->
+  <div data-ads-view="list">
+    <div class="tiles" data-ads-tiles></div>
+    <div class="toolbar">
+      <button class="btn" type="button" data-ads-new>New advert</button>
+      <label class="check"><input type="checkbox" data-ads-archived /> Show archived</label>
+    </div>
+    <ul class="list" data-ads-list role="list"></ul>
+    <p class="empty" data-ads-empty hidden>No adverts yet. Choose “New advert” to upload your first image.</p>
+  </div>
+
+  <!-- ===== Editor ===== -->
+  <div data-ads-view="edit" hidden>
+    <div class="ad-edit">
+      <form class="panel stack ad-form" data-ad-form novalidate>
+        <h2 class="label" data-ad-form-title>New advert</h2>
+
+        <div>
+          <label class="label label--muted" for="ad-title">Title <span class="count" data-count-for="ad-title"></span></label>
+          <input class="field" id="ad-title" type="text" maxlength="90" required placeholder="e.g. Listen True Crime" />
+        </div>
+        <div>
+          <label class="label label--muted" for="ad-desc">Short description <span class="count" data-count-for="ad-desc"></span></label>
+          <textarea class="field field--area" id="ad-desc" rows="3" maxlength="220" placeholder="One or two sentences on why it is worth a click."></textarea>
+        </div>
+        <div>
+          <label class="label label--muted" for="ad-url">Destination URL</label>
+          <input class="field" id="ad-url" type="url" required placeholder="https://listentruecrime.com" />
+          <p class="hint" data-ad-url-preview></p>
+        </div>
+        <div>
+          <label class="label label--muted" for="ad-cta">Button text <span class="count" data-count-for="ad-cta"></span></label>
+          <input class="field" id="ad-cta" type="text" maxlength="28" value="Read more" />
+        </div>
+
+        <fieldset class="group">
+          <legend class="label label--muted">Image</legend>
+          <input class="field field--file" id="ad-image" type="file" accept="image/jpeg,image/png,image/webp" />
+          <p class="hint">JPG, PNG or WebP, 1600 px wide or more is ideal. It is cropped to 16:9, resized and converted to WebP in your browser before upload, so it stays sharp and light.</p>
+          <div class="row">
+            <label class="label label--muted" for="ad-focus">Crop from</label>
+            <select class="field field--inline" id="ad-focus">
+              <option value="0.5,0.5">Centre</option>
+              <option value="0.5,0">Top</option>
+              <option value="0.5,1">Bottom</option>
+              <option value="0,0.5">Left</option>
+              <option value="1,0.5">Right</option>
+            </select>
+          </div>
+          <p class="hint" data-ad-image-note></p>
+          <label class="label label--muted" for="ad-alt">Image alt text <span class="count" data-count-for="ad-alt"></span></label>
+          <input class="field" id="ad-alt" type="text" maxlength="200" required placeholder="Describe the picture for people using screen readers" />
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="label label--muted">Where it appears</legend>
+          <div class="checks">
+            {PLACEMENTS.map((p) => (
+              <label class="check check--block">
+                <input type="checkbox" name="placement" value={p.key} />
+                <span><strong>{p.label}</strong><br /><small>{p.where}</small></span>
+              </label>
+            ))}
+            <label class="check check--block">
+              <input type="checkbox" id="ad-sitewide" />
+              <span><strong>Site-wide</strong><br /><small>Eligible in every slot above, plus a slim strip above the footer on every other page.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="label label--muted">Type</legend>
+          <div class="checks">
+            {AD_TYPES.map((t) => (
+              <label class="check check--block">
+                <input type="radio" name="ad-type" value={t.key} checked={t.key === 'house'} />
+                <span><strong>{t.label}</strong> <small>shown as “{t.label_public}”</small><br /><small>{t.hint}</small></span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="label label--muted">Schedule</legend>
+          <div class="row">
+            <div class="grow">
+              <label class="label label--muted" for="ad-start">Starts (optional)</label>
+              <input class="field" id="ad-start" type="datetime-local" />
+            </div>
+            <div class="grow">
+              <label class="label label--muted" for="ad-end">Ends (optional)</label>
+              <input class="field" id="ad-end" type="datetime-local" />
+            </div>
+          </div>
+          <p class="hint">Times are in your browser’s time zone. An advert stops showing the moment it ends.</p>
+          <div class="row">
+            <div class="grow">
+              <label class="label label--muted" for="ad-priority">Priority (0–100)</label>
+              <input class="field" id="ad-priority" type="number" min="0" max="100" step="1" value="0" />
+              <p class="hint">Higher shows first. Equal priorities take turns.</p>
+            </div>
+            <div class="grow">
+              <label class="label label--muted" for="ad-campaign">Campaign name (optional)</label>
+              <input class="field" id="ad-campaign" type="text" maxlength="50" placeholder="defaults to the title" />
+              <p class="hint">Used as utm_campaign.</p>
+            </div>
+          </div>
+          <label class="check check--block">
+            <input type="checkbox" id="ad-active" />
+            <span><strong>Active</strong><br /><small>Untick to keep it saved but hidden. It only shows inside its dates.</small></span>
+          </label>
+        </fieldset>
+
+        <div class="row">
+          <button class="btn" type="submit" data-ad-save>Save advert</button>
+          <button class="btn btn--ghost" type="button" data-ad-cancel>Cancel</button>
+        </div>
+      </form>
+
+      <aside class="panel ad-previewbox" aria-labelledby="ad-preview-title">
+        <h2 id="ad-preview-title" class="label">Preview</h2>
+        <div class="row">
+          <label class="visually-hidden" for="ad-preview-slot">Preview as</label>
+          <select class="field field--inline" id="ad-preview-slot">
+            {slots.map((p) => <option value={p.key}>{p.label}</option>)}
+          </select>
+          <div class="seg" role="group" aria-label="Preview width">
+            <button class="btn btn--small" type="button" data-preview-w="desktop" aria-pressed="true">Desktop</button>
+            <button class="btn btn--small btn--ghost" type="button" data-preview-w="mobile" aria-pressed="false">Mobile</button>
+          </div>
+        </div>
+        <div class="preview-frame-wrap" data-preview-wrap>
+          <iframe class="preview-frame" title="Advert preview" data-preview-frame srcdoc="<!doctype html><html lang='en-GB'><body></body></html>"></iframe>
+        </div>
+        <p class="hint">Exactly what visitors see. Links do nothing in the preview and nothing is counted.</p>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ===== Analytics ===== -->
+  <div data-ads-view="stats" hidden>
+    <div class="toolbar">
+      <div>
+        <label class="visually-hidden" for="stats-days">Period</label>
+        <select class="field field--inline" id="stats-days">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="365">Last 12 months</option>
+        </select>
+      </div>
+      <div>
+        <label class="visually-hidden" for="stats-ad">Advert</label>
+        <select class="field field--inline" id="stats-ad"><option value="">All adverts</option></select>
+      </div>
+    </div>
+    <div class="tiles" data-stats-tiles></div>
+    <div class="panel charts" data-stats-charts></div>
+    <h2 class="label section-label">By advert</h2>
+    <div class="tablewrap"><table class="table" data-stats-ads></table></div>
+    <h2 class="label section-label">By placement</h2>
+    <div class="tablewrap"><table class="table" data-stats-places></table></div>
+    <p class="hint">An impression is counted once an advert has been at least half on screen for a second. Visits, clicks and conversions on the destination site appear in its own analytics under utm_source=aifounderfiles. Bots are excluded. Nothing here identifies a visitor.</p>
+  </div>
+</section>
+
+<style is:global>
+  .admin .subtabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .admin .subtabs .btn[aria-pressed='false'] { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .admin .subtabs .btn[aria-pressed='false']:hover { background: var(--ink); color: var(--paper); }
+  .admin .seg { display: flex; gap: 0.25rem; }
+  .admin .seg .btn[aria-pressed='false'] { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .admin .seg .btn[aria-pressed='false']:hover { background: var(--ink); color: var(--paper); }
+  .admin .hint { margin-top: 0.4rem; font-size: 0.9375rem; line-height: 1.4; color: var(--graphite); word-break: break-word; }
+  .admin .count { float: right; font-weight: 500; letter-spacing: 0; text-transform: none; }
+  .admin .group { border: 0; padding: 0; margin: 0; display: grid; gap: 0.6rem; min-width: 0; }
+  .admin .group > legend { padding: 0; margin-bottom: 0.4rem; }
+  .admin .checks { display: grid; gap: 0.5rem; }
+  .admin .check { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 1rem; }
+  .admin .check--block { align-items: flex-start; padding: 0.6rem 0.8rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--paper); cursor: pointer; }
+  .admin .check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--ink); flex: none; }
+  .admin .check small { color: var(--graphite); font-size: 0.875rem; }
+  .admin .grow { flex: 1 1 12rem; min-width: 0; }
+  .admin .field--inline { flex: 0 1 auto; width: auto; max-width: 100%; }
+  .admin .toolbar { margin-bottom: 1.25rem; align-items: center; }
+
+  .admin .ad-edit { display: grid; gap: 1.5rem; align-items: start; }
+  .admin .ad-edit .panel { max-width: none; margin-bottom: 0; }
+  @media (min-width: 1100px) {
+    .admin .ad-edit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .admin .ad-previewbox { position: sticky; top: 1rem; }
+  }
+  .admin .preview-frame-wrap { margin-top: 1rem; background: var(--manila); border: 1px solid var(--rule); border-radius: var(--radius-sm); padding: 0.75rem; }
+  .admin .preview-frame { display: block; width: 100%; height: 340px; border: 0; margin-inline: auto; background: var(--paper); transition: width 0.2s; }
+  .admin .preview-frame-wrap[data-w='mobile'] .preview-frame { width: 375px; max-width: 100%; }
+
+  .admin .adcard { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+  .admin .adcard__img { width: 100%; max-width: 15rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-sm); background: var(--manila); }
+  @media (min-width: 640px) { .admin .adcard { grid-template-columns: 15rem minmax(0, 1fr); } }
+  .admin .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+  .admin .chip { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.5rem; border: 1px solid var(--slate); border-radius: 2px; color: var(--slate); }
+  .admin .status[data-status='live'] { color: var(--white); background: var(--slate); border-color: var(--slate); }
+  .admin .status[data-status='scheduled'] { color: var(--ink); background: var(--manila); border-color: var(--manila); }
+  .admin .status[data-status='expired'],
+  .admin .status[data-status='inactive'],
+  .admin .status[data-status='archived'] { color: var(--graphite); background: var(--paper); }
+  .admin .perf { margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink); }
+
+  .admin .charts { display: grid; gap: 1.5rem; max-width: none; }
+  .admin .chart h3 { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .admin .chart svg { width: 100%; height: auto; display: block; }
+  .admin .chart details { margin-top: 0.5rem; font-size: 0.9375rem; }
+  .admin .tablewrap { overflow-x: auto; margin-bottom: 2rem; background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius); }
+  .admin .table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .admin .table th, .admin .table td { padding: 0.65rem 0.9rem; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+  .admin .table th:first-child, .admin .table td:first-child { text-align: left; white-space: normal; }
+  .admin .table th { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--graphite); font-weight: 500; }
+</style>
+
+<script>
+  import { renderAd } from '../lib/ad-render';
+  import {
+    PLACEMENTS,
+    SITEWIDE_SLOT,
+    adStatus,
+    ctr,
+    destinationWithUtm,
+    layoutFor,
+    placementLabel,
+    type AdRow,
+    type AdType,
+    type PublicAd,
+  } from '../../lib/ads/shared';
+
+  interface AdItem extends AdRow {
+    image_url: string;
+    image_url_sm: string;
+    impressions: number;
+    clicks: number;
+  }
+  interface Counts {
+    impressions: number;
+    clicks: number;
+  }
+  interface Analytics {
+    days: number;
+    daily: ({ day: string } & Counts)[];
+    by_ad: ({ ad_id: string } & Counts)[];
+    by_placement: ({ placement: string } & Counts)[];
+  }
+
+  const $ = <T extends Element>(sel: string) => document.querySelector(sel) as T;
+  const $$ = <T extends Element>(sel: string) => [...document.querySelectorAll(sel)] as T[];
+  const msgEl = $<HTMLElement>('[data-ads-msg]');
+  const say = (text: string, kind: '' | 'error' | 'success' = '') => {
+    msgEl.textContent = text;
+    if (kind) msgEl.dataset.kind = kind;
+    else delete msgEl.dataset.kind;
+  };
+
+  async function api(url: string, init?: { method?: string; body?: unknown }) {
+    const res = await fetch(url, {
+      method: init?.method ?? 'GET',
+      headers: init?.body ? { 'Content-Type': 'application/json' } : undefined,
+      body: init?.body ? JSON.stringify(init.body) : undefined,
+      credentials: 'same-origin',
+    });
+    if (res.status === 401) location.reload(); // session ended: the page shows the sign-in form
+    const data = (await res.json().catch(() => ({}))) as Record<string, any>;
+    return { ok: res.ok && data.ok !== false, status: res.status, data };
+  }
+  const act = (action: string, extra: Record<string, unknown> = {}) => api('/api/admin/ads/', { method: 'POST', body: { action, ...extra } });
+
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, props: Record<string, any> = {}, ...kids: (Node | string)[]) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') node.className = v;
+      else if (k === 'data') Object.assign(node.dataset, v);
+      else if (k in node) (node as any)[k] = v;
+      else node.setAttribute(k, String(v));
+    }
+    node.append(...kids);
+    return node;
+  }
+  function button(label: string, onClick: () => Promise<void> | void, cls = '') {
+    const b = el('button', { type: 'button', class: `btn btn--small ${cls}`.trim() }, label);
+    b.addEventListener('click', async () => {
+      b.disabled = true;
+      try {
+        await onClick();
+      } finally {
+        b.disabled = false;
+      }
+    });
+    return b;
+  }
+  const tile = (label: string, value: string | number, sub = '') =>
+    el('div', { class: 'tile' }, el('span', { class: 'label label--muted' }, label), el('span', { class: 'tile__value' }, String(value)), ...(sub ? [el('span', { class: 'tile__sub' }, sub)] : []));
+  const fmtDate = (iso: string | null) =>
+    iso ? new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+  const pct = (clicks: number, imps: number) => `${(ctr(imps, clicks) * 100).toFixed(2)}%`;
+  const n = (v: number) => v.toLocaleString('en-GB');
+
+  // ---------- views ----------
+  type View = 'list' | 'edit' | 'stats';
+  function showView(v: View) {
+    for (const node of $$<HTMLElement>('[data-ads-view]')) node.hidden = node.dataset.adsView !== v;
+    const nav = v === 'edit' ? 'list' : v;
+    for (const b of $$<HTMLButtonElement>('[data-ads-nav]')) b.setAttribute('aria-pressed', String(b.dataset.adsNav === nav));
+    say('');
+    if (v === 'stats') loadStats();
+    if (v === 'list') loadAds();
+  }
+  for (const b of $$<HTMLButtonElement>('[data-ads-nav]')) b.addEventListener('click', () => showView(b.dataset.adsNav as View));
+
+  // ---------- list ----------
+  let ads: AdItem[] = [];
+  const list = $<HTMLUListElement>('[data-ads-list]');
+  const emptyMsg = $<HTMLElement>('[data-ads-empty]');
+  const showArchived = $<HTMLInputElement>('[data-ads-archived]');
+  showArchived.addEventListener('change', renderList);
+
+  async function loadAds() {
+    const r = await api('/api/admin/ads/');
+    if (!r.ok) return say(r.data.error ?? 'Could not load adverts.', 'error');
+    ads = r.data.ads as AdItem[];
+    renderList();
+  }
+
+  function renderList() {
+    const now = new Date();
+    const visible = ads.filter((a) => showArchived.checked || !a.archived_at);
+    const live = ads.filter((a) => adStatus(a, now) === 'live');
+    const imps = ads.reduce((s, a) => s + a.impressions, 0);
+    const clicks = ads.reduce((s, a) => s + a.clicks, 0);
+    $<HTMLElement>('[data-ads-tiles]').replaceChildren(
+      tile('Live now', live.length),
+      tile('Scheduled', ads.filter((a) => adStatus(a, now) === 'scheduled').length),
+      tile('Lifetime impressions', n(imps)),
+      tile('Lifetime clicks', n(clicks), imps ? `CTR ${pct(clicks, imps)}` : ''),
+    );
+    list.replaceChildren(...visible.map(adCard));
+    emptyMsg.hidden = visible.length > 0;
+  }
+
+  function adCard(ad: AdItem) {
+    const status = adStatus(ad);
+    const chips = el('div', { class: 'chips' });
+    for (const p of ad.placements) chips.append(el('span', { class: 'chip' }, placementLabel(p)));
+    if (ad.site_wide) chips.append(el('span', { class: 'chip' }, 'Site-wide'));
+
+    const when = [ad.starts_at ? `from ${fmtDate(ad.starts_at)}` : '', ad.ends_at ? `until ${fmtDate(ad.ends_at)}` : ''].filter(Boolean).join(' ');
+    const host = new URL(ad.destination_url).hostname.replace(/^www\./, '');
+    const info = el(
+      'div',
+      {},
+      el('p', { class: 'label label--signal' }, ad.ad_type === 'house' ? 'My site' : ad.ad_type === 'partner' ? 'Recommended' : 'Sponsored', el('span', { class: 'label status', data: { status } }, status)),
+      el('h3', {}, ad.title),
+      el('p', { class: 'item__meta' }, `${host} · priority ${ad.priority}${when ? ` · ${when}` : ''}`),
+      chips,
+      el('p', { class: 'perf' }, `${n(ad.impressions)} impressions · ${n(ad.clicks)} clicks · CTR ${pct(ad.clicks, ad.impressions)}`),
+    );
+
+    const done = (text: string) => async () => {
+      say(text, 'success');
+      await loadAds();
+    };
+    const run = (action: string, text: string, extra: Record<string, unknown> = {}, confirmText?: string) => async () => {
+      if (confirmText && !confirm(confirmText)) return;
+      const r = await act(action, { id: ad.id, ...extra });
+      if (!r.ok) return say(r.data.error ?? 'Something went wrong.', 'error');
+      await done(text)();
+    };
+
+    const actions = el('div', { class: 'item__actions' });
+    if (!ad.archived_at) {
+      actions.append(button('Edit', () => openEditor(ad), 'btn--ghost'));
+      actions.append(
+        ad.is_active
+          ? button('Deactivate', run('set-active', 'Deactivated. It no longer shows.', { active: false }), 'btn--ghost')
+          : button('Activate', run('set-active', 'Activated. It shows inside its dates.', { active: true })),
+      );
+      actions.append(button('Archive', run('archive', 'Archived.'), 'btn--ghost'));
+    } else {
+      actions.append(button('Restore', run('restore', 'Restored. It is switched off until you activate it.'), 'btn--ghost'));
+      actions.append(button('Delete permanently', run('delete', 'Deleted.', {}, `Delete “${ad.title}”, its image and its statistics for good? This cannot be undone. (Archive keeps them.)`), 'btn--danger'));
+    }
+
+    return el('li', { class: 'item adcard' }, el('img', { class: 'adcard__img', src: ad.image_url_sm, alt: ad.image_alt, width: 640, height: 360, loading: 'lazy' }), el('div', {}, info, actions));
+  }
+
+  // ---------- editor ----------
+  const form = $<HTMLFormElement>('[data-ad-form]');
+  const f = {
+    title: $<HTMLInputElement>('#ad-title'),
+    desc: $<HTMLTextAreaElement>('#ad-desc'),
+    url: $<HTMLInputElement>('#ad-url'),
+    cta: $<HTMLInputElement>('#ad-cta'),
+    image: $<HTMLInputElement>('#ad-image'),
+    focus: $<HTMLSelectElement>('#ad-focus'),
+    alt: $<HTMLInputElement>('#ad-alt'),
+    sitewide: $<HTMLInputElement>('#ad-sitewide'),
+    start: $<HTMLInputElement>('#ad-start'),
+    end: $<HTMLInputElement>('#ad-end'),
+    priority: $<HTMLInputElement>('#ad-priority'),
+    campaign: $<HTMLInputElement>('#ad-campaign'),
+    active: $<HTMLInputElement>('#ad-active'),
+  };
+  const placementBoxes = () => $$<HTMLInputElement>('input[name=placement]');
+  const typeRadios = () => $$<HTMLInputElement>('input[name=ad-type]');
+  const imageNote = $<HTMLElement>('[data-ad-image-note]');
+  const slotSelect = $<HTMLSelectElement>('#ad-preview-slot');
+
+  let editing: AdItem | null = null;
+  let processed: { full: Blob; sm: Blob; fullUrl: string; smUrl: string } | null = null;
+
+  const toLocal = (iso: string | null) => {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const p = (x: number) => String(x).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  };
+  const fromLocal = (v: string) => (v ? new Date(v).toISOString() : null);
+  const adType = () => (typeRadios().find((r) => r.checked)?.value ?? 'house') as AdType;
+
+  function updateCounts() {
+    for (const c of $$<HTMLElement>('[data-count-for]')) {
+      const input = document.getElementById(c.dataset.countFor as string) as HTMLInputElement;
+      c.textContent = `${input.value.length}/${input.maxLength}`;
+    }
+  }
+
+  function openEditor(ad: AdItem | null) {
+    editing = ad;
+    revokeProcessed();
+    form.reset();
+    $('[data-ad-form-title]').textContent = ad ? 'Edit advert' : 'New advert';
+    imageNote.textContent = ad ? 'Leave empty to keep the current image.' : 'An image is required.';
+    f.title.value = ad?.title ?? '';
+    f.desc.value = ad?.description ?? '';
+    f.url.value = ad?.destination_url ?? '';
+    f.cta.value = ad?.cta_text ?? 'Read more';
+    f.alt.value = ad?.image_alt ?? '';
+    f.sitewide.checked = ad?.site_wide ?? false;
+    f.start.value = toLocal(ad?.starts_at ?? null);
+    f.end.value = toLocal(ad?.ends_at ?? null);
+    f.priority.value = String(ad?.priority ?? 0);
+    f.campaign.value = ad?.utm_campaign ?? '';
+    f.active.checked = ad?.is_active ?? false;
+    for (const b of placementBoxes()) b.checked = ad?.placements.includes(b.value) ?? false;
+    for (const r of typeRadios()) r.checked = r.value === (ad?.ad_type ?? 'house');
+    syncPreviewSlot();
+    updateCounts();
+    showView('edit');
+    updatePreview();
+    f.title.focus();
+  }
+  $('[data-ads-new]').addEventListener('click', () => openEditor(null));
+  $('[data-ad-cancel]').addEventListener('click', () => showView('list'));
+
+  function revokeProcessed() {
+    if (processed) {
+      URL.revokeObjectURL(processed.fullUrl);
+      URL.revokeObjectURL(processed.smUrl);
+    }
+    processed = null;
+  }
+
+  // Crop to 16:9, resize and convert to WebP in the browser. This validates that the file really is an
+  // image (it has to decode), strips metadata and keeps each upload well under the 1 MB limit.
+  const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+  async function encode(bitmap: ImageBitmap, w: number, h: number, focus: [number, number]) {
+    const targetRatio = 16 / 9;
+    let sw = bitmap.width;
+    let sh = bitmap.height;
+    if (sw / sh > targetRatio) sw = Math.round(sh * targetRatio);
+    else sh = Math.round(sw / targetRatio);
+    const sx = Math.round((bitmap.width - sw) * focus[0]);
+    const sy = Math.round((bitmap.height - sh) * focus[1]);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('This browser cannot process images.');
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, w, h);
+    for (const q of [0.86, 0.75, 0.62, 0.5]) {
+      const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/webp', q));
+      if (!blob || blob.type !== 'image/webp') throw new Error('This browser cannot create WebP images. Use a recent Chrome, Edge, Firefox or Safari.');
+      if (blob.size <= 900 * 1024) return blob;
+    }
+    throw new Error('The image is still over 900 KB after optimising. Try a simpler picture.');
+  }
+
+  async function processFile() {
+    const file = f.image.files?.[0];
+    revokeProcessed();
+    if (!file) {
+      imageNote.textContent = editing ? 'Leave empty to keep the current image.' : 'An image is required.';
+      return updatePreview();
+    }
+    if (!ALLOWED.includes(file.type)) {
+      f.image.value = '';
+      imageNote.textContent = '';
+      return say('Choose a JPG, PNG or WebP image.', 'error');
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      f.image.value = '';
+      return say('That image is over 25 MB. Choose a smaller one.', 'error');
+    }
+    try {
+      const bitmap = await createImageBitmap(file);
+      if (bitmap.width < 640 || bitmap.height < 360) {
+        f.image.value = '';
+        imageNote.textContent = '';
+        return say(`That image is only ${bitmap.width}×${bitmap.height}. Use at least 640×360 (1600×900 or more is ideal).`, 'error');
+      }
+      const [fx, fy] = f.focus.value.split(',').map(Number);
+      const full = await encode(bitmap, 1280, 720, [fx, fy]);
+      const sm = await encode(bitmap, 640, 360, [fx, fy]);
+      const ratio = bitmap.width / bitmap.height;
+      processed = { full, sm, fullUrl: URL.createObjectURL(full), smUrl: URL.createObjectURL(sm) };
+      const notes = [`Ready: 1280×720 WebP, ${Math.round(full.size / 1024)} KB (from ${bitmap.width}×${bitmap.height}).`];
+      if (Math.abs(ratio - 16 / 9) > 0.02) notes.push('Cropped to 16:9; use “Crop from” if the wrong part was cut.');
+      if (bitmap.width < 1280) notes.push('Smaller than 1280 px wide, so it may look soft on large screens.');
+      imageNote.textContent = notes.join(' ');
+      bitmap.close();
+      say('');
+    } catch (err) {
+      f.image.value = '';
+      imageNote.textContent = '';
+      say(err instanceof Error ? err.message : 'That file could not be read as an image.', 'error');
+    }
+    updatePreview();
+  }
+  f.image.addEventListener('change', processFile);
+  f.focus.addEventListener('change', () => f.image.files?.length && processFile());
+
+  // ---------- live preview (an iframe, so the real mobile/desktop breakpoints apply) ----------
+  const frame = $<HTMLIFrameElement>('[data-preview-frame]');
+  const wrap = $<HTMLElement>('[data-preview-wrap]');
+  let frameReady = false;
+  let previewTimer: number | undefined;
+  // The preview document is the iframe's own srcdoc page. Give it the site's stylesheets once it has loaded.
+  const setupFrame = () => {
+    const doc = frame.contentDocument;
+    if (!doc || doc.URL !== 'about:srcdoc' || !doc.body) return;
+    frameReady = true;
+    for (const node of document.head.querySelectorAll('link[rel=stylesheet], style')) doc.head.append(node.cloneNode(true));
+    doc.body.style.margin = '0';
+    doc.body.style.background = 'var(--paper)';
+    new ResizeObserver(() => {
+      const h = doc.documentElement.scrollHeight;
+      if (h > 0) frame.style.height = `${h}px`;
+    }).observe(doc.body);
+    updatePreview();
+  };
+  frame.addEventListener('load', setupFrame);
+  setupFrame(); // in case the srcdoc page finished loading before this script ran
+
+  function syncPreviewSlot() {
+    const first = placementBoxes().find((b) => b.checked)?.value;
+    if (first) slotSelect.value = first;
+    else if (f.sitewide.checked) slotSelect.value = SITEWIDE_SLOT.key;
+  }
+
+  function currentPublicAd(): PublicAd {
+    return {
+      id: editing?.id ?? 'preview',
+      title: f.title.value.trim() || 'Your headline here',
+      description: f.desc.value.trim(),
+      cta: f.cta.value.trim() || 'Read more',
+      alt: f.alt.value.trim() || 'Preview image',
+      type: adType(),
+      image: processed?.fullUrl ?? editing?.image_url ?? '',
+      imageSm: processed?.smUrl ?? editing?.image_url_sm ?? '',
+    };
+  }
+
+  function updatePreview() {
+    window.clearTimeout(previewTimer);
+    previewTimer = window.setTimeout(() => {
+      updateCounts();
+      const doc = frame.contentDocument;
+      if (!doc || !frameReady) return;
+      const ad = currentPublicAd();
+      const slot = slotSelect.value;
+      const section = doc.createElement('section');
+      section.className = 'ad-slot ad-slot--paper';
+      const inner = doc.createElement('div');
+      inner.className = 'wrap';
+      const listEl = doc.createElement('div');
+      listEl.className = 'ad-slot__list';
+      inner.append(listEl);
+      section.append(inner);
+      if (!ad.image) {
+        const note = doc.createElement('p');
+        note.textContent = 'Choose an image to see the preview.';
+        note.style.cssText = 'padding:2rem;font-family:sans-serif;color:#5b6573';
+        listEl.append(note);
+      } else {
+        listEl.append(renderAd(ad, { layout: layoutFor(slot), href: '#', preview: true }));
+      }
+      doc.body.replaceChildren(section);
+      // Show where the click goes, with its tracking parameters.
+      const hint = $<HTMLElement>('[data-ad-url-preview]');
+      try {
+        const target = destinationWithUtm(
+          { destination_url: new URL(f.url.value.trim()).href, ad_type: adType(), utm_campaign: f.campaign.value.trim() || null, title: f.title.value || 'untitled' },
+          slot === SITEWIDE_SLOT.key ? 'sitewide' : slot,
+        );
+        hint.textContent = `Visitors land on: ${target}`;
+      } catch {
+        hint.textContent = f.url.value.trim() ? 'Enter a full web address starting with https://' : '';
+      }
+    }, 120);
+  }
+  form.addEventListener('input', updatePreview);
+  form.addEventListener('change', (e) => {
+    if ((e.target as HTMLInputElement).name === 'placement' || (e.target as HTMLElement).id === 'ad-sitewide') syncPreviewSlot();
+    updatePreview();
+  });
+  slotSelect.addEventListener('change', updatePreview);
+  for (const b of $$<HTMLButtonElement>('[data-preview-w]')) {
+    b.addEventListener('click', () => {
+      wrap.dataset.w = b.dataset.previewW;
+      for (const x of $$<HTMLButtonElement>('[data-preview-w]')) x.setAttribute('aria-pressed', String(x === b));
+    });
+  }
+
+  // ---------- save ----------
+  async function uploadImage(): Promise<string | null> {
+    if (!processed) return null;
+    const prep = await act('prepare');
+    if (!prep.ok) throw new Error(prep.data.error ?? 'Could not start the upload.');
+    const put = async (url: string, blob: Blob) => {
+      const body = new FormData();
+      body.append('cacheControl', '31536000');
+      body.append('', blob);
+      const res = await fetch(url, { method: 'PUT', headers: { 'x-upsert': 'false' }, body });
+      if (!res.ok) throw new Error(`The image upload failed (${res.status}). Try again.`);
+    };
+    await put(prep.data.signedUrl as string, processed.full);
+    await put(prep.data.signedUrlSm as string, processed.sm);
+    return prep.data.path as string;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submit = $<HTMLButtonElement>('[data-ad-save]');
+    if (!editing && !processed) return say('Choose an image for the advert.', 'error');
+    if (!f.title.value.trim()) return say('Add a title.', 'error');
+    if (!f.alt.value.trim()) return say('Add alt text describing the image.', 'error');
+    submit.disabled = true;
+    try {
+      say('Saving…');
+      const image_path = await uploadImage();
+      const body = {
+        title: f.title.value,
+        description: f.desc.value,
+        destination_url: f.url.value,
+        cta_text: f.cta.value,
+        image_alt: f.alt.value,
+        ad_type: adType(),
+        placements: placementBoxes().filter((b) => b.checked).map((b) => b.value),
+        site_wide: f.sitewide.checked,
+        starts_at: fromLocal(f.start.value),
+        ends_at: fromLocal(f.end.value),
+        priority: Number(f.priority.value || 0),
+        utm_campaign: f.campaign.value,
+        is_active: f.active.checked,
+        ...(image_path ? { image_path } : {}),
+      };
+      const r = editing ? await act('update', { id: editing.id, ...body }) : await act('create', body);
+      if (!r.ok) return say(r.data.error ?? 'Could not save the advert.', 'error');
+      const wasEditing = Boolean(editing);
+      showView('list');
+      say(
+        wasEditing ? 'Saved.' : f.active.checked ? 'Created. It shows inside its dates.' : 'Created as inactive. Activate it when you are ready.',
+        'success',
+      );
+    } catch (err) {
+      say(err instanceof Error ? err.message : 'Something went wrong.', 'error');
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  // ---------- analytics ----------
+  const daysSel = $<HTMLSelectElement>('#stats-days');
+  const adSel = $<HTMLSelectElement>('#stats-ad');
+  daysSel.addEventListener('change', loadStats);
+  adSel.addEventListener('change', loadStats);
+
+  const SVG = 'http://www.w3.org/2000/svg';
+  function barChart(title: string, rows: { day: string; value: number }[], color: string) {
+    const W = 640;
+    const H = 130;
+    const pad = { l: 36, r: 4, t: 8, b: 20 };
+    const max = Math.max(1, ...rows.map((r) => r.value));
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', `${title}: total ${n(rows.reduce((s, r) => s + r.value, 0))} over ${rows.length} days, peak ${n(max)} in a day.`);
+    const bw = (W - pad.l - pad.r) / rows.length;
+    const add = (name: string, attrs: Record<string, string>, text?: string) => {
+      const node = document.createElementNS(SVG, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+      if (text) node.textContent = text;
+      svg.append(node);
+      return node;
+    };
+    add('line', { x1: String(pad.l), x2: String(W - pad.r), y1: String(H - pad.b), y2: String(H - pad.b), stroke: '#e2ddd2' });
+    add('text', { x: String(pad.l - 6), y: String(pad.t + 8), 'text-anchor': 'end', 'font-size': '10', fill: '#5b6573' }, n(max));
+    add('text', { x: String(pad.l - 6), y: String(H - pad.b), 'text-anchor': 'end', 'font-size': '10', fill: '#5b6573' }, '0');
+    rows.forEach((r, i) => {
+      const h = (r.value / max) * (H - pad.t - pad.b);
+      const bar = add('rect', {
+        x: String(pad.l + i * bw + Math.min(1, bw * 0.12)),
+        y: String(H - pad.b - h),
+        width: String(Math.max(1, bw - Math.min(2, bw * 0.24))),
+        height: String(h),
+        fill: color,
+      });
+      const t = document.createElementNS(SVG, 'title');
+      t.textContent = `${r.day}: ${n(r.value)}`;
+      bar.append(t);
+    });
+    const label = (i: number, anchor: string) => add('text', { x: String(pad.l + i * bw + (anchor === 'end' ? bw : 0)), y: String(H - 5), 'text-anchor': anchor, 'font-size': '10', fill: '#5b6573' }, rows[i].day.slice(5));
+    label(0, 'start');
+    if (rows.length > 1) label(rows.length - 1, 'end');
+    return svg;
+  }
+
+  function simpleTable(table: HTMLTableElement, head: string[], rows: (string | number)[][]) {
+    table.replaceChildren(
+      el('thead', {}, el('tr', {}, ...head.map((h) => el('th', { scope: 'col' }, h)))),
+      el('tbody', {}, ...(rows.length ? rows.map((r) => el('tr', {}, ...r.map((c) => el('td', {}, String(c))))) : [el('tr', {}, el('td', { colSpan: head.length }, 'No data yet.'))])),
+    );
+  }
+
+  async function loadStats() {
+    if (!ads.length) {
+      const r = await api('/api/admin/ads/');
+      if (r.ok) ads = r.data.ads as AdItem[];
+    }
+    const keep = adSel.value;
+    adSel.replaceChildren(el('option', { value: '' }, 'All adverts'), ...ads.map((a) => el('option', { value: a.id }, a.title + (a.archived_at ? ' (archived)' : ''))));
+    adSel.value = ads.some((a) => a.id === keep) ? keep : '';
+
+    const days = Number(daysSel.value);
+    const r = await api(`/api/admin/ads/?days=${days}${adSel.value ? `&ad=${adSel.value}` : ''}`);
+    if (!r.ok) return say(r.data.error ?? 'Could not load analytics.', 'error');
+    const data = r.data as unknown as Analytics;
+
+    const total = data.daily.reduce((s, d) => ({ impressions: s.impressions + d.impressions, clicks: s.clicks + d.clicks }), { impressions: 0, clicks: 0 });
+    $<HTMLElement>('[data-stats-tiles]').replaceChildren(
+      tile('Impressions', n(total.impressions), `last ${days} days`),
+      tile('Clicks', n(total.clicks), `last ${days} days`),
+      tile('Click-through rate', pct(total.clicks, total.impressions)),
+    );
+
+    // One row per day, including days with nothing, so the time axis is honest.
+    const byDay = new Map(data.daily.map((d) => [d.day, d]));
+    const rows: { day: string; impressions: number; clicks: number }[] = [];
+    for (let i = days - 1; i >= 0; i--) {
+      const day = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+      rows.push({ day, impressions: byDay.get(day)?.impressions ?? 0, clicks: byDay.get(day)?.clicks ?? 0 });
+    }
+    const chart = (title: string, key: 'impressions' | 'clicks', color: string) => {
+      const table = el('table', { class: 'table' });
+      simpleTable(table, ['Day', title], rows.filter((r) => r[key] > 0).map((r) => [r.day, n(r[key])]));
+      return el('div', { class: 'chart' }, el('h3', {}, `${title} per day`), barChart(title, rows.map((r) => ({ day: r.day, value: r[key] })), color), el('details', {}, el('summary', {}, 'View as table'), table));
+    };
+    $<HTMLElement>('[data-stats-charts]').replaceChildren(chart('Impressions', 'impressions', '#0E1A2B'), chart('Clicks', 'clicks', '#C7431D'));
+
+    const perAd = new Map(data.by_ad.map((a) => [a.ad_id, a]));
+    const adRows = ads
+      .filter((a) => !adSel.value || a.id === adSel.value)
+      .map((a) => ({ a, c: perAd.get(a.id) ?? { impressions: 0, clicks: 0 } }))
+      .sort((x, y) => y.c.impressions - x.c.impressions)
+      .map(({ a, c }) => [a.title, adStatus(a), n(c.impressions), n(c.clicks), pct(c.clicks, c.impressions)]);
+    simpleTable($<HTMLTableElement>('[data-stats-ads]'), ['Advert', 'Status', 'Impressions', 'Clicks', 'CTR'], adRows);
+
+    const perPlace = new Map(data.by_placement.map((p) => [p.placement, p]));
+    const placeRows = [...PLACEMENTS, SITEWIDE_SLOT].map((p) => {
+      const c = perPlace.get(p.key) ?? { impressions: 0, clicks: 0 };
+      return { p, c };
+    });
+    simpleTable(
+      $<HTMLTableElement>('[data-stats-places]'),
+      ['Placement', 'Impressions', 'Clicks', 'CTR'],
+      placeRows.sort((x, y) => y.c.impressions - x.c.impressions).map(({ p, c }) => [p.label, n(c.impressions), n(c.clicks), pct(c.clicks, c.impressions)]),
+    );
+  }
+
+  // ---------- tab lifecycle (admin.astro announces tab changes) ----------
+  let started = false;
+  document.addEventListener('admin:tab', (e) => {
+    if ((e as CustomEvent<string>).detail !== 'ads' || started) return;
+    started = true;
+    showView('list');
+  });
+  document.addEventListener('admin:signout', () => {
+    started = false;
+  });
+</script>

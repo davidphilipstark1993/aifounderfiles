@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import AdsAdmin from '../components/AdsAdmin.astro';
 ---
 <PageLayout
   title="Admin"
@@ -8,6 +9,7 @@ import PageLayout from '../layouts/PageLayout.astro';
   heading="Newsletter admin"
   noindex
   prose={false}
+  adSlot={false}
 >
 <div class="admin">
   <p class="msg" data-msg role="status" aria-live="polite"></p>
@@ -28,6 +30,7 @@ import PageLayout from '../layouts/PageLayout.astro';
       <div class="tabs" role="tablist" aria-label="Admin sections">
         <button class="tab" role="tab" id="tab-news" aria-controls="pane-news" aria-selected="true" data-tab="news" type="button">Newsletters</button>
         <button class="tab" role="tab" id="tab-subs" aria-controls="pane-subs" aria-selected="false" data-tab="subs" type="button" tabindex="-1">Subscribers</button>
+        <button class="tab" role="tab" id="tab-ads" aria-controls="pane-ads" aria-selected="false" data-tab="ads" type="button" tabindex="-1">Advertisements</button>
       </div>
       <button class="btn btn--ghost" type="button" data-logout>Sign out</button>
     </div>
@@ -95,6 +98,9 @@ import PageLayout from '../layouts/PageLayout.astro';
         <button class="btn btn--ghost" type="button" data-next>Next</button>
       </div>
     </section>
+
+    <!-- ===== Advertisements ===== -->
+    <AdsAdmin />
   </div>
 </div>
 </PageLayout>
@@ -561,7 +567,10 @@ import PageLayout from '../layouts/PageLayout.astro';
   const panes = [...document.querySelectorAll<HTMLElement>('[data-pane]')];
   let subsLoaded = false;
 
-  function selectTab(name: 'news' | 'subs', focus = false) {
+  type TabName = 'news' | 'subs' | 'ads';
+  const HASHES: Record<TabName, string> = { news: '#newsletters', subs: '#subscribers', ads: '#advertisements' };
+
+  function selectTab(name: TabName, focus = false) {
     for (const t of tabs) {
       const on = t.dataset.tab === name;
       t.setAttribute('aria-selected', String(on));
@@ -569,14 +578,15 @@ import PageLayout from '../layouts/PageLayout.astro';
       if (on && focus) t.focus();
     }
     for (const p of panes) p.hidden = p.dataset.pane !== name;
-    history.replaceState(null, '', name === 'subs' ? '#subscribers' : '#newsletters');
+    history.replaceState(null, '', HASHES[name]);
     if (name === 'subs' && !subsLoaded) loadSubs();
+    document.dispatchEvent(new CustomEvent('admin:tab', { detail: name }));
   }
   tabs.forEach((t, i) => {
-    t.addEventListener('click', () => selectTab(t.dataset.tab as 'news' | 'subs'));
+    t.addEventListener('click', () => selectTab(t.dataset.tab as TabName));
     t.addEventListener('keydown', (e) => {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      selectTab(tabs[(i + 1) % tabs.length].dataset.tab as 'news' | 'subs', true);
+      selectTab(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length].dataset.tab as TabName, true);
     });
   });
 
@@ -890,6 +900,7 @@ import PageLayout from '../layouts/PageLayout.astro';
     await api('/api/admin/login/', { method: 'DELETE' });
     say('');
     subsLoaded = false;
+    document.dispatchEvent(new CustomEvent('admin:signout'));
     show(false);
   });
 
@@ -934,7 +945,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 
   async function start() {
     await loadIssues();
-    if (!dash.hidden) selectTab(location.hash === '#subscribers' ? 'subs' : 'news');
+    if (!dash.hidden) selectTab(location.hash === '#subscribers' ? 'subs' : location.hash === '#advertisements' ? 'ads' : 'news');
   }
   start();
 </script>

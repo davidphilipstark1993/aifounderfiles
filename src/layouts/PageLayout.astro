@@ -10,11 +10,12 @@ interface Props {
   lede?: string;
   noindex?: boolean;
   prose?: boolean;
+  adSlot?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
-const { title, description, label, heading, lede, noindex, prose = true, jsonLd } = Astro.props;
+const { title, description, label, heading, lede, noindex, prose = true, adSlot, jsonLd } = Astro.props;
 ---
-<BaseLayout title={title} description={description} noindex={noindex} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} noindex={noindex} adSlot={adSlot} jsonLd={jsonLd}>
   <header class="page-head">
     <div class="wrap">
       <p class="label label--signal">{label}</p>

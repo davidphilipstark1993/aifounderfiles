@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import SubscribeForm from '../components/SubscribeForm.astro';
 import SampleIssue from '../components/SampleIssue.astro';
+import AdSlot from '../components/AdSlot.astro';
 ---
 <PageLayout
   title="Subscribe"
@@ -10,6 +11,7 @@ import SampleIssue from '../components/SampleIssue.astro';
   heading="Get the file"
   lede="One founder. One company. One deep dive. Delivered to your inbox every week."
   prose={false}
+  adSlot={false}
 >
   <div class="subscribe-grid">
     <div>
@@ -27,6 +29,7 @@ import SampleIssue from '../components/SampleIssue.astro';
     </aside>
   </div>
   <div slot="after" class="subscribe-sample"><SampleIssue id="subscribe-sample" /></div>
+  <div slot="after"><AdSlot placement="newsletter" tone="rule" /></div>
 </PageLayout>
 
 <script>

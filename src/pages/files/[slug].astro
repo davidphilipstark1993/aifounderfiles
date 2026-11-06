@@ -5,6 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FactBox from '../../components/FactBox.astro';
 import FileCard from '../../components/FileCard.astro';
 import NewsletterBand from '../../components/NewsletterBand.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import {
   factFields,
   fileNumberLabel,
@@ -20,6 +21,7 @@ import {
   type FileEntry,
 } from '../../lib/files';
 import { SITE } from '../../lib/site';
+import { placementForPillar } from '../../../lib/ads/shared';
 
 export async function getStaticPaths() {
   const files = await getPublishedFiles();
@@ -114,6 +116,7 @@ const jsonLd = [articleLd, breadcrumbLd];
   image={ogPath}
   imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
   noindex={data.draft}
+  adSlot={false}
   jsonLd={jsonLd}
   article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: pillar.name, tags: data.tags }}
 >
@@ -199,6 +202,8 @@ const jsonLd = [articleLd, breadcrumbLd];
       </div>
     </div>
   </article>
+
+  <AdSlot placement={placementForPillar(pillar.slug)} tone="rule" />
 
   <NewsletterBand id="file-subscribe" source={`article:${entry.id}`} heading="Get next week’s file" text="One founder, one company, one deep dive, in your inbox every week." />
 
