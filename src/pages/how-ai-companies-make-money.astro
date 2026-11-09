@@ -1,0 +1,81 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
+
+// Each file's own "Model" line is read from the file. The summaries below use only what those files already say.
+// Anchors are the automatic ids Astro gives each heading; the build check confirms they exist.
+const anchor = (h: string) => '#' + h.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const published = await getPublishedFiles();
+const entry = (id: string) => {
+  const e = published.find((x) => x.id === id);
+  if (!e) throw new Error(`How AI companies make money: file "${id}" is not published.`);
+  return e;
+};
+const link = (id: string, heading: string) => `${fileUrl(entry(id))}${anchor(heading)}`;
+const model = (id: string) => entry(id).data.company.businessModel;
+---
+<PageLayout
+  title="How AI companies actually make money"
+  description="Read the business model section of each Founder File. The four we have published so far show four different ways an AI company can earn money, with sources listed in the same file."
+  label="Guide"
+  heading="What to read to understand how AI companies actually make money"
+  lede="Start with the “The business model” section of each Founder File (in File #004 it is headed “The business, in plain language”). It explains how that one company earns money, and the sources for those claims are listed at the end of the same file. The four files we have published so far are case studies, not a complete survey of the industry."
+>
+  <h2>How to read a file for this</h2>
+  <ol>
+    <li>Open a file and read the “Model” line in The File fact box at the top.</li>
+    <li>Read the business model section for the full explanation.</li>
+    <li>Scroll to the sources at the end to see where the claims come from.</li>
+  </ol>
+  <p>
+    Our <a href="/sourced-profiles/">sourced profiles</a> page lists every file. Our <a href="/editorial-policy/">editorial policy</a> explains how we label each claim, so you can tell what is confirmed and what the company says about itself.
+  </p>
+
+  <h2>Four companies, four models</h2>
+
+  <h3>OpenAI: {fileNumberLabel(entry('sam-altman').data.fileNumber)}, Sam Altman</h3>
+  <p>The “Model” line in the fact box reads: “{model('sam-altman')}.”</p>
+  <p>
+    The file says OpenAI earns money in four ways: paid ChatGPT subscriptions for individuals, subscriptions and contracts for businesses, access to its models through the API, and advertising. Its own one-sentence summary is: spend almost unimaginable sums now, on the bet that revenue arrives faster than the bills.
+  </p>
+  <p><a href={link('sam-altman', 'The business model')}>Read the business model section of File #001</a>.</p>
+
+  <h3>Anthropic: {fileNumberLabel(entry('amodei-siblings').data.fileNumber)}, Dario and Daniela Amodei</h3>
+  <p>The “Model” line reads: “{model('amodei-siblings')}.”</p>
+  <p>
+    The file says most of Anthropic’s revenue comes from companies and developers paying to use Claude through its API, with consumer and team subscriptions a smaller part. Its own one-sentence summary is: sell to businesses at high speed, and spend almost as fast on the computers that let you do it.
+  </p>
+  <p><a href={link('amodei-siblings', 'The business model')}>Read the business model section of File #002</a>.</p>
+
+  <h3>Harvey: {fileNumberLabel(entry('winston-weinberg').data.fileNumber)}, Winston Weinberg</h3>
+  <p>The “Model” line reads: “{model('winston-weinberg')}.”</p>
+  <p>
+    The file says Harvey sells mostly through per-seat contracts with law firms, in-house legal teams and a smaller number of asset managers. The company doesn’t publish its prices. The file mentions outside estimates of seat prices and tells readers to treat them as rumours, not facts.
+  </p>
+  <p><a href={link('winston-weinberg', 'The business model')}>Read the business model section of File #003</a>.</p>
+
+  <h3>Maarten’s company: {fileNumberLabel(entry('maarten-road-exemptions').data.fileNumber)}</h3>
+  <p>The “Model” line reads: “{model('maarten-road-exemptions')}.”</p>
+  <p>
+    Maarten’s surname and his company’s name are withheld at his request, so we don’t give them. This is an AI-enabled one-person business, not a frontier lab. That is the point of the file. The figures in it are in euros, supplied by the founder, and the file says they are not independently audited.
+  </p>
+  <p><a href={link('maarten-road-exemptions', 'The business, in plain language')}>Read the business section of File #004</a>.</p>
+
+  <h2>What these files cannot tell you</h2>
+  <p>
+    A weekly profile explains one company’s model in context. It is not a textbook of every AI pricing model. It is not a profitability forecast. Read each file as one company’s story, with its sources beside it.
+  </p>
+
+  <h2>FAQ</h2>
+  <h3>Where do the numbers come from?</h3>
+  <p>
+    From the sources listed at the end of each file. Each claim is labelled as confirmed, company-reported, independently reported or estimate. See our <a href="/editorial-policy/#evidence">editorial policy</a> and the <a href="/sourced-profiles/">sourced profiles</a> page.
+  </p>
+  <h3>Will you add more examples?</h3>
+  <p>Yes, as we publish new Sunday files.</p>
+  <h3>Are the profiles free to read on the site?</h3>
+  <p>
+    The four files above are publicly readable at the links given. Files are published on the site and delivered by email as a PDF. You can <a href="/subscribe/">subscribe to get the weekly file</a>.
+  </p>
+</PageLayout>

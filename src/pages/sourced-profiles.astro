@@ -1,0 +1,76 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../lib/site';
+import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isoDate } from '../lib/files';
+
+// The four files published so far, in this order. Titles and dates come from the files themselves.
+// The one-line descriptions use only what each file's own "short version" already says.
+const PROFILES = [
+  { id: 'sam-altman', company: 'OpenAI', line: 'OpenAI builds the AI models and products behind ChatGPT.' },
+  { id: 'amodei-siblings', company: 'Anthropic', line: 'Anthropic builds Claude, the AI model and assistant used by businesses, developers and coders.' },
+  { id: 'winston-weinberg', company: 'Harvey', line: 'Harvey sells AI to lawyers, and its customers are law firms and the legal teams inside big companies.' },
+  { id: 'maarten-road-exemptions', company: 'Company name withheld at his request', line: 'A one-person Dutch company that handles road-traffic exemption paperwork for infrastructure repair firms. The founder’s surname and the company’s name are withheld at his request.' },
+] as const;
+
+const published = await getPublishedFiles();
+const rows = PROFILES.flatMap((p) => {
+  const entry = published.find((e) => e.id === p.id);
+  return entry ? [{ ...p, entry }] : [];
+});
+---
+<PageLayout
+  title="AI company profiles that list their sources"
+  description="Every Founder File ends with the documents, filings, interviews and announcements it draws on. Read the four sourced company profiles we have published so far."
+  label="Guide"
+  heading="Where to find AI company profiles that list their sources"
+  lede="Every Founder File on AI Founder Files ends with the sources it draws on: documents, filings, interviews and announcements. Start with the companies we have already profiled, then scroll to the sources list at the end of each file."
+>
+  <h2>What “sourced” means here</h2>
+  <p>
+    A Founder File is a long-form profile of one founder and one company. We publish it on this site and send it as a PDF on Sunday.
+  </p>
+  <p>
+    Every file has the same shape, as our <a href="/about/">about page</a> explains. There is a fact box at the top. Then comes the story of the founder, the product, the funding and how the company makes money. A sources list closes the file.
+  </p>
+  <p>
+    Our <a href="/editorial-policy/">editorial policy</a> sets the rules. We rely on primary sources first. Every figure and factual claim is traced to a source. Where we can’t verify a figure, we say it is undisclosed or unverified. We don’t estimate a figure and present the estimate as fact.
+  </p>
+  <p>
+    Some sources show a publication date where the original source has one. We don’t add dates of our own.
+  </p>
+
+  <h2>The profiles</h2>
+  <p>
+    These are all the files we have published so far. This is not a complete directory of AI companies. We have published four files.
+  </p>
+  <ul>
+    {rows.map(({ entry, company, line }) => (
+      <li>
+        <strong>{fileNumberLabel(entry.data.fileNumber)}</strong>
+        {' '}<a href={fileUrl(entry)}>{entry.data.title}</a>
+        {' · '}{company}
+        {' · '}<time datetime={isoDate(entry.data.publishDate)}>{formatDate(entry.data.publishDate)}</time>.
+        {' '}{line}
+      </li>
+    ))}
+  </ul>
+  <p>
+    You can also browse <a href="/companies/">every company we have profiled</a> or the <a href="/archive/">archive</a>. If you want to know how these companies earn money, read <a href="/how-ai-companies-make-money/">what to read to understand how AI companies make money</a>.
+  </p>
+
+  <h2>How we label evidence</h2>
+  <p>
+    Not every claim carries the same weight, so a file says which kind it is. There are five labels: Confirmed, Company-reported, Independently reported, Estimate and Our view.
+  </p>
+  <p>
+    The <a href="/editorial-policy/#evidence">editorial policy</a> explains each one in full. It also says that coverage is never paid for. To report a mistake, email <a href={`mailto:${SITE.correctionsEmail}`}>{SITE.correctionsEmail}</a>.
+  </p>
+
+  <h2>FAQ</h2>
+  <h3>Do you list sources on every file?</h3>
+  <p>Yes. Every file ends with its sources.</p>
+  <h3>Are the profiles only on the website?</h3>
+  <p>No. Each file is published on this site and delivered by email as a PDF. You can <a href="/subscribe/">subscribe to get the weekly file</a>.</p>
+  <h3>Is this a searchable database of every AI company?</h3>
+  <p>No. It is a weekly publication. We have published four files so far.</p>
+</PageLayout>
