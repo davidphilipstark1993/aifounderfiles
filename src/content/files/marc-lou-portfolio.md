@@ -1,25 +1,29 @@
 ---
-title: "Marc Lou and the portfolio factory: many failures, one boilerplate, then subscriptions"
-standfirst: "A French developer was fired, moved to Bali with about $20,000, and shipped product after product in public. His own figures show a million-dollar year, a hit that has faded by about 80 percent, and a pivot to subscriptions. Here is what is verified, what isn't, and what you can copy."
+title: "Marc Lou built 35 startups. About five of them worked"
+standfirst: "A French founder was fired, moved to Bali with about $20,000 and started shipping small products in public. One of them made over a million dollars and has since faded by more than 80 percent. He saw it coming and had already built its replacement."
 fileNumber: 7
-publishDate: 2026-11-22
+publishDate: 2026-11-29
 author: "AI Founder Files"
 founder:
   name: "Marc Lou (Marc Louvion)"
   role: "Solo founder"
 company:
   name: "ShipFast, CodeFast, DataFast and TrustMRR"
-  website: "https://shipfa.st"
+  website: "https://marclou.com"
   founded: "2023 (ShipFast)"
-  hq: "Remote"
-  sector: "Developer tools, courses and analytics"
+  hq: "Remote (company registered in Singapore)"
+  sector: "Developer tools, courses, analytics and a startup marketplace"
   stage: "Bootstrapped, solo"
   funding: "None reported"
-  businessModel: "One-time products shifting to subscriptions and a marketplace"
-tags: ["marc-lou", "shipfast", "datafast", "trustmrr", "build-in-public", "bootstrapped"]
+  businessModel: "One-time products, now shifting to subscriptions and a marketplace"
+tags: ["marc-lou", "shipfast", "datafast", "trustmrr", "build-in-public", "cursor"]
 sources:
   - title: "I made $1,032,000 in 2025, Marc Lou's newsletter (January 2026)"
     url: "https://marclou.com/p/i-made-1-032-000-in-2025"
+  - title: "How I Work: $77K/Month Solopreneur, Starter Story (29 April 2026)"
+    url: "https://www.starterstory.com/marclou"
+  - title: "Marc Lou on X (7 March 2025): Cursor AI Agent as my AI co-founder, as shown on Thread Reader"
+    url: "https://threadreaderapp.com/thread/1873024871338549623"
   - title: "ShipFast made Marc Lou over $1M. Last month it made $3,537, Streakr (August 2026)"
     url: "https://streakr.co/playbook/marc-lou"
   - title: "Marc Lou was fired in 2021. He now runs 15+ startups alone and cleared $1M in a year, Remarkable Magazine"
@@ -34,45 +38,58 @@ sources:
     url: "https://www.indiehackers.com/post/security-bugs-engulf-shipfast-a-popular-indie-hackers-product-in-drama-y2VgBkHu7b91rSCEEUSO"
   - title: "Marc Lou issues an apology for ShipFast bugs, Indie Hackers (October 2024)"
     url: "https://www.indiehackers.com/post/marc-lou-issues-an-apology-for-shipfast-bugs-yOAhRHuVG7pUApsywGDW"
-  - title: "Marc Lou, YesPress profile"
-    url: "https://yespress.io/marc-lou"
+  - title: "Ship or Die review, Preuve AI (secondary)"
+    url: "https://preuve.ai/blog/ship-or-die-review"
 draft: true
 ---
 
 Hello again, and welcome to File #007. Thank you for reading.
 
-In November 2021, a French marketer was fired from a job working for an internet influencer. He had about $20,000 and no plan, so he moved to Bali and started building things. Two years later he had launched somewhere between 16 and 17 products, and, in September 2023, the one that finally paid: a code template for developers called ShipFast.
+In the thirty days to 11 August 2026, a piece of software called ShipFast made $3,537. That is a perfectly nice amount of money for a side project. It's a strange amount for ShipFast, which has taken in more than a million dollars, made its creator famous, and was earning over $20,000 a month as recently as last December.
 
-His name is Marc Lou, and he publishes his revenue more openly than almost anyone. That makes him a good subject for this series, and also an awkward one, because the numbers are still his own, and some of the most interesting ones sit inside products he owns. We'll show you the full picture. (All figures are in US dollars. Every one is self-reported unless we say otherwise.)
+Its creator isn't worried. He told you it would happen, and by the time it did, he had already built the thing that replaced it.
+
+His name is Marc Lou. He is French, he works alone, and he has launched roughly 35 small businesses. By his own count around five have worked. This week's file is about what it looks like to run a business that way: to treat products as experiments, to publish the results, and to move on before a winner dies. It's also about how he now builds, which is mostly by telling an AI what to write. (All figures are in US dollars, and unless we say otherwise they are his own.)
 
 ## The short version
 
 - **Who:** Marc Louvion, known online as Marc Lou, a French solo founder who builds in public.
-- **What:** a portfolio of small products. ShipFast is a Next.js starter kit that saves developers weeks of setup. CodeFast is a course for beginners. DataFast is analytics that show which traffic sources produce paying customers. TrustMRR is a database of verified startup revenue that has grown into a marketplace for buying and selling startups.
-- **Why it matters:** it is the clearest worked example of a portfolio approach, where most things fail, a few work, and you move your effort to whatever is growing.
-- **The number to remember:** about 80 percent. That's the drop in ShipFast's monthly revenue between December 2025 and mid-2026, on figures from his own Stripe-connected dashboard. The founder is fine. The product that made him famous is fading, and that is the story.
+- **What:** a rotating portfolio. ShipFast is a starter kit that saves developers weeks of set-up. CodeFast is a coding course for beginners. DataFast is analytics that tell you which visitors turn into paying customers. TrustMRR is a database of verified startup revenue that has grown into a marketplace for buying and selling small startups.
+- **Why it matters:** it's the clearest worked example we know of a portfolio approach, where most things fail, a few pay for everything, and the founder's real skill is knowing when to move.
+- **The number to remember:** about five in 35. That's his own estimate of his hit rate.
 
 ## The founder
 
-Before ShipFast, by his own telling, he spent about four years on side projects that never reached $3,000 a month. His site says that in 2018 he spent a year building a startup that got zero users, then burned out. After the 2021 firing and the move to Bali he began posting his work publicly on X. By December 2023 the products were reportedly bringing in about $65,000 a month with no employees.
+By his own telling, Marc spent years getting nowhere. His site says that in 2018 he worked on a single startup for a whole year, got zero users, and burned out. Profiles of him describe roughly four years of side projects that never passed $3,000 a month.
 
-Two facts about how he works matter more than the headlines.
+Then, in November 2021, he was fired. According to Remarkable Magazine he had been working in marketing for the American internet personality Tai Lopez. He had about $20,000 in savings and no plan, so he moved to Bali, where $20,000 lasts longer, and started building things.
 
-**He treats products as temporary.** His rule is to ship small, see whether anyone pays, and cut the rest. His own 2025 recap lists launches that failed. BioAge and ClipMarc did not work. When he built the idea that became TrustMRR, he tried ten different verticals and nine failed before one worked.
+This time he did two things differently. He kept the products small, so each one took days or weeks to build. And he posted everything he did on X as he did it: the launches, the numbers, the flops.
 
-**He builds in the open and uses his audience as distribution.** He says his newsletter reached 51,234 readers by January 2026, and that 100,000 new followers joined him on X during 2025. He also earned $14,339 from X itself in 2025.
+In two years he shipped 16 or 17 products, depending on who is counting. Most went nowhere. Some flopped inside a week. But the audience grew with each one, and people seemed to enjoy watching the flops as much as the wins.
 
-## The product that made him: ShipFast
+## The product that paid for everything
 
-ShipFast launched on 1 September 2023 as a Next.js starter kit: the sign-in, payments, emails, database and landing page that nearly every web app needs, ready to use. The idea came from something he had done again and again. By his account he had rebuilt the same handful of pieces from scratch for around 16 earlier products, and then packaged them.
+By the summer of 2023 Marc had noticed something about his own work. Every time he started a new product he built the same things first: the sign-in, the payment page, the emails, the database, the landing page. He had now done that about sixteen times.
 
-It sold once, not monthly. One-off purchases were priced at $49 and $69 at launch. The page now shows $199 to $249 (it also offers a bundle with his course). It claims 8,445 "makers" as customers, and a Discord of 5,000 or more. Starter Story reported that it made about $528,000 in its first four months, and Streakr, quoting the founder, puts the launch month at about $40,000.
+So he packaged it. ShipFast went on sale on 1 September 2023. It is a "boilerplate": a ready-made skeleton of a web app, with all the tedious parts already done, so a developer can start on the idea itself on day one.
 
-By his own page, ShipFast has taken in about $1.09 million in total. TrustMRR, which verifies revenue directly from the payment processor, shows about $1.27 million. He hasn't explained the gap of roughly $180,000, and both are systems he runs.
+Here is why it worked:
 
-## What happened to ShipFast
+- **He was the customer.** He'd felt the pain sixteen times. He knew exactly what to include.
+- **His audience was the customer too.** By then tens of thousands of people followed him, and most of them were developers who wanted to ship things quickly.
+- **The timing was good.** The tools ShipFast is built on were becoming the default choice for small web projects just as it launched.
+- **It was sold once.** Launch prices were $49 and $69, with no subscription.
 
-One-off products follow a curve. There is a launch wave, a tail fed by the founder's audience, and then a decline as the content ages and the market fills with alternatives. Here is the monthly record, from his own Stripe-connected dashboard as shown on TrustMRR:
+Streakr, quoting Marc, puts the launch month at about $40,000. Starter Story reported $528,000 in the first four months. Product Hunt named him its Maker of the Year for 2023. ShipFast's own page now claims about 8,400 customers, at a price that has risen to around $200.
+
+For a while it was most of his income. By August 2024 his X profile was advertising "$62K/m".
+
+## The curve
+
+Products that are sold once tend to follow a curve. There's a launch wave. There's a long tail, fed by the founder's audience. And then there's a decline, as everyone who wants one has bought one and competitors pile in.
+
+Marc publishes his revenue, so we can watch the curve happen. These are monthly figures from his own Stripe-connected dashboard:
 
 | Month | ShipFast | CodeFast | DataFast | TrustMRR |
 |---|---|---|---|---|
@@ -81,70 +98,111 @@ One-off products follow a curve. There is a launch wave, a tail fed by the found
 | June 2026 | $3,338 | $9,788 | $21,487 | $28,603 |
 | July 2026 | $4,832 | $6,682 | $27,158 | $42,373 |
 
-In the thirty days to 11 August 2026, ShipFast made $3,537. The one-time products are shrinking and the subscription and marketplace products are taking over, which is exactly the move he set out to make.
+Read the first column downwards and ShipFast falls by more than 80 percent in six months. Read the last two columns downwards and you can see why he isn't panicking.
 
-## The shift to subscriptions
+In June 2025, ShipFast was about 40 percent of his monthly income. A year later it was about 3.5 percent, and his total was still above $80,000 a month.
 
-**DataFast** helps site owners see which sources of traffic actually bring paying customers. In his 2025 recap he put it at $15.8K in monthly recurring revenue, heading towards about 1,000 paying customers, with roughly 7 percent monthly churn and 14 percent month-on-month growth. It took about four months to reach its first $1,000. A big part of its growth, he says, is that users share screenshots of their analytics.
+## The move to subscriptions
 
-**TrustMRR** came from a different frustration: fake revenue screenshots. It shows startups' revenue verified through payment providers such as Stripe, and it grew into a marketplace where startups can be bought and sold. He built the first version in about 24 hours. By his account it reached $25,000 a month within days, the marketplace launched in December 2025, and a dozen startups were acquired in the first two weeks. (The Stripe timeline shows its first revenue in October 2025 and $22,883 in December, so "within days" is probably a loose description.) By July 2026 it was his largest line.
+The first two columns of that table are products you buy once. The second two are products people pay for every month, and they are deliberate.
 
-His total monthly revenue in the first half of 2026 appears in his own updates at roughly $80,000 to $100,000, though sources disagree by month. In 2025 as a whole he reported $1,032,000, which he says is 20 percent less than 2024. It is a good business, and a smaller one than the year before.
+**DataFast** came out of his own irritation. Ordinary website analytics tell you how many people visited. They don't tell you which of those visitors paid. DataFast connects the two, so a founder can see that, say, a YouTube video brought in $900 and a Reddit post brought in nothing. It took about four months to reach its first $1,000 a month, which for someone with his audience is slow. He kept going. By the end of 2025 he put it at $15,800 a month and growing 14 percent monthly, with close to 1,000 paying customers.
 
-## What you need to know about the numbers
+Its marketing is built in. "Users do the marketing by sharing screenshots of their analytics," he wrote.
 
-This is the part to read carefully.
+**TrustMRR** came from a different irritation: people posting fake revenue screenshots. Marc built a site where a founder connects their payment account and the site displays their real revenue, checked hourly against the payment provider. He built the first version in about 24 hours.
 
-- **All of it is self-reported.** It comes from his posts, his newsletter, his website and his dashboards.
-- **He owns the verifier.** TrustMRR is the tool he built to prove revenue, it is now his biggest earner, and his own figures are verified through it. That doesn't make anything false, and it does mean there's no independent check.
-- **Headline versus recurring.** His page has shown about $108,000 a month as a headline, while his dashboard showed about $43,800 in true monthly recurring revenue. The gap is mostly one-time sales, which have to be re-won every month. Always ask which kind of number you're looking at.
-- **A different story in different places.** One snapshot of his page in January 2025 showed $182,100 a month. His January 2026 newsletter says 2025 totalled $1,032,000, which averages about $86,000 a month. The two are measuring different things, and we couldn't reconcile them.
+It wasn't an instant success in the usual sense. He has written that he tried ten different versions of the idea and that nine failed. The one that worked was a marketplace. If you can prove a small startup's revenue, you can sell it. The marketplace opened in December 2025, and he says a dozen startups changed hands in the first two weeks. By July 2026 TrustMRR was his biggest earner, and in October his X profile reportedly listed it at $53,000 a month.
 
-## What about the AI?
+A third new line appeared in 2026. **Ship or Die** is a paid community he reportedly runs with another founder, Jack Friks. Members pay a one-time fee and commit to launching a startup every 30 days, or they're out. One profile lists it at $15,000 in June.
 
-It is often said that Marc uses AI coding tools such as Cursor, and the idea is plausible. But we could not find it confirmed in anything he has written. His 2025 recap doesn't mention AI tools at all apart from an investment, and the sources that describe his Cursor and Claude set-up are undated and low quality. We would rather say that than repeat it.
+## How he builds now
 
-What can be said is that his products are about shipping with modern tools, and that his own method, rapid small builds judged by whether people pay, suits an era where building is cheap. The scarce thing, by his own account, is the audience.
+When we first looked into Marc, we couldn't find him saying anything specific about AI tools. We kept looking, and he has.
 
-## The security episode
+On 7 March 2025 he posted that Cursor's AI agent was "my AI co-founder". (Cursor is a code editor with an AI assistant built in.) He called it his designer, because he uploads pictures of what he wants. He called it his product manager, and also his marketer, since it writes the sales copy straight into the code. Then came the line that matters: "Now with MCP, 90% of my code output is written by AI. All I do is prompt engineering & code review."
 
-In October 2024 other developers publicly reported security flaws in some of his products, including one called IndiePage. Indie Hackers reported that his first public response was dismissive, saying that dozens of people try to break his sites every day. After community criticism and a community security audit, he published an apology two days later. We could not confirm which specific fixes shipped or whether existing buyers received them.
+MCP is a standard that lets an AI assistant use outside tools and data. In practice it means the AI can look things up and act, and doesn't only write text.
 
-It's a useful lesson for anyone shipping fast. A product aimed at developers and sold on speed can lose trust quickly if it appears careless.
+A year later, in an April 2026 interview with Starter Story, he described where that had led. "Right now my setup is the most boring setup ever," he said: a code editor on one side, a chat with an AI on the other, one conversation at a time. He said he had shipped about 300 features on his marketplace in three months, and six new apps so far that year. (The transcript is machine-generated, and it doesn't name the editor or the model, so we won't.)
+
+What he said next is the useful part for the rest of us. When building gets this cheap, he argued, the measure of a founder doesn't change. "It's still the number of things you ship."
+
+## The honest part: failure
+
+Marc's hit rate is the thing we'd most like you to remember, because he is unusually open about it and most people aren't.
+
+In that same April interview he said he had built 35 startups and that "the hit rate is about 5". His review of 2025 names names. He launched three new products that year. BioAge failed. ClipMarc failed. The third was still under wraps. That's the same year he made over a million dollars.
+
+His comment on it was dry: "A good reminder that having an audience doesn't guarantee a successful startup!"
+
+His income for 2025 was $1,032,000, which he noted was 20 percent less than 2024. He put that in the headline of his own newsletter, and we respect him for it.
+
+## What to know about the numbers
+
+Marc publishes more than almost anyone, and we've relied on that. There are still four things you should know before you repeat any of his figures.
+
+- **It is all self-reported.** Everything comes from his posts, his newsletter, his website and his dashboards.
+- **He owns the verifier.** TrustMRR is the tool he built to prove revenue is real. His own revenue is proven through it, and it's now his biggest product. That doesn't make any number false. It does mean nobody independent has checked.
+- **Two of his own sources disagree.** His personal page puts ShipFast's lifetime revenue at about $1.09 million. TrustMRR shows $1.27 million. He hasn't explained the $180,000 difference.
+- **Headline and recurring are different things.** His page has led with about $108,000 a month while his dashboard showed about $43,800 of true recurring revenue. The rest is one-time sales, which have to be won again every month. When anyone quotes you a monthly figure, ask which kind it is.
+
+His reported monthly total through 2026 has run between about $77,000 and $98,000, depending on the month and the source.
+
+## The week it went wrong
+
+In October 2024 another developer reported a security flaw in one of Marc's products, first privately and then, getting no reply, in public. More reports followed, including one showing how to get past a paywall.
+
+Marc's first public response was dismissive. Dozens of people try to break his sites every day, he wrote, and they always call it a critical vulnerability. The community didn't like that, and other developers started a public audit of his products.
+
+Two days later he apologised and said fixes were on the way. Reaction was mostly forgiving. We couldn't confirm exactly what was fixed, or whether existing ShipFast buyers received the fixes.
+
+It was an expensive lesson for him. When you have no users you can get away with shipping fast and fixing later. Once thousands of people have paid, some of whom have built their own businesses on your code, you can't.
+
+## What made it possible
+
+- **An audience built over years.** Every launch starts with thousands of developers watching. He says his newsletter passed 51,000 readers in January 2026.
+- **Low costs.** He has no employees, and he started in Bali on $20,000.
+- **A tolerance for public failure** that most people simply don't have.
+- **Cheap building.** AI now writes most of his code, so the cost of an experiment keeps falling.
+
+The first of those takes years. The other three are choices.
 
 > **Try this**
 >
-> **Package the thing you've built three times.** Look at the last few projects you've done. What did you rebuild from scratch each time? That is a product, and the people you build for will probably be the first to buy it.
+> **Package what you've built three times.** Look back over your last few projects. What did you rebuild from scratch each time? A checklist, a template, a spreadsheet, a bit of code? That could be a product, and the people you already work with are its first customers.
 >
-> **Keep a kill list.** Decide in advance how long a new product gets and what it has to earn. Marc tried ten versions of one idea before one worked, and he published the failures.
+> **Set the kill rule before you start.** Decide in advance how long a new idea gets and what it has to earn. Marc tried ten versions of one idea and dropped nine.
 >
-> **Plan for the curve.** If you sell one-off products, assume revenue decays and start the recurring product early. His portfolio moved before the old product collapsed.
+> **Ask whether a sale is once or monthly.** If everything you sell is bought once, your income resets every month. Start the recurring product while the one-time product is still doing well.
 >
-> **Separate the number from the verifier.** If you publish revenue, use a verification method you don't own, or say clearly that you own it.
+> **Count what you ship.** For one month, track how many things you put in front of real customers, however small. That's his measure, and it's a good one.
+>
+> **Have someone else check your numbers.** If you publish revenue, use a method you don't own, or say clearly that you own it.
 
 ## What could go wrong
 
-**The audience is the asset.** ShipFast, CodeFast and DataFast all depend on his X following and newsletter. If his reach falls, or X changes, the whole portfolio feels it.
+**The audience is the business.** Every product he has depends on his following on X and his newsletter. If the platform changes or his reach falls, everything falls with it.
 
-**One-off products decay.** His biggest hit is now a small line. Whether DataFast and TrustMRR can replace it, and keep growing, is the open question.
+**One-time products decay.** ShipFast and CodeFast are both shrinking. The plan depends on DataFast and TrustMRR continuing to grow.
 
-**A marketplace has to be trusted.** TrustMRR's value depends on being believed. An error, a disputed listing or a questioned conflict of interest could hurt it quickly.
+**A marketplace runs on trust.** TrustMRR is only worth something if people believe its numbers. A disputed listing, or a serious question about the owner verifying his own revenue, could damage it quickly.
 
-**Speed versus trust.** The 2024 episode showed how fast a reputation for shipping quickly can turn into one for shipping carelessly.
+**Speed against safety.** With AI writing 90 percent of the code and one person reviewing it, the October 2024 problem could come back in a bigger form.
 
-**Most experiments fail, including his.** The recap says so, and it is the most honest line in his own writing.
+**Most things fail.** Thirty of his 35 did. If you copy the method you get his failure rate along with it.
 
 ## What to watch
 
-1. **Whether subscription revenue keeps growing** as ShipFast declines, and whether total monthly revenue stays near $80,000 to $100,000.
-2. **TrustMRR's marketplace.** Do deals complete, and does anyone question how it is run?
-3. **An independent check.** Does anyone outside his own systems confirm the numbers?
-4. **The next product.** In 2025 he mentioned a project he hadn't launched. Is it another one-off, or another subscription?
+1. **The subscription lines.** Do DataFast and TrustMRR keep growing as ShipFast fades?
+2. **Completed deals.** Do startups actually get bought and sold through TrustMRR, in volume?
+3. **An outside check.** Does anyone independent ever confirm the figures?
+4. **Ship or Die.** Is it a lasting business, or another experiment that gets cut?
 
-A French marketer was fired, moved to Bali, and kept shipping. Some of it worked, some of it stopped working, and he told you both. That openness is the thing you can copy first.
+After he was fired he spent years building things nobody wanted. Then he built one thing thousands of people wanted, watched it fade, and wasn't surprised. About thirty of his products are gone, and he's still shipping new ones.
 
 ---
 
 That's File #007. Thank you for reading it. If it made you think of someone, forward it along, and if there's a founder you'd like to see opened next, tell us at info@aifounderfiles.com. File #008 lands next Sunday.
 
-*Where this came from: Marc Lou's own newsletter, website and dashboards, plus press and compilations we label as secondary. We have not verified any revenue figure independently. Claude, made by Anthropic, helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
+*Where this came from: Marc Lou's own newsletter, posts, website and dashboards, a Starter Story interview, and press and compilations we label as secondary. We haven't verified any revenue figure independently and we haven't spoken to him. Claude, made by Anthropic, helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
