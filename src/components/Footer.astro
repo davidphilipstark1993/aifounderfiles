@@ -2,7 +2,9 @@
 import Logo from './Logo.astro';
 import { SITE } from '../lib/site';
 import { getPublishedFiles } from '../lib/files';
+import { getPublishedPosts } from '../lib/blog';
 const hasFiles = (await getPublishedFiles()).length > 0;
+const hasPosts = (await getPublishedPosts()).length > 0;
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -15,9 +17,10 @@ const year = new Date().getFullYear();
       <nav aria-label="Footer">
         <ul role="list">
           <li><a class="label" href="/about/">About</a></li>
+          <li><a class="label" href="/blog/">Blog</a></li>
           <li><a class="label" href="/editorial-policy/">Editorial policy</a></li>
           <li><a class="label" href="/subscribe/">Subscribe</a></li>
-          {hasFiles && <li><a class="label" href="/rss.xml">RSS</a></li>}
+          {(hasFiles || hasPosts) && <li><a class="label" href="/rss.xml">RSS</a></li>}
           <li><a class="label" href="/privacy/">Privacy</a></li>
         </ul>
       </nav>

@@ -1,0 +1,250 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FileCard from '../../components/FileCard.astro';
+import NewsletterBand from '../../components/NewsletterBand.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { formatDate, isoDate, notAfterNow, readingTime } from '../../lib/files';
+import { getPublishedPosts, resolveRelatedFiles, type BlogEntry } from '../../lib/blog';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: BlogEntry;
+}
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const minutes = readingTime(entry.body);
+const related = await resolveRelatedFiles(data.relatedFiles);
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+
+const authorLd =
+  data.author === SITE.name
+    ? { '@type': 'Organization', name: SITE.name, url: SITE.url }
+    : { '@type': 'Person', name: data.author };
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: data.title, path: Astro.url.pathname },
+  ].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.path, SITE.url).href })),
+};
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: data.title,
+  description: data.description,
+  datePublished: notAfterNow(data.publishDate).toISOString(),
+  dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
+  author: authorLd,
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  keywords: data.tags.join(', '),
+  articleSection: 'Blog',
+  inLanguage: 'en-GB',
+  isAccessibleForFree: true,
+  ...(data.sources.length
+    ? { citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })) }
+    : {}),
+};
+const jsonLd = [articleLd, breadcrumbLd];
+---
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  type="article"
+  noindex={data.draft}
+  adSlot={false}
+  jsonLd={jsonLd}
+  article={{ published: notAfterNow(data.publishDate), modified: data.updatedDate && notAfterNow(data.updatedDate), author: data.author, section: 'Blog', tags: data.tags }}
+>
+  {data.draft && (
+    <div class="draft-banner">
+      <p class="label">Draft · visible in dev only · excluded from production builds</p>
+    </div>
+  )}
+
+  <article>
+    <header class="post-head">
+      <div class="wrap">
+        <nav class="crumbs label label--muted" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a>
+        </nav>
+        <p class="label label--signal">Blog</p>
+        <h1 class="display post-title">{data.title}</h1>
+        <p class="post-standfirst">{data.description}</p>
+        <p class="byline label label--muted">
+          <span>By {data.author}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={isoDate(data.publishDate)}>{formatDate(data.publishDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min read</span>
+          {data.updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated <time datetime={isoDate(data.updatedDate)}>{formatDate(data.updatedDate)}</time></span>
+            </>
+          )}
+        </p>
+      </div>
+    </header>
+
+    <div class="post-body">
+      <div class="wrap">
+        <div class="prose post-prose">
+          <Content />
+        </div>
+
+        {data.sources.length > 0 && (
+          <section class="sources" aria-labelledby="sources-title">
+            <h2 id="sources-title" class="label">Sources</h2>
+            <ol>
+              {data.sources.map((s) => (
+                <li>
+                  <a href={s.url} rel="noopener noreferrer" target="_blank">{s.title}<span class="visually-hidden"> (opens in a new tab)</span></a>
+                  <span class="sources__host label label--muted">{hostOf(s.url)}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        <p class="hubs label label--muted">
+          Browse <a href="/blog/">all posts</a> · <a href="/archive/">the archive</a>
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <AdSlot placement="sitewide" tone="rule" />
+
+  <NewsletterBand id="blog-subscribe" source={`blog:${entry.id}`} heading="Get the weekly file" text="One founder, one company, one deep dive, in your inbox every week." />
+
+  {related.length > 0 && (
+    <section class="section" aria-labelledby="related-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="related-title">Related files</h2></div>
+        <ul class="related" role="list">
+          {related.map((r) => <li><FileCard entry={r} /></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .post-head {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
+  }
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .post-title {
+    margin-top: 1rem;
+    font-size: clamp(2.25rem, 7.4vw, 4.5rem);
+    max-width: 18ch;
+  }
+  .post-standfirst {
+    margin-top: 1.4rem;
+    max-width: 46ch;
+    font-size: 1.3125rem;
+    line-height: 1.5;
+    color: var(--slate);
+  }
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.65rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    max-width: 46ch;
+  }
+  .hubs {
+    max-width: var(--measure);
+    margin: 2rem auto 0;
+  }
+  .hubs a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .post-body {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .post-prose,
+  .sources {
+    margin-inline: auto;
+  }
+  .sources {
+    max-width: var(--measure);
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+  }
+  .sources ol {
+    margin: 1rem 0 0;
+    padding-left: 1.6em;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .sources li {
+    padding-block: 0.4rem;
+    padding-left: 0.4rem;
+  }
+  .sources li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--graphite);
+  }
+  .sources a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+  .sources a:hover {
+    color: var(--signal);
+  }
+  .sources__host {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+  .related {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>

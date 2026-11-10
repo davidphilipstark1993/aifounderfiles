@@ -13,6 +13,7 @@ export const SITE = {
     { label: 'Founders', href: '/founders/' },
     { label: 'Companies', href: '/companies/' },
     { label: 'Archive', href: '/archive/' },
+    { label: 'Blog', href: '/blog/' },
   ],
 } as const;
 

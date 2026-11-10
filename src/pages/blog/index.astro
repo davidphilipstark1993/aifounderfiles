@@ -1,0 +1,87 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Arrow from '../../components/Arrow.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { formatDate } from '../../lib/files';
+import { blogUrl, getPublishedPosts } from '../../lib/blog';
+import { SITE } from '../../lib/site';
+
+const posts = await getPublishedPosts(); // already newest first
+const byYear = new Map<number, typeof posts>();
+for (const p of posts) {
+  const y = p.data.publishDate.getUTCFullYear();
+  byYear.set(y, [...(byYear.get(y) ?? []), p]);
+}
+
+const listed = posts.filter((p) => !p.data.draft);
+const jsonLd = listed.length
+  ? [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Blog',
+        description: 'Daily writing from AI Founder Files, alongside the weekly Founder File.',
+        url: new URL('/blog/', SITE.url).href,
+        isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+        inLanguage: 'en-GB',
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Blog posts',
+        numberOfItems: listed.length,
+        itemListElement: listed.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: new URL(blogUrl(p), SITE.url).href,
+          name: p.data.title,
+        })),
+      },
+    ]
+  : undefined;
+---
+<PageLayout
+  noindex={listed.length === 0}
+  title="Blog"
+  description="Daily writing from AI Founder Files, alongside the weekly Founder File."
+  label="The blog"
+  heading="The blog"
+  lede="Shorter pieces, published on weekdays, that sit alongside the weekly Founder File."
+  prose={false}
+  adSlot={false}
+  jsonLd={jsonLd}
+>
+  {posts.length > 0 ? (
+    [...byYear.entries()].map(([year, items]) => (
+      <>
+        <h2 class="index__year">{year}</h2>
+        <ul class="index" role="list">
+          {items.map((p) => (
+            <li>
+              <a class="index__row" href={blogUrl(p)}>
+                <span class="index__num label label--muted">
+                  <time datetime={p.data.publishDate.toISOString()}>{formatDate(p.data.publishDate, 'short')}</time>
+                </span>
+                <span class="index__main">
+                  <span class="index__title">{p.data.title}</span>
+                  <span class="index__sub">{p.data.description}{p.data.draft ? ' · DRAFT' : ''}</span>
+                </span>
+                <span class="index__meta label label--muted">
+                  {p.data.author}
+                </span>
+                <span class="index__go" aria-hidden="true"><Arrow /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  ) : (
+    <div class="empty-state">
+      <p class="label label--signal">Nothing posted yet</p>
+      <p><strong>The blog is empty.</strong> Daily posts will be listed here, newest first, once the first one is published.</p>
+      <a class="link-arrow" href="/archive/"><span>Read the Founder Files</span><Arrow /></a>
+    </div>
+  )}
+  <div slot="after"><AdSlot placement="newsletter" tone="rule" /></div>
+</PageLayout>

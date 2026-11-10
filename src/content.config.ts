@@ -39,4 +39,19 @@ const files = defineCollection({
     }),
 });
 
-export const collections = { files };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    author: z.string(),
+    tags: z.array(z.string()).default([]),
+    sources: z.array(z.object({ title: z.string(), url: z.url() })).default([]),
+    relatedFiles: z.array(z.string()).optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { files, blog };

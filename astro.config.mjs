@@ -11,6 +11,14 @@ const hasPublishedFiles = fs
   .some((f) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(`src/content/files/${f}`, 'utf8')));
 const emptyIndexes = ['/founders/', '/companies/', '/archive/'];
 
+const blogDir = 'src/content/blog';
+const hasPublishedPosts =
+  fs.existsSync(blogDir) &&
+  fs
+    .readdirSync(blogDir)
+    .filter((f) => /\.mdx?$/.test(f))
+    .some((f) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(`${blogDir}/${f}`, 'utf8')));
+
 // Topic hubs are noindex until they hold HUB_MIN_FILES articles (see src/lib/site.ts), so keep thin ones out of the sitemap too.
 const HUB_MIN_FILES = 3;
 /** @type {Record<string, number>} */
@@ -39,7 +47,8 @@ export default defineConfig({
         !page.includes('/subscribed/') &&
         !page.includes('/admin/') &&
         !isThinHub(page) &&
-        (hasPublishedFiles || !emptyIndexes.some((p) => page.endsWith(p))),
+        (hasPublishedFiles || !emptyIndexes.some((p) => page.endsWith(p))) &&
+        (hasPublishedPosts || !page.endsWith('/blog/')),
     }),
   ],
 });
