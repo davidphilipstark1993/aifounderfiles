@@ -13,7 +13,7 @@ company:
   name: "ShipFast, CodeFast, DataFast and TrustMRR"
   website: "https://marclou.com"
   founded: "2023 (ShipFast)"
-  hq: "Remote (company registered in Singapore)"
+  hq: "Remote (his site, as of 10 November 2026, says he is in Paphos, Cyprus)"
   sector: "Developer tools, courses, analytics and a startup marketplace"
   stage: "Bootstrapped, solo"
   funding: "None reported"
@@ -43,7 +43,7 @@ sources:
     url: "https://www.indiehackers.com/post/marc-lou-issues-an-apology-for-shipfast-bugs-yOAhRHuVG7pUApsywGDW"
   - title: "Ship or Die review, Preuve AI (secondary)"
     url: "https://preuve.ai/blog/ship-or-die-review"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #007. Thank you for reading.
@@ -63,17 +63,17 @@ His name is Marc Lou. He is French, he works alone, and he has launched roughly 
 
 ## The founder
 
-By his own telling, Marc spent years getting nowhere. His site says that in 2018 he worked on a single startup for a whole year, got zero users, and burned out. Profiles of him describe roughly four years of side projects that never passed $3,000 a month.
+By his own telling, Marc spent years getting nowhere. Remarkable Magazine, citing his own account, describes roughly four years of side projects that never cleared $3,000 a month. His public count of how many startups he has built moves around: about 35 in an April 2026 interview, 38 on his site in late October 2026, and 43 on the site when we checked it in November.
 
-Then, in November 2021, he was fired. According to Remarkable Magazine he had been working in marketing for the American internet personality Tai Lopez. He had about $20,000 in savings and no plan, so he moved to Bali, where $20,000 lasts longer, and started building things.
+Then, in November 2021, he was fired. He has written that he had been working for the American internet personality Tai Lopez (Remarkable Magazine calls the role marketing; Streakr, quoting him, calls it product manager). Remarkable says he had about $20,000 in savings and no plan, so he moved to Bali, where that money would last longer, and started building things.
 
 This time he did two things differently. He kept the products small, so each one took days or weeks to build. And he posted everything he did on X as he did it: the launches, the numbers, the flops.
 
-In two years he shipped 16 or 17 products, depending on who is counting. Most went nowhere. Some flopped inside a week. But the audience grew with each one, and people seemed to enjoy watching the flops as much as the wins.
+Remarkable Magazine describes seventeen products in two years. Most went nowhere. Some flopped inside a week. But the audience grew with each one, and people seemed to enjoy watching the flops as much as the wins.
 
 ## The product that paid for everything
 
-By the summer of 2023 Marc had noticed something about his own work. Every time he started a new product he built the same things first: the sign-in, the payment page, the emails, the database, the landing page. He had now done that about sixteen times.
+By the summer of 2023 Marc had noticed something about his own work. Every time he started a new product he built the same things first: the sign-in, the payment page, the emails, the database, the landing page. He had already done that run of small products.
 
 So he packaged it. ShipFast went on sale on 1 September 2023. It is a "boilerplate": a ready-made skeleton of a web app, with all the tedious parts already done, so a developer can start on the idea itself on day one.
 
@@ -84,7 +84,7 @@ Here is why it worked:
 - **The timing was good.** The tools ShipFast is built on were becoming the default choice for small web projects just as it launched.
 - **It was sold once.** Launch prices were $49 and $69, with no subscription.
 
-Streakr, quoting Marc, puts the launch month at about $40,000. Starter Story reported $528,000 in the first four months. Product Hunt named him its Maker of the Year for 2023. ShipFast's own page now claims about 8,400 customers, at a price that has risen to around $200.
+Streakr, quoting Marc, puts the launch month at about $40,000, and dates the launch to 1 September 2023. An earlier Starter Story article reported $528,000 in the first four months; that figure is now dated, and Streakr warns that it still turns up in search results. Streakr also says Product Hunt named him Maker of the Year. When we checked ShipFast's page in November 2026 it was advertising a discount for the first 8,460 customers, with just over 8,400 already listed as buyers, and prices from about $199 to $349 — not the launch prices of $49 and $69.
 
 For a while it was most of his income. By August 2024 his X profile was advertising "$62K/m".
 
@@ -103,7 +103,7 @@ Marc publishes his revenue, so we can watch the curve happen. These are monthly 
 
 Read the first column downwards and ShipFast falls by more than 80 percent in six months. Read the last two columns downwards and you can see why he isn't panicking.
 
-In June 2025, ShipFast was about 40 percent of his monthly income. A year later it was about 3.5 percent, and his total was still above $80,000 a month.
+Remarkable Magazine, using his public monthly breakdowns, notes that ShipFast went from roughly 40 percent of his income in mid-2025 (his July 2025 post put it at $18,200 of $48,921, a little under 40 percent) to about 3.5 percent by June 2026, when he posted a total of $83,701 for the month and $3,000 of it from ShipFast.
 
 ## The move to subscriptions
 
@@ -115,9 +115,9 @@ Its marketing is built in. "Users do the marketing by sharing screenshots of the
 
 **TrustMRR** came from a different irritation: people posting fake revenue screenshots. Marc built a site where a founder connects their payment account and the site displays their real revenue, checked hourly against the payment provider. He built the first version in about 24 hours.
 
-It wasn't an instant success in the usual sense. He has written that he tried ten different versions of the idea and that nine failed. The one that worked was a marketplace. If you can prove a small startup's revenue, you can sell it. The marketplace opened in December 2025, and he says a dozen startups changed hands in the first two weeks. By July 2026 TrustMRR was his biggest earner, and in October his X profile reportedly listed it at $53,000 a month.
+It wasn't an instant success in the usual sense. He has written that he tried ten different versions of the idea and that nine failed. The one that worked was a marketplace. If you can prove a small startup's revenue, you can sell it. The marketplace opened in December 2025, and he says a dozen startups changed hands in the first two weeks. By July 2026 TrustMRR was his biggest earner, according to the table above.
 
-A third new line appeared in 2026. **Ship or Die** is a paid community he reportedly runs with another founder, Jack Friks. Members pay a one-time fee and commit to launching a startup every 30 days, or they're out. One profile lists it at $15,000 in June.
+A third new line appeared in 2026. **Ship or Die** is a paid community he runs with another founder, Jack Friks. Members pay a one-time fee and commit to launching a startup every 30 days, or they're out. Remarkable Magazine, quoting his June 2026 revenue post, lists it at $15,000 that month.
 
 ## How he builds now
 
@@ -135,7 +135,7 @@ What he said next is the useful part for the rest of us. When building gets this
 
 Marc's hit rate is the thing we'd most like you to remember, because he is unusually open about it and most people aren't.
 
-In that same April interview he said he had built 35 startups and that "the hit rate is about 5". His review of 2025 names names. He launched three new products that year. BioAge failed. ClipMarc failed. The third was still under wraps. That's the same year he made over a million dollars.
+In that same April interview he said he had built 35 startups, that 30 of them "are nothing", and that "the hit rate is about 5" — five products, not five percent. His review of 2025 names names. He launched three new products that year. BioAge failed. ClipMarc failed. The third was still under wraps. That's the same year he made over a million dollars.
 
 His comment on it was dry: "A good reminder that having an audience doesn't guarantee a successful startup!"
 
@@ -147,10 +147,10 @@ Marc publishes more than almost anyone, and we've relied on that. There are stil
 
 - **It is all self-reported.** Everything comes from his posts, his newsletter, his website and his dashboards.
 - **He owns the verifier.** TrustMRR is the tool he built to prove revenue is real. His own revenue is proven through it, and it's now his biggest product. That doesn't make any number false. It does mean nobody independent has checked.
-- **Two of his own sources disagree.** His personal page puts ShipFast's lifetime revenue at about $1.09 million. TrustMRR shows $1.27 million. He hasn't explained the $180,000 difference.
-- **Headline and recurring are different things.** His page has led with about $108,000 a month while his dashboard showed about $43,800 of true recurring revenue. The rest is one-time sales, which have to be won again every month. When anyone quotes you a monthly figure, ask which kind it is.
+- **Two of his own sources disagree.** When Streakr compared them in August 2026, his personal page put ShipFast's lifetime revenue at about $1.09 million and TrustMRR showed about $1.27 million, a gap of roughly $180,000 he had not explained. Those pages have moved since, so treat the gap as a warning about the record, not a current figure.
+- **Headline and recurring are different things.** In the same August 2026 check, Streakr found his page leading with about $108,000 a month while the dashboard showed about $43,800 of true recurring revenue. The rest is one-time sales, which have to be won again every month. When anyone quotes you a monthly figure, ask which kind it is.
 
-His reported monthly total through 2026 has run between about $77,000 and $98,000, depending on the month and the source.
+His reported monthly totals through 2026, across an April interview, a June post and his site in late October, have typically been in the high tens of thousands of dollars — about $77,000, $83,701 and $91,100 in those three snapshots.
 
 ## The week it went wrong
 

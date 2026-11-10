@@ -34,19 +34,19 @@ sources:
   - title: "How Tony Dinh built TypingMind to $500K revenue in one year, Starter Story"
     url: "https://www.starterstory.com/typingmind-breakdown"
   - title: "TypingMind on Product Hunt (2023 launch and 2026 relaunch)"
-    url: "https://www.producthunt.com/p/typing-mind/typingmind"
-  - title: "How much does TypingMind make? (secondary tracker, figures unverified), I Made Money With AI"
-    url: "https://imademoneywithai.com/blog/how-much-does-typingmind-make/"
+    url: "https://www.producthunt.com/products/typing-mind"
+  - title: "How much does TypingMind make? (secondary tracker, figures unverified), The AI Receipts (formerly I Made Money With AI)"
+    url: "https://theaireceipts.com/blog/how-much-does-typingmind-make/"
   - title: "TypingMind"
     url: "https://www.typingmind.com"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #005. Thank you for being here.
 
-On Wednesday 1 March 2023, OpenAI announced that developers could plug ChatGPT into their own software. Thousands of developers had the same thought that afternoon: the official chat window is clumsy, and I could build a nicer one. Almost none of them did.
+On Wednesday 1 March 2023, OpenAI announced that developers could plug ChatGPT into their own software. Plenty of people will have had the same thought: the official chat window was clumsy, and a nicer one might sell. Almost none of them shipped one that week.
 
-Tony Dinh registered a domain the next morning. Then, by his own account, he dithered. For three days he worked on it "on and off", bored and distracted. On Saturday he finally sat down and gave it the whole weekend. On Monday he put it on sale.
+Tony Dinh registered a domain the next morning. Then, by his own account, he dithered. For three days he worked on it "on and off", bored and distracted. On Saturday he finally sat down and gave it the whole weekend. On Monday he shared a free version, then added a payment page the same day. The first sale came that Monday.
 
 By the following Saturday it had made about $22,000.
 
@@ -57,17 +57,17 @@ That week is the famous part, and we'll go through it day by day. But the more u
 - **Who:** Tony Dinh, a Vietnamese-born developer who quit his job in 2021 to build small software products on his own.
 - **What:** TypingMind, a chat window for AI models. You plug in your own account with OpenAI, Anthropic, Google or others, pay them directly for what you use, and pay Tony once for the interface.
 - **Why it matters:** it's the cleanest example we know of shipping a small, useful product in the week a new technology arrives. It also shows what that kind of product has to become if it is going to last.
-- **The number to remember:** five. That's the number of days between OpenAI's announcement and TypingMind going on sale.
+- **The number to remember:** five. That's the number of days between OpenAI's announcement and the first paid sale.
 
 ## The founder
 
-Tony spent about seven years as a salaried software developer. By the accounts we found, he moved from Vietnam to Singapore in 2020, and it was there, working from home on his own, that he came across the indie hacker world: people building small software businesses in public, alone, and posting their revenue as they went.
+Tony spent about seven years as a salaried software developer. He has written about moving from Vietnam to Singapore and, while working from home there, coming across the indie hacker world: people building small software businesses in public, alone, and posting their revenue as they went. Secondary profiles have given 2020 as the year of the move; we have not confirmed the year from his newsletters.
 
-He started building in his spare time. In 2021 he left his job. Accounts differ on whether that was August or September, but they agree on the detail that matters: his side projects were bringing in about $600 a month when he did it.
+He started building in his spare time. In 2021 he left his job. He announced the decision in August, and has written that September was his last month on a salary. By then he already had some income from side projects. We have not used a single monthly figure for that income, because the ones in circulation do not agree and are not all his.
 
-Two of those early products are worth knowing about. DevUtils is a Mac app that bundles the small tools developers reach for all day, and it was the first thing he built that made real money. Black Magic was stranger and more successful: a tool that let people dress up their Twitter profiles, most famously with a progress bar. By late 2022 it was making about $13,000 a month.
+Two of those early products are worth knowing about. DevUtils is a Mac app that bundles the small tools developers reach for all day, and it was the first thing he built that made real money. Black Magic was stranger and more successful: a tool that let people dress up their Twitter profiles, most famously with a progress bar. In his own posts from late 2022 and early 2023 the monthly figure for Black Magic moves around in the low-to-mid teens of thousands of dollars.
 
-Then Twitter changed what it charged outside developers. Tony has written that the new minimum was $42,000 a month. A product earning $13,000 can't pay a $42,000 bill, and Black Magic was sold. (One profile puts the price at $128,000. We couldn't confirm it.)
+Then Twitter changed what it charged outside developers. In his March 2023 newsletter Tony wrote that the new minimum was $42,000 a month. A product in the mid-teens couldn't pay that bill, and Black Magic was sold. (One profile puts the price at $128,000. We couldn't confirm it, and he has not published a price in the newsletters we have.)
 
 Keep that in mind, because it explains almost everything he did next. He had just watched a platform he didn't control wipe out his best product with a single pricing announcement.
 
@@ -95,13 +95,13 @@ Here is the week, from Tony's own newsletter.
 | Thu 2 March | He registers typingmind.com |
 | Thu to Fri | Slow progress and low motivation. He works on it "on and off" |
 | Sat 4 and Sun 5 March | He gives the whole weekend to finishing it |
-| Mon 6 March | Version one goes on sale. The first purchase arrives the same day |
+| Mon 6 March | He shares a free version, then adds payment. The first purchase arrives the same day |
 | Tue 7 to Fri 10 March | He tweets every new feature as he ships it. Running sales pass about $1,000, then $2,000, $4,000 and $10,000 |
 | Sat 11 March | Product Hunt launch. It finishes first for the day with 902 votes, and running sales reach about $22,000 |
 
 Two things stand out.
 
-The first is the dithering. We like that he admits it. The version of this story that gets passed around is "built in a weekend", which makes it sound like one clean burst of inspiration. The real version has three wasted days in the middle. He nearly didn't finish it.
+The first is the dithering. He is open about it, and that matters, because the version of this story that gets passed around is "built in a weekend", which makes it sound like one clean burst of inspiration. The real version has three unproductive days in the middle. He nearly didn't finish it.
 
 The second is where the money came from. You'll often read that TypingMind grew through Reddit and word of mouth. That's true later. It isn't true of launch week. By Tony's own estimate, about 99 percent of those first sales came from his Twitter followers. He announced it there, and then every time he added a feature he tweeted it. The tweets were his changelog and his advertising at the same time. Product Hunt and his newsletter added to a fire that was already burning.
 
@@ -161,9 +161,9 @@ Every figure here is Tony's own, from his newsletter or his posts. Nothing has b
 | November 2024 | $1 million in the previous 12 months, about half of it from lifetime licences | Newsletter |
 | April 2025 | $148,000 in a month, an all-time high at the time | X |
 | October 2025 | About $130,000 to $160,000 a month, more than half from teams. "More than $1M a year" | Newsletter |
-| December 2025 | $210,000 or more, his best month, and 8,000 new customers in 2025 | A secondary site. We couldn't find his own post |
+| December 2025 | $210,000 or more, his best month, and 8,000 new customers in 2025 | A secondary tracker (now The AI Receipts), which attributes the figures to an X post we could not open |
 
-Two things are missing. The first is profit. He gives revenue and doesn't say what he keeps. Software with no usage costs usually has healthy margins, and he describes himself as financially independent, but that's our reasoning and he hasn't published a figure. The second is anything recent in his own words: the last firm number we can trace to him is October 2025.
+Two things are missing. The first is profit. He gives revenue and doesn't say what he keeps. Software with no usage costs usually has healthy margins, and he describes himself as financially independent, but that's our reasoning and he hasn't published a figure. The second is anything recent in his own words: the last firm number we can trace to a newsletter or post of his that we have actually opened is October 2025.
 
 ## How he lives
 
@@ -173,7 +173,7 @@ He has written about working roughly four hours a day. In his October 2025 updat
 
 He hasn't stopped. He and his wife were on a round-the-world trip, finding a surf town at each stop: Korea, Taiwan, France, Switzerland, Spain, Australia, Portugal. He was writing from Bali, where he called the waves "amazing". In November 2025 he helped run a month-long residency in Da Nang, Vietnam, for ten indie hackers, to show people at home that this way of working exists.
 
-He also wrote something we found touching. For years, he said, the pressure to keep earning meant he couldn't tell whether he loved coding or was just afraid of losing his income. Now that the pressure is gone, he has his answer. He says he is "in love with building with AI" and still writes code every day.
+He also wrote this: for years, the pressure to keep earning meant he couldn't tell whether he loved coding or was just afraid of losing his income. Now that the pressure is gone, he has his answer. He says he is "in love with building with AI" and still writes code every day.
 
 ## Where the AI is
 
@@ -185,7 +185,7 @@ His newsletter doesn't say which AI coding tools he uses, so we won't guess. Wha
 
 It's worth being honest about what he had going for him, because not all of it can be copied.
 
-- **Seven years as a professional developer.** He could build a polished product in a weekend because he'd spent a decade learning how.
+- **Seven years as a professional developer.** He could build a polished product in a weekend because he had years of professional practice behind him.
 - **76,000 followers.** Nearly all the launch revenue came from an audience that took two years to build.
 - **A recent, expensive lesson.** Losing Black Magic taught him to distrust platforms, and that shaped the pricing.
 - **Speed.** Five days. A month later there were dozens of competitors.
@@ -223,7 +223,7 @@ The first two took years. The last two are available to anyone.
 3. **The official apps.** Do the model makers close the gap TypingMind fills?
 4. **A new product.** He said in late 2025 that he might build something new "soon". Does he, or does TypingMind remain the whole company?
 
-It took a domain name, one weekend, and a decision to charge once. He had already built two things nobody wanted. The third one fixed a real annoyance, cost him nothing to run, and went on sale before he'd talked himself out of it.
+It took a domain name, one weekend, and a decision to charge once. He had already built two things nobody wanted. The third one fixed a real annoyance, cost him nothing to run, and had its first paying customer before he'd talked himself out of it.
 
 ---
 

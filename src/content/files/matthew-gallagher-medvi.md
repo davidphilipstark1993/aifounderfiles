@@ -37,14 +37,18 @@ sources:
     url: "https://futurism.com/artificial-intelligence/ai-drug-marketer-medvi-responds"
   - title: "AI could make MEDVi $1b in sales, but it could also break it, Mediaweek"
     url: "https://www.mediaweek.com.au/ai-could-make-medvi-1b-in-sales-but-it-could-also-break-it"
-draft: false
+  - title: "FDA warning letter to MEDVi, LLC dba MEDVi (20 February 2026)"
+    url: "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/medvi-llc-dba-medvi-721455-02202026"
+  - title: "Medvi statement on the New York Times article and the FDA letter (8 April 2026)"
+    url: "https://home.medvi.org/communication"
+draft: true
 ---
 
 Hello again, and welcome to File #006. Thank you for staying with us.
 
 Picture a man in Los Angeles whose mobile phone will not stop ringing. He runs a company that took in $401 million last year. The callers are his customers. They asked his website's chatbot for a human being, and the chatbot, having no other human to offer, put them through to the founder's own phone. This happened more than a thousand times.
 
-That detail comes from the New York Times, which on 2 April 2026 published a profile of Matthew Gallagher under a headline every founder read twice: a $1.8 billion company with two employees, made possible by AI. Within a week it was one of the most argued-over business stories of the year.
+That detail comes from the New York Times, which on 2 April 2026 published a profile of Matthew Gallagher under a headline every founder read twice: a $1.8 billion company with two employees, made possible by AI. Within a week it was being argued over widely.
 
 We'll say plainly where we stand, because this is the hardest file we've written. The revenue is real, as far as anyone outside the company can tell: the Times says it was shown the financials. The way some of that revenue was won is a different matter, and we're going to give it as much room as the success. Both things are true at once. If you only have five minutes, skip to "What happened next". (All figures are in US dollars.)
 
@@ -57,7 +61,7 @@ We'll say plainly where we stand, because this is the hardest file we've written
 
 ## The founder
 
-Gallagher didn't come up through Silicon Valley. According to the Times, he moved around a lot as a child and at times his family lived in motels and in cars. They settled in Cincinnati when he was 12. A relative gave him a laptop, and he taught himself to code on it.
+Gallagher didn't come up through Silicon Valley. According to the Times, he moved around a lot as a child and at times his family lived in motels and in cars. They settled in Cincinnati when he was 12. His uncle gave him a laptop, the Times said, and he taught himself to code on it.
 
 As a teenager he built websites for local businesses and sold things on eBay. At 18 he sold a small web-hosting business for $6,000. He enrolled at two universities and didn't graduate from either. In 2010 he moved to Los Angeles to become an actor. That didn't work out, and he went back to code.
 
@@ -81,14 +85,14 @@ One more piece of context. The regulator declared the shortage of semaglutide, t
 
 ## Two months and $20,000
 
-Gallagher started work in September 2024. He told the Times it took about two months and $20,000 to get Medvi live, a sum that covered the software and the first month of advertising.
+Medvi opened for business in September 2024. He told the Times it took about two months and $20,000 to get the site live, a sum that covered the software and the first month of advertising.
 
 | Job | What did it |
 |---|---|
 | Building the website | ChatGPT, Claude and Grok, writing the code |
 | Connecting the systems | Custom AI agents he built to pass information between the site, payments and partners |
 | Images and video for the site and ads | Midjourney and Runway |
-| Talking to customers | A chatbot, plus ElevenLabs and other voice tools. He also made an AI clone of a voice to schedule appointments |
+| Talking to customers | A chatbot, plus ElevenLabs and other voice tools. The Times also said he made an AI clone of his own voice to help manage his personal life, using it to call and schedule appointments |
 | Knowing how the business was doing | AI analysis of his own numbers |
 
 He's clear about what this is and isn't. "It's not an AI company," he said, "but I did it with AI."
@@ -123,7 +127,7 @@ The original profile is often described as a puff piece, but the article include
 - The chatbot sometimes made up drug prices. Gallagher honoured them. It also told customers Medvi sold hair-loss drugs, which it didn't.
 - And there's the phone, which rang through to him more than a thousand times.
 
-Under one photograph, he is quoted saying something that stayed with us: "At this point, I kind of want to hire people because I'm lonely."
+Under one photograph, he is quoted saying: "At this point, I kind of want to hire people because I'm lonely."
 
 ## What happened next
 
@@ -133,7 +137,7 @@ The story went viral on 2 April. Over the next ten days, other reporters went lo
 
 A warning letter is a formal caution. It doesn't amount to a finding of guilt, a fine or a ban.
 
-Medvi's answer, in a statement on 8 April, was that the website the FDA cited, medvi.io, belonged to an affiliate marketing agency, that its real site is medvi.org, and that it had "never received a letter from the FDA". Drug Discovery & Development disputes that, pointing out that the letter is addressed to Medvi by name, uses a Medvi email address and quotes Medvi-branded claims. We haven't seen the letter ourselves.
+Medvi's answer, in a statement on 8 April, was that the website the FDA cited, medvi.io, belonged to an affiliate marketing agency, that its real site is medvi.org, and that it had "never received a letter from the FDA". We have now read the official warning letter. It is dated 20 February 2026, is published on fda.gov, and is addressed to MEDVi, LLC dba MEDVi, at 131 Continental Drive, Suite 305, Newark, Delaware, and was sent to help@medvi.io. The agency says that in December 2025 it reviewed content at medvi.io offering compounded semaglutide and tirzepatide, and that claims on that site were false or misleading — including labels that suggested MEDVi was the compounder, and phrases such as "Same active ingredient as Wegovy® and Ozempic®." Drug Discovery & Development has argued that the addressing, email and branding undercut Medvi's claim that the letter was not aimed at it.
 
 **The doctors who didn't exist.** Business Insider searched Meta's public library of adverts and found Facebook and Instagram ads for Medvi fronted by doctors who appeared to be AI-generated. Some of the profiles had garbled text and watermarks from image generators. Some of the accounts had reportedly belonged, in an earlier life, to a gospel musician and a clothing shop.
 
