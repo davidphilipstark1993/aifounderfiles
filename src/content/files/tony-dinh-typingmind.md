@@ -1,6 +1,8 @@
 ---
 title: "Five days in March: how Tony Dinh built TypingMind"
 standfirst: "A developer whose last two AI products earned about $100 between them built a better chat window in five days, charged for it once instead of monthly, and now says it brings in well over a million dollars a year. Here is what he did, why it worked, and what you can copy."
+seoTitle: "Tony Dinh, TypingMind: Built in Five Days"
+metaDescription: "On 1 March 2023 OpenAI opened ChatGPT to developers. Five days later Tony Dinh had TypingMind on sale. How he built it, priced it and grew it."
 fileNumber: 5
 publishDate: 2026-11-15
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Bootstrapped, small team"
   funding: "None reported"
   businessModel: "One-time licences for individuals, subscriptions for teams"
+pillar: "how-they-built-it"
 tags: ["typingmind", "chatgpt-api", "bootstrapped", "indie-hacker", "pricing"]
 sources:
   - title: "Making $22K in 7 days: the story, Tony Dinh's Newsletter (March 2023)"
@@ -36,7 +39,7 @@ sources:
     url: "https://imademoneywithai.com/blog/how-much-does-typingmind-make/"
   - title: "TypingMind"
     url: "https://www.typingmind.com"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #005. Thank you for being here.

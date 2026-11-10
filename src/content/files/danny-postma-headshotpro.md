@@ -1,6 +1,8 @@
 ---
 title: "Danny Postma tried four ideas in six months. One of them stuck"
 standfirst: "A Dutch founder who says he hates marketing checks what people are searching for before he builds anything. That habit led him to AI headshots, a business that now says it has taken more than $10 million. He stopped sharing his revenue in 2023, so we have pieced together what can be known."
+seoTitle: "Danny Postma, HeadshotPro: Four Ideas, One Hit"
+metaDescription: "Danny Postma checks what people search for before he builds. It led to HeadshotPro, an AI headshot business that says it has taken over $10 million."
 fileNumber: 10
 publishDate: 2026-12-20
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Bootstrapped, small team"
   funding: "None reported"
   businessModel: "One-time purchases for individuals, credits for company teams"
+pillar: "how-they-built-it"
 tags: ["headshotpro", "danny-postma", "seo", "affiliates", "bootstrapped", "ai-images"]
 sources:
   - title: "Danny Postma, An Indie Hacker's Business Evolution, The Bootstrapped Founder (9 August 2023)"
@@ -36,7 +39,7 @@ sources:
     url: "https://supabird.io/articles/the-headshotpro-seo-strategy-how-danny-postma-ranks-1-for-professional-headshots"
   - title: "How an indie hacker built an AI headshot business to $300K/month, Starter Story (secondary, estimate)"
     url: "https://www.starterstory.com/stories/headshotpro-breakdown"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #010. Thank you for reading.

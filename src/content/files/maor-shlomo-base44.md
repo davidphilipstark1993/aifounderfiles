@@ -1,6 +1,8 @@
 ---
 title: "Maor Shlomo, Base44 and the $80 million headline"
 standfirst: "An Israeli founder came home from military reserve duty, built an AI app builder on his own, and sold it to Wix a few months after launch. The headline said $80 million. The detail is stranger, and more useful: a small cheque up front, and a great deal more for what happened next."
+seoTitle: "Maor Shlomo, Base44: Behind the $80M Wix Deal"
+metaDescription: "Maor Shlomo built Base44 alone and sold it to Wix within months. The headline said $80 million. Reports say about $18 million was paid up front."
 fileNumber: 9
 publishDate: 2026-12-13
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Acquired by Wix (June 2025)"
   funding: "None raised. Sold for a reported $80m plus earn-outs"
   businessModel: "Subscriptions to an AI tool that builds apps from plain language"
+pillar: "how-they-built-it"
 tags: ["base44", "wix", "vibe-coding", "bootstrapped", "exit", "solo-founder"]
 sources:
   - title: "Vibe coding fever: solo entrepreneur's Base44 acquired by Wix for $80 million, Calcalist Ctech (18 June 2025)"
@@ -36,7 +39,7 @@ sources:
     url: "https://www.sec.gov/Archives/edgar/data/1576789/000162828026015222/wix-20251231.htm"
   - title: "Base44 revenue, valuation and news, Sacra (estimates)"
     url: "https://sacra.com/c/base44/"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #009. Thank you for reading.

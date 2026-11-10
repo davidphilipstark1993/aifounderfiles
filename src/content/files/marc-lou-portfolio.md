@@ -1,6 +1,8 @@
 ---
 title: "Marc Lou built 35 startups. About five of them worked"
 standfirst: "A French founder was fired, moved to Bali with about $20,000 and started shipping small products in public. One of them made over a million dollars and has since faded by more than 80 percent. He saw it coming and had already built its replacement."
+seoTitle: "Marc Lou: 35 Startups, About Five That Worked"
+metaDescription: "Fired in 2021, Marc Lou moved to Bali and shipped 35 small products. ShipFast made over $1M, then faded. How he moved to subscriptions before it did."
 fileNumber: 7
 publishDate: 2026-11-29
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Bootstrapped, solo"
   funding: "None reported"
   businessModel: "One-time products, now shifting to subscriptions and a marketplace"
+pillar: "how-they-built-it"
 tags: ["marc-lou", "shipfast", "datafast", "trustmrr", "build-in-public", "cursor"]
 sources:
   - title: "I made $1,032,000 in 2025, Marc Lou's newsletter (January 2026)"
@@ -40,7 +43,7 @@ sources:
     url: "https://www.indiehackers.com/post/marc-lou-issues-an-apology-for-shipfast-bugs-yOAhRHuVG7pUApsywGDW"
   - title: "Ship or Die review, Preuve AI (secondary)"
     url: "https://preuve.ai/blog/ship-or-die-review"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #007. Thank you for reading.

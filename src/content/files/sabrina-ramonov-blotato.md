@@ -1,6 +1,8 @@
 ---
 title: "Sabrina Ramonov says she hates making content. She publishes 250 pieces a week"
 standfirst: "A founder who sold her first company built a tool to take the drudgery out of her own social media. She now says that tool earns millions a year, with no staff. The workflow is worth copying whatever you make of the numbers, and we have sorted her claims into what can be checked and what is only her word."
+seoTitle: "Sabrina Ramonov, Blotato: 250 Posts a Week, Solo"
+metaDescription: "Sabrina Ramonov says she publishes 250 pieces of content a week alone, using AI and her own tool, Blotato. Her six-step workflow, and what's checkable."
 fileNumber: 12
 publishDate: 2027-01-03
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Bootstrapped, solo (self-reported)"
   funding: "None (self-reported)"
   businessModel: "Subscriptions from $29 a month, plus connections that let AI assistants post for you"
+pillar: "how-they-built-it"
 tags: ["sabrina-ramonov", "blotato", "content-automation", "claude", "ai-agents", "solo-founder"]
 sources:
   - title: "About Sabrina Ramonov, founder of Blotato, Blotato"
@@ -38,7 +41,7 @@ sources:
     url: "https://bootstraplabs.com/2021/01/20/congratulations-to-sabrina-atienza-and-george-ramonov-qurious-io-acquired-by-pegasystems-inc/"
   - title: "Blotato review 2026: pricing, free plan, and the credit catch, AI Funnel Insider (independent review)"
     url: "https://aifunnelinsider.com/blotato-review/"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #012. Thank you for reading.

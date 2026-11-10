@@ -1,6 +1,8 @@
 ---
 title: "Pieter Levels and the 40,870-line file"
 standfirst: "A self-taught Dutch developer runs a portfolio of products alone, with no investors, no employees and a way of writing software that most professionals would call reckless. One of those products, he says, makes $80,000 a month in profit from a single file. Here is how he works, and what the numbers do and don't show."
+seoTitle: "Pieter Levels and Photo AI's 40,870-Line File"
+metaDescription: "Pieter Levels runs Photo AI from one 40,870-line file and says it makes $80,000 a month in profit. How he works alone, and what his numbers show."
 fileNumber: 8
 publishDate: 2026-12-06
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Bootstrapped, solo"
   funding: "None (never raised venture capital)"
   businessModel: "Subscriptions and credits across a portfolio of products"
+pillar: "how-they-built-it"
 tags: ["pieter-levels", "photo-ai", "interior-ai", "solo-founder", "php", "vibe-coding"]
 sources:
   - title: "Photoai.com is a 40,870 line index.php making $105,000/mo revenue and $80,000/mo profit, levels.io (6 March 2026)"
@@ -38,7 +41,7 @@ sources:
     url: "https://vgtimes.com/tech-and-hardware/122582-dutch-startup-founder-creates-game-using-ai-in-180-minutes-and-earns-87000-in-one-month.html"
   - title: "Is Pieter Levels making less money now?, Steal What Works"
     url: "https://stealwhatworks.com/blogs/news/pieter-levels-still-making-money"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #008. Thank you for staying with us.

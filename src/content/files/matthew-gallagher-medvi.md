@@ -1,6 +1,8 @@
 ---
 title: "The $401 million company with two employees, and what the headline left out"
 standfirst: "Matthew Gallagher built Medvi in two months with $20,000 and a stack of AI tools. The New York Times reviewed financials showing $401 million of sales in 2025. It is the best-documented revenue in this series, and it comes with the biggest warning."
+seoTitle: "Matthew Gallagher, Medvi: $401M With Two Employees"
+metaDescription: "Matthew Gallagher built Medvi in two months with $20,000 and AI tools. It made $401 million in 2025 and drew an FDA warning letter. Both sides, sourced."
 fileNumber: 6
 publishDate: 2026-11-22
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Private, bootstrapped"
   funding: "None (no outside investment, per the New York Times)"
   businessModel: "Sells compounded GLP-1 prescriptions direct to patients; clinical work outsourced to partners"
+pillar: "how-they-built-it"
 tags: ["medvi", "telehealth", "glp-1", "ai-ethics", "small-team", "compliance"]
 sources:
   - title: "A $1.8 billion company with two employees? AI made it possible, New York Times (2 April 2026), reprinted by GV Wire"
@@ -34,7 +37,7 @@ sources:
     url: "https://futurism.com/artificial-intelligence/ai-drug-marketer-medvi-responds"
   - title: "AI could make MEDVi $1b in sales, but it could also break it, Mediaweek"
     url: "https://www.mediaweek.com.au/ai-could-make-medvi-1b-in-sales-but-it-could-also-break-it"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #006. Thank you for staying with us.

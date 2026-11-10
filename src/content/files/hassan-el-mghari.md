@@ -1,6 +1,8 @@
 ---
 title: "Hassan El Mghari builds an app in a weekend, gives it away, and millions of people turn up"
 standfirst: "A New York developer has a habit of building a small AI app the moment a new model makes it possible, publishing the code for free and watching it spread. His apps have reached millions of visitors. He never turned them into a company, and that choice is the interesting part."
+seoTitle: "Hassan El Mghari: Weekend AI Apps, Millions of Visitors"
+metaDescription: "Hassan El Mghari builds an AI app in a weekend, gives the code away and watches it spread. roomGPT drew 12 million visitors. His five-step method."
 fileNumber: 11
 publishDate: 2026-12-27
 author: "AI Founder Files"
@@ -16,6 +18,7 @@ company:
   stage: "Side projects alongside a full-time role"
   funding: "None reported"
   businessModel: "Free open-source apps; roomGPT sold credit packs"
+pillar: "how-they-built-it"
 tags: ["hassan-el-mghari", "roomgpt", "open-source", "viral-apps", "developer-relations", "nutlope"]
 sources:
   - title: "Hassan El Mghari, personal site (apps, visitor counts, role)"
@@ -38,7 +41,7 @@ sources:
     url: "https://themenonlab.blog/blog/bygga-3d-ikea-assembly-guide-open-source/"
   - title: "The builders behind 2026's weirdest viral AI apps, Differ"
     url: "https://blog.getdiffer.com/builders-behind-2026-weirdest-viral-ai-apps"
-draft: true
+draft: false
 ---
 
 Hello again, and welcome to File #011. Thank you for reading.
