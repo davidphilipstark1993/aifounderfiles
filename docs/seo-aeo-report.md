@@ -30,7 +30,7 @@ I looked these up myself (web search plus opening the pages I could reach). Wher
 
 - **Forbes $3.3 billion.** I could not reach Forbes. Secondary sites give $3.3bn, but one cites a Forbes figure of **$4bn (Reuters, 13 May 2026)** and others differ. Check Forbes directly.
 - **"A private portfolio of more than 400 companies."** Source 12 says his disclosed positions are **nine**, worth over $2bn. PitchBook lists 172 investments. I found nothing for 400. Needs a source or a rewrite.
-- **"Nearing $70 billion" annualised revenue.** This was reported by Axios on 29 September. On **8 October the Financial Times reported OpenAI told investors about $50 billion at the end of September**, because the $70bn figure counted gross cloud-partner sales on Anthropic's basis. The file is dated 4 October, so it was right at the time, but it is now disputed and appears in the body and "What to watch". I'd update it. I could not open Axios or the FT.
+- **Annualised revenue (fixed).** The file said "nearing $70 billion" (body and "What to watch"). Reporting says OpenAI told investors about **$50 billion** at the end of September; the ~$70bn was an investor "gross-up" to match Anthropic's gross-of-partner-sales basis. Copy now says about $50 billion, cited to source 27 (Channel Insider, opened; it relays the FT, which is paywalled, and OpenAI has not confirmed). Note the Amodei file's "annualised $65 billion by July" for Anthropic is on the gross basis, so the two files' run rates are not like-for-like.
 - **"$13.1 billion revenue in 2025 and burned about $8 billion."** The $13.1bn matches reported leaked financials ($13.07bn). The "$8 billion burn" matches OpenAI's *projection* from 2025; leaked 2025 costs of about $34bn imply a much larger loss, so "burned" may be wrong. Needs a source and a definition.
 - **"$130 million collected by 2019" of the $1 billion pledged.** Wikipedia gives **$133 million by 2021** (from tax filings), and other reporting differs on the year. OpenAI later said Musk's contributions were under $45m.
 - **New Yorker "16,000-word".** TechCrunch calls it "lengthy" and doesn't give a word count.
@@ -52,7 +52,7 @@ Where a marker I added is only partly supported, I kept it and listed the gap ab
 4. **Amodei: valuation.** Header says $965 billion (May); body says shares could price "at a valuation of more than $2 trillion" after November, from a leaked prospectus. Same situation as Altman.
 5. **Weinberg: valuation.** Header says $15.5 billion; the body notes "some outlets, citing Bloomberg, put the valuation at $15.6 billion". The body already acknowledges it; one of the listed source URLs also says 15.6.
 6. **Altman: salary.** Standfirst says "roughly $65,000 to $76,000", body says "reported ... depending on the source". $76,001 is confirmed; $65,000 is not yet.
-7. **Altman: revenue.** The "nearing $70 billion" annualised revenue was revised to about $50 billion by the FT on 8 October (see section 1).
+7. **Altman: revenue.** Fixed: now about $50 billion (see section 1). Anthropic's $65bn run rate in the Amodei file uses a different, gross basis.
 8. **Altman: portfolio.** "More than 400 companies" conflicts with source 12, which lists nine disclosed positions.
 9. **Altman: net worth.** Forbes is quoted at $3.3bn; other reporting cites a Forbes figure of $4bn in May 2026.
 10. **Spelling and style.** Altman uses "%", Amodei and Weinberg used "percent". I changed "percent" to "per cent" in those two (figures unchanged). "%" and "per cent" are both acceptable British house style, so pick one. "Defense Department" in the Amodei file is a proper noun and was left.
@@ -96,7 +96,7 @@ The Amodei and Weinberg files follow the same template, so the same pattern appl
 1. `src/content/authors/editorial.md`: add the real author (name, `type: person`, bio, photo, LinkedIn, X), then point each file's `author` at it. Until then bylines read "By AI Founder Files" and the schema author is an Organization.
 2. `src/pages/about.astro`: add a sentence or two about the named author (the old "Who's behind it" gap).
 3. `src/content/files/sam-altman.md`: review the six FAQ answers (they go live with this branch and into `FAQPage` JSON-LD). The salary answer needs source 11 checked for the $65,000 figure.
-4. Decide what to do with the claims in section 1 that I could not confirm or that conflict with sources (revenue, 400 companies, Forbes, suspect's essays, Giving Pledge).
+4. Decide what to do with the claims in section 1 that I could not confirm or that conflict with sources (400 companies, Forbes, suspect's essays, Giving Pledge).
 5. `src/content/files/sam-altman.md`: approve the shortened meta description.
 6. Not marked in the code: set `updatedDate` on the Altman file when this ships (it gained citations, a FAQ, links and a new description), so "Updated", `dateModified` and the sitemap `lastmod` move.
 7. Not marked in the code: confirm the Wikipedia `sameAs` URLs. Sam Altman, Anthropic, both Amodeis and Harvey come from each file's own Sources list. OpenAI's (`https://en.wikipedia.org/wiki/OpenAI`) is not in a source list; I checked it resolves.

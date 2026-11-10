@@ -89,6 +89,8 @@ sources:
     url: "https://www.engadget.com/ai/openai-starts-testing-ads-in-chatgpt-191756493.html"
   - title: "Sam Altman's home targeted in a second attack, San Francisco Standard (12 April 2026)"
     url: "https://sfstandard.com/2026/04/12/sam-altman-s-home-targeted-second-attack/"
+  - title: "OpenAI's revenue run rate is $20B below earlier estimates, Channel Insider (9 October 2026)"
+    url: "https://www.channelinsider.com/ai/news-openai-revenue-run-rate-cloud-partner-accounting/"
 draft: false
 ---
 
@@ -163,7 +165,7 @@ OpenAI earns money in four ways: paid ChatGPT subscriptions for individuals, sub
 
 The ads are the story of 2026. They began testing in the US in February, appear at the bottom of ChatGPT's answers, are clearly labelled, and are not shown to under-18s. OpenAI says they don't influence the answers.[^25] By late August the ad business had reached a $1 billion annualised run rate in about 200 days.[^8]
 
-The overall numbers are huge and so are the costs. OpenAI made $13.1 billion in revenue in 2025 and burned about $8 billion. Its annualised revenue is now reported to be nearing $70 billion. It forecasts more than $280 billion of revenue in 2030, split roughly evenly between consumers and businesses.[^7] But it also expects to spend around $600 billion on computing by 2030, down from the $1.4 trillion Altman talked about last November,[^5] and the Financial Times reports its own projections show a cumulative cash burn of about $278 billion between 2026 and 2030.[^6]
+The overall numbers are huge and so are the costs. OpenAI made $13.1 billion in revenue in 2025 and burned about $8 billion. Its annualised revenue is now reported to be about $50 billion.[^27] It forecasts more than $280 billion of revenue in 2030, split roughly evenly between consumers and businesses.[^7] But it also expects to spend around $600 billion on computing by 2030, down from the $1.4 trillion Altman talked about last November,[^5] and the Financial Times reports its own projections show a cumulative cash burn of about $278 billion between 2026 and 2030.[^6]
 
 That is the business model in one sentence: spend almost unimaginable sums now, on the bet that revenue arrives faster than the bills.
 
@@ -186,7 +188,7 @@ Which brings up the obvious awkward question. In March this year Altman stepped 
 ## What to watch
 
 1. **The next round.** Does the $30 billion-plus raise at around $1.4 trillion close, and on what terms? It is reportedly meant to be the last before an IPO. Altman has said "not 2026"; 2027 is the widely reported target, though nothing is confirmed.
-2. **Revenue against burn.** Does the run rate near $70 billion keep climbing, and do advertising and business customers grow fast enough to bend the loss curve before the $278 billion projection comes true?[^6]
+2. **Revenue against burn.** Does the run rate near $50 billion keep climbing, and do advertising and business customers grow fast enough to bend the loss curve before the $278 billion projection comes true?[^6]
 3. **The evaluators.** Altman has promised independent access "soon". Details, who gets in, and what they can actually see will show whether the September slowdown is a policy or just a mood.
 4. **The conflicts.** Watch the Helion power deal, and every other tie between OpenAI and the companies Altman owns a piece of. How he handles those will tell you a lot about the governance he built.
 5. **Musk's appeal.** It probably won't change OpenAI's trajectory in the next year, but it keeps the founding bargain in the news.
