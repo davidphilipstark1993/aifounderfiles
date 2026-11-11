@@ -1,8 +1,8 @@
 ---
 title: "Sabrina Ramonov says she hates making content. She publishes 250 pieces a week"
-standfirst: "A founder who sold her first company built a tool to take the drudgery out of her own social media. She now says that tool earns millions a year, with no staff. The workflow is worth copying whatever you make of the numbers, and we have sorted her claims into what can be checked and what is only her word."
+standfirst: "A founder who sold her first company built a tool to take the drudgery out of her own social media. She now says that tool earns millions a year, and that she got it there with no staff. The workflow is worth copying whatever you make of the numbers, and we have sorted her claims into what can be checked and what is only her word."
 seoTitle: "Sabrina Ramonov, Blotato: 250 Posts a Week, Solo"
-metaDescription: "Sabrina Ramonov says she publishes 250 pieces of content a week alone, using AI and her own tool, Blotato. Her six-step workflow, and what's checkable."
+metaDescription: "Sabrina Ramonov says she publishes 250 pieces of content a week using AI and her own tool, Blotato. Her six-step workflow, and what's checkable."
 fileNumber: 12
 publishDate: 2027-01-03
 author: "AI Founder Files"
@@ -12,10 +12,10 @@ founder:
 company:
   name: "Blotato"
   website: "https://www.blotato.com"
-  founded: "Undisclosed"
+  founded: "2024 (launched 20 October 2024, self-reported)"
   hq: "Undisclosed"
   sector: "Social media automation (AI agents)"
-  stage: "Bootstrapped, solo (self-reported)"
+  stage: "Bootstrapped; solo until a first hire in 2026 (self-reported)"
   funding: "None (self-reported)"
   businessModel: "Subscriptions from $29 a month, plus connections that let AI assistants post for you"
 pillar: "how-they-built-it"
@@ -31,14 +31,26 @@ sources:
     url: "https://martechedge.com/news/blotato-founder-highlights-social-funnel-behind-4m-view-reel"
   - title: "This exit-backed founder hates making content. Her videos built a multimillion-dollar AI business, Inc. (October 2026)"
     url: "https://www.inc.com/bryan-elliott/exit-backed-founder-multimillion-dollar-ai-business/91416877"
+  - title: "Sabrina Ramonov hates making content. Her content built a multimillion-dollar business, Behind the Brand with Bryan Elliott (8 October 2026), episode page with transcript, Buzzsprout"
+    url: "https://www.buzzsprout.com/2007996/episodes/19932385-sabrina-ramonov-hates-making-content-her-content-built-a-multimillion-dollar-business"
   - title: "Sabrina Ramonov hates making content. Her content built a multimillion-dollar business, Behind the Brand with Bryan Elliott, iHeart"
     url: "https://www.iheart.com/podcast/269-behind-the-brand-with-brya-99016487/episode/sabrina-ramonov-hates-making-content-her-content-built-a-multimillion-dollar-business-347237718"
   - title: "This one thing made me $120,000 ARR: automate DMs with Claude and ChatGPT, sabrina.dev"
     url: "https://www.sabrina.dev/p/facebook-instagram-dm-automation-with-claude-chatgpt-blotato"
   - title: "Sabrina Ramonov on X: why she downplays AI on the Blotato site (February 2025)"
     url: "https://x.com/Sabrina_Ramonov/status/1894215712153243886"
-  - title: "Congratulations to Sabrina Atienza and George Ramonov: Qurious.io acquired by Pegasystems, BootstrapLabs (20 January 2021)"
-    url: "https://bootstraplabs.com/2021/01/20/congratulations-to-sabrina-atienza-and-george-ramonov-qurious-io-acquired-by-pegasystems-inc/"
+  - title: "Pega acquires Qurious.io, AI-powered speech analytics, Pegasystems press release (11 January 2021)"
+    url: "https://www.pega.com/about/news/press-releases/pega-acquires-quriousio-ai-powered-speech-analytics"
+  - title: "Sabrina Atienza, 27, George Ramonov, 28, Cofounders, Qurious, 30 Under 30 2018: Enterprise Technology, Forbes (14 November 2017)"
+    url: "https://www.forbes.com/pictures/5a01ff7b4bbe6f37dda1e90e/sabrina-atienza-27-george/"
+  - title: "Qurious, company profile, Forbes"
+    url: "https://www.forbes.com/profile/qurious/"
+  - title: "How I built a $1M solo AI business... then rebuilt it, sabrina.dev (15 August 2026)"
+    url: "https://www.sabrina.dev/p/how-i-built-a-1m-solo-ai-business"
+  - title: "Celebrating 3,000,000+ followers, sabrina.dev (18 July 2026)"
+    url: "https://www.sabrina.dev/p/sabrina-ramonov-milestone-3-million-followers"
+  - title: "Sabrina Ramonov, LinkedIn profile"
+    url: "https://www.linkedin.com/in/sabrinaramonov"
   - title: "Blotato review 2026: pricing, free plan, and the credit catch, AI Funnel Insider (independent review)"
     url: "https://aifunnelinsider.com/blotato-review/"
 draft: true
@@ -50,7 +62,7 @@ If you post anything online for your business, you know the routine. You write s
 
 Sabrina Ramonov did that for a while and decided she hated it. She's an engineer, so she built a machine to do it for her.
 
-She now says she publishes about 250 pieces of content a week across roughly ten platforms, alone, with no editor and no assistant. She says the machine she built has become a software business earning millions of dollars a year. And she says she makes original content just one day a week.
+She now says she publishes about 250 pieces of content a week across roughly ten platforms. She says the machine she built has become a software business earning millions of dollars a year, and that she got it there on her own before making her first hire in 2026. And she says she makes original content just one day a week.
 
 Those are big claims, and some of them can't be checked. So this file does two jobs. It shows you the workflow, which is useful whoever you are. And it sorts the claims into three groups: public record, her own account, and marketing. (All figures are in US dollars.)
 
@@ -65,13 +77,13 @@ Those are big claims, and some of them can't be checked. So this file does two j
 
 According to her own About page, Sabrina was born in Quezon City in the Philippines. She studied computer science and physics at the University of California, Berkeley, and left with about $250,000 in student loans.
 
-At 23 she started a company called Qurious. The first idea was to use language-processing software in healthcare. It didn't find customers. She changed direction and built something that listened to sales and customer-support calls as they happened and prompted the person on the phone with what to say next.
+At 23, by her account, she started a company called Qurious. (Pega's announcement dates the company to 2016, in San Francisco.) The first idea was to use language-processing software in healthcare. It didn't find customers. With her co-founder, George Ramonov, she later pivoted it and built something that listened to sales and customer-support calls as they happened and prompted the person on the phone with what to say next.
 
-That version worked well enough to be bought. In January 2021 the American software company Pegasystems announced it was acquiring Qurious. That part is public record. The price wasn't disclosed. One profile says more than $10 million, without a source. Pega turned the technology into a product for its customer-service software.
+That version worked well enough to be bought. In January 2021 the American software company Pegasystems announced it had bought Qurious. That part is public record. Pega didn't disclose the price. Sabrina says on LinkedIn that it was more than $10 million in cash and stock. Pega said the technology would go into its customer-service software, and she says it launched there as Pega Voice AI.
 
-Two notes for anyone who goes looking. A post about the deal from one of her investors names her as Sabrina Atienza, which appears to be her earlier surname, and it's the name the older coverage uses. And her About page says she was named to the Forbes 30 Under 30 list for enterprise technology in 2018. We couldn't find her on Forbes's own pages, so we're reporting that as her claim.
+In 2017 Forbes named her and her co-founder, George Ramonov, Qurious's chief technology officer, to its 30 Under 30 list for enterprise technology (the 2018 list). At the time she was Sabrina Atienza; Inc. confirms that was her earlier name, and it's the name the older coverage uses.
 
-After the sale she had money and, we assume, some time. At 33, by her own account, she started making videos to teach people about AI. She set herself a goal of teaching a million people for free. She has since raised it to ten million.
+After the sale, by her account, she stayed at Pega long enough to launch the technology as a product, then spent a year angel investing and recovering from burnout. At 33, by her own account, she started making videos to teach people about AI. She set herself a goal of teaching a million people for free. She has since raised it to ten million.
 
 ## Why she built it
 
@@ -81,7 +93,7 @@ So she built a tool for herself. Later she turned it into a product. She told In
 
 A post of hers from February 2025 explains how she decided to sell it. She plays down the AI on Blotato's own website, she wrote, because "I want to attract ppl with the problem, not the curiosity". People who are curious about AI tend to try a tool and leave. People with a problem are more likely to stay and pay for it.
 
-We couldn't find a launch date for Blotato. Her site doesn't give one.
+She launched Blotato on 20 October 2024, after building the first version on camera in August and testing it with about 50 early users, according to her own account.
 
 ## What Blotato does
 
@@ -95,13 +107,13 @@ Going by its own pages, Blotato does three things.
 
 In the last year or so she has added something newer. Blotato now connects directly to AI assistants through a standard called MCP, which lets an assistant like Claude or ChatGPT operate other software. In practice you can type "schedule this to LinkedIn tomorrow at nine and make a carousel version for Instagram" into a chat window, and the assistant does it through Blotato. She has started calling the product the infrastructure that AI agents use for social media.
 
-Pricing starts at $29 a month. Higher tiers go up to several hundred. One independent review warns of a "credit catch", meaning that some features use up a monthly allowance, so read the plan details before you depend on any one feature.
+Pricing starts at $29 a month. Higher tiers go up to several hundred. One independent review, based on published evidence rather than testing, warns of a "credit catch": the $29 plan's 1,250 starter credits "run out fast on video". Read the plan details before you depend on any one feature.
 
 ## The workflow
 
 In April 2026 she walked through her method on a marketing podcast run by HubSpot, and a trade site summarised it the following month. We've restated it as six steps that you could follow with almost any tools.
 
-1. **Teach the AI your voice before anything else.** She builds a reusable set of writing instructions inside Claude by having the AI interview her about how she writes and what she'd never say.
+1. **Teach the AI your voice before anything else.** She starts by teaching Claude how she writes, before she asks it for a single post.
 2. **Start from one source.** One idea, one recording or one rough draft, including raw screenshots and photos.
 3. **Have the AI draft a version for each platform,** in that platform's style, using the voice from step one.
 4. **Generate the visuals** from templates, in the same conversation.
@@ -118,7 +130,7 @@ She also labels the artificial parts. When a video uses an AI-generated version 
 
 ## Where the human is
 
-Put her workflow in a table and you can see the principle.
+Her About page describes the one day: on a Saturday she films a YouTube tutorial, shoots 20 short-form videos and writes her newsletter. She told Inc. she batches 14 to 20 TikTok videos on a typical Saturday. Put her workflow in a table and you can see the principle.
 
 | Stage | Who does it |
 |---|---|
@@ -136,13 +148,14 @@ She does the beginning and the end. The AI does the repetitive middle. She hasn'
 
 | Claim | Where it comes from | How to treat it |
 |---|---|---|
-| Sold Qurious to Pegasystems in 2021 | Pega's announcement, reported by her investor | Public record. Price not disclosed |
-| Forbes 30 Under 30, 2018 | Her About page | Her claim. We couldn't confirm it |
+| Sold Qurious to Pegasystems in 2021 | Pega's announcement (11 January 2021) | Public record. Price not disclosed by Pega; she says more than $10 million |
+| Forbes 30 Under 30, 2018 | Forbes's own list; Pega's release | Public record |
 | 250 pieces of content a week | Her, on a podcast | Her claim |
-| Three million or more followers | Her site. Other sources say 2 million or 2.4 million | Her claim. It varies by source and date |
+| Followers | Her site says 3 million or more; her LinkedIn says up to 3.5 million; earlier 2026 sources say 2 to 2.4 million | Her claim; it has grown over time |
 | A new Facebook page reached 46 million views in three months | Her, via a trade site | Her claim |
-| "Millions in ARR" from Blotato, with no courses or other products | Her, to Inc. and on a podcast | Her claim. No figure given |
-| No staff, no ads, no outside funding | Her About page | Her claim |
+| "$1M" (August 2026), then "millions in ARR" (October 2026), from Blotato alone | Her newsletter; Inc. and a podcast | Her claim |
+| No ads, no outside funding | Her About page | Her claim |
+| No staff until 2026; first hire "a couple months" before October 2026 | Her, on a podcast | Her claim |
 | 10,000 business owners use it; 667,000 posts published last month | Blotato's website | Company marketing |
 
 One claim needs unpacking, because you'll see it quoted. A tutorial of hers is headlined with the statement that one Instagram reel made her $120,000 in annual recurring revenue. When we first read it, the page didn't explain how. A later trade report did: she says a reel with about 200,000 views brought in around $10,000 of new monthly subscriptions, and twelve times $10,000 is $120,000. In the same report she set it against another reel that passed 4 million views, to show that reach and revenue aren't the same thing.
@@ -151,9 +164,9 @@ That makes it clearer, and it remains her own attribution of her own sales. It i
 
 ## An honest look at the money
 
-Blotato's revenue has never been published. The strongest statement is hers: millions a year, from the software alone. A third-party directory guesses at between $500,000 and $2 million and says plainly that it's a guess. Nothing has been audited, and her own site gives no figure.
+Her own figures are headlines, not accounts. In August 2026 she titled a newsletter post "How I built a $1M solo AI business". In October she told Inc. the business does millions in ARR. She has also written that growth has been steady rather than explosive, and that it still takes "a lot of pushing". Nothing has been audited.
 
-That doesn't mean the business isn't real. Hundreds of customers have left public reviews, and the product plainly exists and works. But "millions" could mean two or it could mean nine, and until she says which, we don't know.
+That doesn't mean the business isn't real. Hundreds of customers have left public reviews, and the product plainly exists and works. But "$1M" in August and "millions" in October could mean anything from one to several, and until she says which, we don't know.
 
 ## The loop
 
@@ -185,7 +198,7 @@ There's a catch you should keep in mind as a reader. Almost everything written a
 
 **The assistants.** Her newer pitch depends on Claude, ChatGPT and others continuing to welcome outside tools, and not building the same features themselves.
 
-**One person.** She says she runs the product, the support and the content alone. A lot of the risk sits with one person.
+**One person, then a few.** By her account she ran the product, the support and the content alone until 2026. She told a podcast in October that she had made her first hire a couple of months earlier, to free herself from "the normal operational chaos" of the business, and that she has been hiring video editors. A lot of the risk still sits with her.
 
 **Her audience.** The business is fed by her following. It took two years to build and could shrink faster than that.
 
@@ -196,7 +209,7 @@ There's a catch you should keep in mind as a reader. Almost everything written a
 1. **A real revenue figure,** or anyone outside the company confirming one.
 2. **Platform rules.** Whether Meta, TikTok and others tighten up on automated posting and AI-made content.
 3. **The AI assistants.** Whether they keep supporting tools like hers or start competing with them.
-4. **Whether she stays solo.** She says she runs a product with thousands of paying customers and no staff. That may not last.
+4. **The first hires.** She says she chose between staying solo, with growth she expected to stay linear, and hiring to take bigger bets. Watch what the new people let her try.
 
 She built a machine to do the part of the work she hated, and she kept the two parts that need a person, deciding what to say and checking it before it goes out. That division of labour is worth copying. As for the revenue, it may well be what she says, but nobody outside the company can confirm it yet.
 
@@ -204,4 +217,4 @@ She built a machine to do the part of the work she hated, and she kept the two p
 
 That's File #012. Thank you for reading it. If it made you think of someone, forward it along, and if there's a founder you'd like to see opened next, tell us at info@aifounderfiles.com. File #013 lands next Sunday.
 
-*Where this came from: Blotato's own pages, Sabrina Ramonov's tutorials, posts and interviews, MarTech Series, MarTech Edge, Inc. and a podcast we couldn't hear in full, plus an independent review. Nearly all of it is a founder's own account or promotional coverage, and we say so. We haven't spoken to her. A note on disclosure: Blotato connects to Claude, which is made by Anthropic, and Claude helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
+*Where this came from: Blotato's own pages, Sabrina Ramonov's tutorials, posts and interviews, MarTech Series, MarTech Edge, Inc. and a podcast we couldn't hear in full, plus an independent review. Nearly all of it is a founder's own account or promotional coverage, and we say so. We haven't spoken to her. A note on disclosure: Blotato connects to Claude and Claude Code, both made by Anthropic, and she says she uses them to run her content. Claude helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
