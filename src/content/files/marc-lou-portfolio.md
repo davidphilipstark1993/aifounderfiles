@@ -71,7 +71,7 @@ His name is Marc Lou. He is French, he works alone, and he has launched roughly 
 
 ## The founder
 
-By his own telling, Marc spent years getting nowhere. By his own account, years of earlier projects never earned more than a few thousand dollars a month. His first SaaS peaked at around $3,000 to $4,000 before COVID wiped it out. His public count of how many startups he has built moves around: about 35 in an April 2026 interview, 38 on his site in late October 2026, and 43 on the site when we checked it in November.
+By his own telling, Marc spent years getting nowhere: his earlier projects never earned more than a few thousand dollars a month. His first SaaS peaked at around $3,000 to $4,000 before COVID wiped it out. His public count of how many startups he has built moves around: about 35 in an April 2026 interview, 38 on his site in late October 2026, and 43 on the site when we checked it in November.
 
 In 2021 he took a job. He has written that he was working for the American internet personality Tai Lopez (Remarkable Magazine calls the role marketing; Streakr, quoting him, calls it product manager). In October 2021 he and his wife went back to Bali, where they had lived since 2018. In November he was fired. Remarkable Magazine says he had about $20,000 and no backup plan. He went back to building things.
 

@@ -43,7 +43,7 @@ sources:
     url: "https://www.techdirt.com/2026/04/07/the-new-york-times-got-played-by-a-telehealth-scam-and-called-it-the-future-of-ai/"
   - title: "AI-powered drug marketer Medvi responds after allegations about fake doctors and patients, Futurism (9 April 2026)"
     url: "https://futurism.com/artificial-intelligence/ai-drug-marketer-medvi-responds"
-  - title: "AI could make MEDVi $1b in sales, but it could also break it, Mediaweek"
+  - title: "AI could make MEDVi $1b in sales, but it could also break it, Mediaweek (13 April 2026)"
     url: "https://www.mediaweek.com.au/ai-could-make-medvi-1b-in-sales-but-it-could-also-break-it"
   - title: "FDA warning letter to MEDVi, LLC dba MEDVi (20 February 2026)"
     url: "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/medvi-llc-dba-medvi-721455-02202026"
@@ -141,7 +141,7 @@ Under one photograph, he is quoted saying: "At this point, I kind of want to hir
 
 The story went viral on 2 April. Over the next ten days, other reporters went looking, and found things the profile hadn't mentioned. Here is what has been reported, by whom, and what Medvi says. We've kept allegations as allegations.
 
-The Times itself responded. On 9 April it added an editor's note saying that readers had pointed out Medvi "was facing legal and regulatory actions for its business practices", and that its piece "should have included that information". It updated the article to mention the FDA warning letter and a pending class action under California's anti-spam law.
+The Times itself responded. On 9 April it added an editor's note, as quoted by Futurism, saying that readers had pointed out Medvi "was facing legal and regulatory actions for its business practices", and that its piece "should have included that information". It updated the article to mention the FDA warning letter and a pending class action under California's anti-spam law.
 
 **The warning letter.** On 20 February 2026, six weeks before the profile, the Food and Drug Administration issued a warning letter addressed to MEDVi, LLC. The FDA's letter said the company's marketing made its compounded drugs "misbranded". It gave two reasons. The website suggested that Medvi made the medication itself, and phrases such as "same active ingredient as" two famous brands implied the regulator had approved or evaluated the product, which it hadn't. The letter warned that failing to fix this could lead to seizure or an injunction.
 
@@ -157,7 +157,7 @@ Between Friday 3 and Monday 6 April, after Business Insider raised the profiles 
 
 **The real doctors.** Drug Discovery & Development also looked up two physicians named on Medvi's website. It reported that their Florida Department of Health profiles listed no certifications from specialty boards recognised by the Florida board, though it later corrected its story to note that one of them is certified in emergency medicine by a national board. Both were removed from Medvi's site on 10 April, after the publication's story first ran and it had asked them for comment.
 
-**Complaints and lawsuits.** In September 2025, months before any of this, the National Consumers League had asked the Federal Trade Commission to investigate Medvi and five other telehealth firms over phrases like "doctor-approved". Separately, a class action filed in California on 20 March 2026 accuses Medvi of benefiting from spam emails sent by affiliates, Business Insider reported that Medvi had been sued at least three times in 11 months over unsolicited texts and emails. One suit was dropped and two were pending. In a response to one of the lawsuits, Medvi said it "denies that it engaged in any illegal conduct in any jurisdiction". Gallagher told BI that Medvi has "a strict 'no spam' policy".
+**Complaints and lawsuits.** In September 2025, months before any of this, the National Consumers League had asked the Federal Trade Commission to investigate Medvi and five other telehealth firms over phrases like "doctor-approved". Separately, a class action filed in California on 20 March 2026 accuses Medvi of benefiting from spam emails sent by affiliates. Business Insider reported that Medvi had been sued at least three times in 11 months over unsolicited texts and emails. One suit was dropped and two were pending. In a response to one of the lawsuits, Medvi said it "denies that it engaged in any illegal conduct in any jurisdiction". Gallagher told BI that Medvi has "a strict 'no spam' policy".
 
 **The wider crackdown.** Medvi wasn't singled out. In September 2025 and February 2026 the FDA sent warning letters to dozens of telehealth companies, drug companies and pharmacies about their direct-to-consumer advertising. Medvi's statement made that point, and Futurism confirmed it.
 
