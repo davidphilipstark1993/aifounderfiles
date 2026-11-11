@@ -3,6 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import AdSlot from '../components/AdSlot.astro';
 import { fileNumberLabel, fileUrl, formatDate, getPublishedFiles, isUpcoming } from '../lib/files';
+import { SITE } from '../lib/site';
 
 const files = await getPublishedFiles(); // already newest first
 const byYear = new Map<number, typeof files>();
@@ -10,16 +11,50 @@ for (const f of files) {
   const y = f.data.publishDate.getUTCFullYear();
   byYear.set(y, [...(byYear.get(y) ?? []), f]);
 }
+const url = `${SITE.url}/archive/`;
+const jsonLd = files.length
+  ? [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Archive',
+        url,
+        description: 'Every AI Founder Files deep dive, newest first.',
+        isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+        inLanguage: 'en-GB',
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListOrder: 'https://schema.org/ItemListOrderDescending',
+          numberOfItems: files.length,
+          itemListElement: files.map((f, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: new URL(fileUrl(f), SITE.url).href,
+            name: f.data.title,
+          })),
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+          { '@type': 'ListItem', position: 2, name: 'Archive', item: url },
+        ],
+      },
+    ]
+  : undefined;
 ---
 <PageLayout
   noindex={files.length === 0}
   title="Archive"
-  description="Every AI Founder Files deep dive, newest first."
+  description="Every AI Founder Files deep dive, newest first: one sourced file a week on an AI founder, their company, who has funded it and how it makes money."
   label="The archive"
   heading="All files"
   lede="Every Founder File, newest first."
   prose={false}
   adSlot={false}
+  jsonLd={jsonLd}
 >
   {files.length > 0 ? (
     [...byYear.entries()].map(([year, items]) => (
