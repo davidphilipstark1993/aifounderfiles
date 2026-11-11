@@ -84,7 +84,7 @@ This file is about how he got from the first situation to the second, and about 
 
 - **Who:** Danny Postma, a Dutch founder who has been building small internet products since he was 21, and who sold his first AI company in 2021.
 - **What:** HeadshotPro. Upload a handful of selfies, and an AI returns a set of professional-looking headshots in different outfits and backdrops. Individuals pay once. Companies buy them for whole teams.
-- **Why it matters:** it shows how far search traffic and affiliates can carry a business. They were the engine at the start, though by 2026 he says a large share of revenue goes on Google ads.
+- **Why it matters:** it shows how far search traffic and affiliates can carry a business. They were the engine at the start, though by 2026 he says about half of revenue goes back to Google, on AI, cloud storage and ads.
 - **The number to remember:** four, the products he built on the new image AI in about six months before one stuck, out of a portfolio of many more.
 
 ## The founder
@@ -170,7 +170,7 @@ In July 2026 Danny broke a long silence on X. He said a Google update, Google's 
 
 He has since cut costs, automated more of the business, launched a new website, and decided it's fine for HeadshotPro to be "done". Revenue, he says, is "stable at still a beautiful number". The same day he posted that he thought "half our revenue now goes to" Google: Gemini for the AI, Google Cloud for storage, and the "rest of revenue" on Google Ads.
 
-The product hasn't stood still. He has since added lifestyle photo shoots and a thumbnail editor. But most of his own time, he says, has gone on a new product, which he says has automated about 95 percent of his coding work. In November he was testing a course with beta users.
+The product hasn't stood still. He has since added lifestyle photo shoots and a thumbnail editor. In July he said he had spent the previous six months on a new product, and that it had automated about 95 percent of his coding work. In November he was testing a course with beta users.
 
 ## How the product works
 
@@ -234,9 +234,9 @@ These figures are consistent with each other, but they all come from the company
 ## What to watch
 
 1. **More published numbers.** Whether the company says anything beyond "$10 million" and "a beautiful number", or anyone outside confirms them.
-2. **The smaller team.** Whether the people left after the July cuts can keep the business running as he steps back.
+2. **The smaller team.** Whether the people left after the cuts he described in July can keep the business running as he steps back.
 3. **Quality.** Whether its own models keep ahead as everyone else's improve.
-4. **The next product.** He says he has spent most of 2026 on a new tool that automates his own coding work, and is testing a course.
+4. **The next product.** In July he said he had spent the previous six months on a new product, a tool that automates his own coding work. In November he was testing a course.
 
 He never wanted to manage people. He built a team anyway, found it was what made the business run without him, and then, when revenue forecasts fell, found out what it cost to shrink one.
 
