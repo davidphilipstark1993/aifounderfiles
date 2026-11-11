@@ -32,7 +32,6 @@ const { id, theme = 'light', buttonLabel = 'Subscribe', source = id } = Astro.pr
       autocapitalize="off"
       spellcheck="false"
       required
-      placeholder="you@company.com"
       aria-describedby={`${id}-hint ${id}-msg`}
     />
     <button class="btn" type="submit">{buttonLabel}</button>
