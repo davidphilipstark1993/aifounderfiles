@@ -41,7 +41,7 @@ sources:
     url: "https://bootstraplabs.com/2021/01/20/congratulations-to-sabrina-atienza-and-george-ramonov-qurious-io-acquired-by-pegasystems-inc/"
   - title: "Blotato review 2026: pricing, free plan, and the credit catch, AI Funnel Insider (independent review)"
     url: "https://aifunnelinsider.com/blotato-review/"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #012. Thank you for reading.

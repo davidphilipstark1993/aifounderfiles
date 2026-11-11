@@ -41,7 +41,7 @@ sources:
     url: "https://themenonlab.blog/blog/bygga-3d-ikea-assembly-guide-open-source/"
   - title: "The builders behind 2026's weirdest viral AI apps, Differ"
     url: "https://blog.getdiffer.com/builders-behind-2026-weirdest-viral-ai-apps"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #011. Thank you for reading.

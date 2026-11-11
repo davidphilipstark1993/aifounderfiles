@@ -39,7 +39,7 @@ sources:
     url: "https://supabird.io/articles/the-headshotpro-seo-strategy-how-danny-postma-ranks-1-for-professional-headshots"
   - title: "How an indie hacker built an AI headshot business to $300K/month, Starter Story (secondary, estimate)"
     url: "https://www.starterstory.com/stories/headshotpro-breakdown"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #010. Thank you for reading.

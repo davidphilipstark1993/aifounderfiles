@@ -41,7 +41,7 @@ sources:
     url: "https://vgtimes.com/tech-and-hardware/122582-dutch-startup-founder-creates-game-using-ai-in-180-minutes-and-earns-87000-in-one-month.html"
   - title: "Is Pieter Levels making less money now?, Steal What Works"
     url: "https://stealwhatworks.com/blogs/news/pieter-levels-still-making-money"
-draft: false
+draft: true
 ---
 
 Hello again, and welcome to File #008. Thank you for staying with us.
