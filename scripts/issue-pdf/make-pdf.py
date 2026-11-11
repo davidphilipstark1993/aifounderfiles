@@ -219,8 +219,9 @@ if closing_start is not None:  # keep the sign-off and disclosure together on on
 
 S += [Spacer(1, 6), Paragraph("SOURCES", st["h2"])]
 for s in meta["sources"]:
-    host = s["url"].split("/")[2].replace("www.", "")
-    S.append(Paragraph('%s <font color="#33506F"><link href="%s">%s</link></font>' % (inline(s["title"]) + ".", s["url"], host),
+    # Print the full URL (not just the domain) so readers of the PDF can follow every source.
+    url = s["url"].replace("&", "&amp;")
+    S.append(Paragraph('%s <font color="#33506F"><link href="%s">%s</link></font>' % (inline(s["title"]) + ".", url, url),
                        st["src"], bulletText="•"))
 
 doc.build(S)
