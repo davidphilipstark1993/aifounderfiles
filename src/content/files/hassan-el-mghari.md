@@ -1,6 +1,6 @@
 ---
 title: "Hassan El Mghari builds an app in a weekend, gives it away, and millions of people turn up"
-standfirst: "A New York developer has a habit of building a small AI app the moment a new model makes it possible, publishing the code for free and watching it spread. His apps have reached millions of visitors. He never turned them into a company, and that choice is the interesting part."
+standfirst: "A New York developer has a habit of building a small AI app the moment a new model makes it possible, publishing the code for free and watching it spread. His apps have reached millions of visitors. He never built a company around them, and that choice is the interesting part."
 seoTitle: "Hassan El Mghari: Weekend AI Apps, Millions of Visitors"
 metaDescription: "Hassan El Mghari builds an AI app in a weekend, gives the code away and watches it spread. roomGPT drew 12 million visitors. His five-step method."
 fileNumber: 11
@@ -31,7 +31,7 @@ sources:
     url: "https://stack.convex.dev/author/nutlope"
   - title: "Hassan El Mghari on LinkedIn: it's been exactly a week since I launched roomGPT"
     url: "https://www.linkedin.com/posts/nutlope_its-been-exactly-a-week-since-i-launched-activity-7039805322365935616-tt-3"
-  - title: "Hassan El Mghari, AI Engineer speaker page"
+  - title: "Hassan El Mghari, AI Engineer speaker page (biography)"
     url: "https://ai.engineer/speakers/hassan-el-mghari"
   - title: "The missing layer: design taste in AI agents, AI Engineer World's Fair 2026 (talk)"
     url: "https://ai.engineer/talks/the-missing-layer-design-taste-in-ai-agents"
@@ -41,6 +41,24 @@ sources:
     url: "https://themenonlab.blog/blog/bygga-3d-ikea-assembly-guide-open-source/"
   - title: "The builders behind 2026's weirdest viral AI apps, Differ"
     url: "https://blog.getdiffer.com/builders-behind-2026-weirdest-viral-ai-apps"
+  - title: "roomGPT, app home page"
+    url: "https://www.roomgpt.io"
+  - title: "Nutlope/hallmark, GitHub repository"
+    url: "https://github.com/Nutlope/hallmark"
+  - title: "Hassan El Mghari: Google sign-in and 5M+ combined users, post on X (8 May 2026)"
+    url: "https://x.com/nutlope/status/2052773539183489237"
+  - title: "Hassan El Mghari: Hallmark installed over 1,000 times in 24 hours, post on X (20 May 2026)"
+    url: "https://x.com/nutlope/status/2057167106718699545"
+  - title: "Hassan El Mghari introduces AI Browser Games, post on X (7 July 2026)"
+    url: "https://x.com/nutlope/status/2074522288184013273"
+  - title: "Hassan El Mghari: Hallmark at ~20k installs and 12k GitHub stars, post on X (17 July 2026)"
+    url: "https://x.com/nutlope/status/2078158874952028577"
+  - title: "Hassan El Mghari: Hallmark installed 50,000+ times, post on X (28 September 2026)"
+    url: "https://x.com/nutlope/status/2104641908475613478"
+  - title: "Hassan El Mghari introduces Hallmark v2, post on X (22 October 2026)"
+    url: "https://x.com/nutlope/status/2113316017510191578"
+  - title: "Hassan El Mghari introduces Bygga, post on X (27 October 2026)"
+    url: "https://x.com/nutlope/status/2115159545307619695"
 draft: true
 ---
 
@@ -48,7 +66,7 @@ Hello again, and welcome to File #011. Thank you for reading.
 
 In early March 2023, a developer called Hassan El Mghari put a small website online. You gave it a photo of a room in your home, picked a style, and a few seconds later it showed you the same room redecorated: same walls, same windows, new everything else. He called it roomGPT.
 
-A week later he posted the numbers. More than 515,000 people had visited, and they had generated 728,000 rooms between them. He'd spent one or two weekends building it.
+A week later he posted the numbers. More than 515,000 people had visited, and they had generated 728,000 rooms between them. He has since said he spent "one or two weekends" building it; Starter Story puts it at about a week.
 
 Then he gave the code away. Anyone could copy it, and plenty of people did.
 
@@ -63,15 +81,15 @@ Most of the founders in this series built a business. Hassan built a reputation,
 
 ## The founder
 
-Hassan started young. In a 2025 interview he described doing freelance programming work while still at school. He later ran a small marketing company for video games, and then worked at a handful of startups, including Vercel, a company that hosts websites for developers.
+Hassan came to programming late. A high-school friend who was paid to write code after school first made him curious, but he only started coding properly in 2020, near the end of a degree in which he switched from electrical to computer engineering. He'd already accepted a job as an electrical engineer. Instead he became a developer advocate, joined Vercel, a company that hosts websites for developers, in 2021, and moved to Together AI in January 2024. Along the way he worked at a few startups and, for a while, ran his own marketing company for video games.
 
 His job today is at Together AI, where he leads what's called developer experience. That needs a little explaining, because it changes how you should read everything else.
 
 Together AI rents out computing power for running AI models, particularly the open ones that anybody is allowed to use and adapt. Its customers are developers. Hassan's job is to get developers excited about building on Together: he makes demos, writes guides and gives talks. His titles have varied depending on who was introducing him, from senior manager to director to lead. His own site says he manages a team.
 
-So when Hassan builds a free app that runs on Together's models and two million people try it, he's doing his job. That isn't a hidden conflict. He's open about it, and roomGPT came before he worked there. But it means the apps don't need to make money. They pay off for him in other ways.
+So when Hassan builds a free app that runs on Together's models and two million people visit it, he's doing his job. That isn't a hidden conflict. He's open about it, and roomGPT came before he worked there. But it means the apps don't need to make money. They pay off for him in other ways.
 
-He also works on the designs with his brother, a small detail from the same interview that we rather liked.
+Since 2025 he has worked on the apps with his brother, who is learning design.
 
 ## The method
 
@@ -89,7 +107,7 @@ He has described how he works in enough talks that the steps are easy to set out
 
 ## The numbers
 
-| App | What it does | What his site lists |
+| App | What it does | What his site lists (some star counts are now higher on GitHub) |
 |---|---|---|
 | roomGPT | Redesigns a room from a photo | 12 million visitors, 10,000 GitHub stars |
 | restorePhotos | Repairs old photos | 5 million visitors, 4,000 stars |
@@ -97,8 +115,9 @@ He has described how he works in enough talks that the steps are easy to set out
 | BlinkShot | Generates images in real time | 1.5 million visitors, 1,000 stars |
 | Self.so | Turns a LinkedIn profile into a personal website | 80,000 visitors, 2,000 stars |
 | AI Commits | Writes notes describing code changes | 8,000 stars |
+| Hallmark | Design rules for AI coding tools | Not yet on his site; about 53,000 GitHub stars (November 2026) and 60,000 installs, by his count (October 2026) |
 
-You'll see other totals quoted: 2.5 million users, more than three million. They aren't contradictions. They come from different years and count different things.
+You'll see other totals quoted: 2.5 million users, more than three million. In May 2026 he said his apps had reached "5M+ combined users". They aren't necessarily contradictions. They come from different years and count different things.
 
 It helps to be clear about three words here. A **visitor** opened the page. A **user** did something on it. A **customer** paid. Hassan's big numbers are visitors. They tell you about reach and nothing about money.
 
@@ -106,7 +125,7 @@ It helps to be clear about three words here. A **visitor** opened the page. A **
 
 There's little to report on money, which is itself informative.
 
-roomGPT gave everyone three free redesigns and then sold packs of credits: $9 for 30, $19 for 100, $29 for 200. Starter Story lists its revenue at about $23,000 a month and labels that as "estimated from public sources". You'll also see $276,000 a year quoted, which is the same number multiplied by twelve. The estimate dates from November 2024. Hassan hasn't published a revenue figure himself, and his website doesn't mention money at all.
+At the time of Starter Story's write-up, roomGPT gave everyone three free redesigns and then sold packs of credits: $9 for 30, $19 for 100, $29 for 200. Its pricing page no longer loads, so we can't say whether those prices still apply. Starter Story lists its revenue at about $23,000 a month and labels that as "estimated from public sources". You'll also see $276,000 a year quoted, which is the same number multiplied by twelve. The estimate dates from November 2024. Hassan hasn't published a revenue figure himself, and his website doesn't mention money at all.
 
 We have nothing for the other apps. Most are simply free. He has said he keeps them free through usage limits and through partnerships with companies that donate the computing, the database or the sign-in service in exchange for being part of something popular.
 
@@ -129,20 +148,20 @@ He's still working the same way.
 
 LlamaCoder, from 2024, was a deliberately open version of a feature that the big AI labs had just introduced: type a request and get a small working app. He built it on an open Llama model running on Together.
 
-In 2026 he released a set of browser games in which different AI models compete to build a small game from the same instructions. He released Bygga, which takes the instruction booklet for flat-pack furniture and turns it into a 3D walkthrough that reads each step aloud. And he released Hallmark, an open-source set of design rules that developers give to their AI coding tools so that what comes out looks less generic. By his account more than 10,000 people tried it in the first six weeks. In late September he said it had passed 50,000 installations and that he was rebuilding it.
+In July 2026 he released AI Browser Games, in which open and closed AI models each build a small game from the same instructions. His finding was that open models were "faster, cheaper" and produced games similar to the closed ones, which is Together's pitch in one sentence. In October he released Bygga, which takes the instruction booklet for flat-pack furniture and turns it into a 3D walkthrough that reads each step aloud. And in May 2026 he released Hallmark, an open-source set of design rules that developers give to their AI coding tools so that what comes out looks less generic. It passed 1,000 installations in its first day and 20,000 by mid-July, by his count. In October he released a rebuilt version, saying the first had reached 30,000 GitHub stars and 60,000 installations. By November the project had more than 50,000 stars, about five times roomGPT's.
 
-Hallmark is a shift worth noticing. His earlier apps were for the public. This one is for other builders who use AI to write their software. He has gone from making demos to making tools for people who make demos.
+Hallmark is a shift worth noticing, and on the developer measure it is already his biggest project. His earlier apps were for the public. This one is for other builders who use AI to write their software. He has gone from making demos to making tools for people who make demos.
 
 ## The stack
 
-He's open about his tools and chooses them for speed. In a 2024 talk he listed TypeScript and Next.js for the app, a Postgres database, Together AI for the models, Vercel for hosting and Clerk for sign-in. Early versions of roomGPT used a different model host and some Python behind the scenes. If none of those names mean anything to you, the point is that every one of them is an off-the-shelf service. He builds almost nothing from scratch.
+He's open about his tools and chooses them for speed. In a 2025 interview he listed TypeScript and Next.js for the app, a Postgres database, Together AI for the models, Vercel for hosting and Clerk for sign-in. By 2026 he said signing in with Google was "the only form of auth I use in my apps". Early versions of roomGPT used a different model host and some Python behind the scenes. If none of those names mean anything to you, the point is that every one of them is an off-the-shelf service. He builds almost nothing from scratch.
 
 ## What made it possible
 
-- **Years of practice at building small web apps quickly.** A weekend is enough for him because he has done it a hundred times.
+- **Years of practice at building small web apps quickly.** A weekend is enough for him because he has done it about ten times a year for five years, by his own count.
 - **A job that rewards the work.** His employer benefits when his demos spread.
 - **Sponsored infrastructure.** Companies give him computing and services that a stranger would have to pay for.
-- **Paying attention.** He noticed ControlNet in the week it mattered. Anyone could have done that.
+- **Paying attention.** He noticed ControlNet in the week it mattered. Most people didn't.
 
 > **Try this**
 >
@@ -170,9 +189,9 @@ He's open about his tools and chooses them for speed. In a 2024 talk he listed T
 
 ## What to watch
 
-1. **Hallmark.** Whether a tool for other builders reaches as far as his consumer apps did.
+1. **Hallmark.** It already has more developer attention than anything else he has built. Whether that turns into lasting use, and what Together gets from it.
 2. **The next capability.** Something new arrives every few months. Which one does he pick up?
-3. **roomGPT.** It was reported as active and profitable in late 2024. We found nothing more recent.
+3. **roomGPT.** It's still online and still selling credits; its home page claims more than 4 million users. Whether it still makes money, nobody outside knows.
 4. **Whether he ever starts a company.** He has had every opportunity and hasn't.
 
 He needed a laptop and a free weekend, and he'd noticed something a few days before most people did. He could probably have built a company on roomGPT. He chose to build a reputation, and it has carried him a long way.
@@ -181,4 +200,4 @@ He needed a laptop and a free weekend, and he'd noticed something a few days bef
 
 That's File #011. Thank you for reading it. If it made you think of someone, forward it along, and if there's a founder you'd like to see opened next, tell us at info@aifounderfiles.com. File #012 lands next Sunday.
 
-*Where this came from: Hassan El Mghari's own site, talks and posts, Starter Story (the revenue figure is its estimate) and press and profile coverage. We haven't spoken to him or verified any figure. Claude, made by Anthropic, helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
+*Where this came from: Hassan El Mghari's own site, talks and posts, Starter Story (the revenue figure is its estimate) and press and profile coverage. We haven't spoken to him or verified any figure. Anthropic makes Claude and Claude Code. Hassan's Hallmark works in Claude Code, and his benchmarks compare open models with Anthropic's. Claude helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
