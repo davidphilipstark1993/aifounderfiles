@@ -1,5 +1,6 @@
 ---
 title: "OpenAI has bought Odessia, the AI travel agent Francis Davidson built in under a year"
+seoTitle: "OpenAI Buys Odessia, Francis Davidson's AI Travel Agent"
 description: "Francis Davidson says OpenAI has acquired Odessia, the AI travel agent he founded less than a year ago. Terms are undisclosed and the service has shut."
 publishDate: 2026-11-11
 author: "AI Founder Files"

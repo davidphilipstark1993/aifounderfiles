@@ -23,6 +23,8 @@ const { Content } = await render(entry);
 const minutes = readingTime(entry.body);
 const related = await resolveRelatedFiles(data.relatedFiles);
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const seoTitle = data.seoTitle ?? data.title;
+const withBrand = `${seoTitle} | ${SITE.name}`;
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 
 const authorLd =
@@ -45,6 +47,7 @@ const articleLd = {
   '@type': 'BlogPosting',
   headline: data.title,
   description: data.description,
+  image: [new URL('/og-default.png', SITE.url).href],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
   author: authorLd,
@@ -66,7 +69,8 @@ const articleLd = {
 const jsonLd = [articleLd, breadcrumbLd];
 ---
 <BaseLayout
-  title={data.title}
+  title={seoTitle}
+  fullTitle={withBrand.length > 62}
   description={data.description}
   type="article"
   noindex={data.draft}

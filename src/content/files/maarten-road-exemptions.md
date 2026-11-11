@@ -1,5 +1,6 @@
 ---
 title: "The man who laminated every card at his kitchen table"
+seoTitle: "Maarten: From Google Forms to Claude Code"
 standfirst: "A Dutch founder with a day job, a mortgage and two kids ran his business on Google Forms for five years. Then he rebuilt it with Claude Code, took a month on a boat, and says the hard part was understanding the process first."
 metaDescription: "A Dutch founder with a day job and two kids ran his business on Google Forms for five years, then rebuilt it with Claude Code and took a month on a boat."
 fileNumber: 4
