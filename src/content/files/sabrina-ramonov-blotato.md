@@ -1,14 +1,14 @@
 ---
 title: "Sabrina Ramonov says she hates making content. She publishes 250 pieces a week"
 standfirst: "A founder who sold her first company built a tool to take the drudgery out of her own social media. She now says that tool earns millions a year, and that she got it there with no staff. The workflow is worth copying whatever you make of the numbers, and we have sorted her claims into what can be checked and what is only her word."
-seoTitle: "Sabrina Ramonov, Blotato: 250 Posts a Week, Solo"
+seoTitle: "Sabrina Ramonov, Blotato: 250 Posts a Week, Bootstrapped"
 metaDescription: "Sabrina Ramonov says she publishes 250 pieces of content a week using AI and her own tool, Blotato. Her six-step workflow, and what's checkable."
 fileNumber: 12
 publishDate: 2027-01-03
 author: "AI Founder Files"
 founder:
   name: "Sabrina Ramonov"
-  role: "Solo founder and AI educator"
+  role: "Founder and AI educator"
 company:
   name: "Blotato"
   website: "https://www.blotato.com"
@@ -79,7 +79,7 @@ According to her own About page, Sabrina was born in Quezon City in the Philippi
 
 At 23, by her account, she started a company called Qurious. (Pega's announcement dates the company to 2016, in San Francisco.) The first idea was to use language-processing software in healthcare. It didn't find customers. With her co-founder, George Ramonov, she later pivoted it and built something that listened to sales and customer-support calls as they happened and prompted the person on the phone with what to say next.
 
-That version worked well enough to be bought. In January 2021 the American software company Pegasystems announced it had bought Qurious. That part is public record. Pega didn't disclose the price. Sabrina says on LinkedIn that it was more than $10 million in cash and stock. Pega said the technology would go into its customer-service software, and she says it launched there as Pega Voice AI.
+That version worked well enough to be bought. In January 2021 the American software company Pegasystems announced it had bought Qurious. That part is public record. Pega didn't disclose the price. Sabrina says, on her own site and on LinkedIn, that it was more than $10 million in cash and stock. Pega said the technology would go into its customer-service software, and she says it launched there as Pega Voice AI.
 
 In 2017 Forbes named her and her co-founder, George Ramonov, Qurious's chief technology officer, to its 30 Under 30 list for enterprise technology (the 2018 list). At the time she was Sabrina Atienza; Inc. confirms that was her earlier name, and it's the name the older coverage uses.
 
@@ -198,7 +198,7 @@ There's a catch you should keep in mind as a reader. Almost everything written a
 
 **The assistants.** Her newer pitch depends on Claude, ChatGPT and others continuing to welcome outside tools, and not building the same features themselves.
 
-**One person, then a few.** By her account she ran the product, the support and the content alone until 2026. She told a podcast in October that she had made her first hire a couple of months earlier, to free herself from "the normal operational chaos" of the business, and that she has been hiring video editors. A lot of the risk still sits with her.
+**One person, then some help.** By her account she ran the product, the support and the content alone until 2026. She told a podcast in October that she had made her first hire a couple of months earlier, to free herself from "the normal operational chaos" of the business, and that she has been hiring video editors. A lot of the risk still sits with her.
 
 **Her audience.** The business is fed by her following. It took two years to build and could shrink faster than that.
 
@@ -217,4 +217,4 @@ She built a machine to do the part of the work she hated, and she kept the two p
 
 That's File #012. Thank you for reading it. If it made you think of someone, forward it along, and if there's a founder you'd like to see opened next, tell us at info@aifounderfiles.com. File #013 lands next Sunday.
 
-*Where this came from: Blotato's own pages, Sabrina Ramonov's tutorials, posts and interviews, MarTech Series, MarTech Edge, Inc. and a podcast we couldn't hear in full, plus an independent review. Nearly all of it is a founder's own account or promotional coverage, and we say so. We haven't spoken to her. A note on disclosure: Blotato connects to Claude and Claude Code, both made by Anthropic, and she says she uses them to run her content. Claude helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
+*Where this came from: Blotato's own pages, Sabrina Ramonov's tutorials, posts and interviews, MarTech Series, MarTech Edge, Inc. and the transcript of her October 2026 Behind the Brand podcast episode, plus an independent review. Nearly all of it is a founder's own account or promotional coverage, and we say so. We haven't spoken to her. A note on disclosure: Blotato connects to Claude and Claude Code, both made by Anthropic, and she says she uses them to run her content. Claude helped research and draft this file. Spotted a mistake? Email info@aifounderfiles.com and we'll correct it.*
