@@ -22,6 +22,8 @@ export const PILLARS = [
   {
     slug: 'founder-files',
     name: 'AI Founder Files',
+    // Search title. The pillar name matches the site name, so "AI Founder Files | AI Founder Files" would repeat itself.
+    seoTitle: 'The People Behind AI Companies',
     short: 'Founders',
     blurb: 'The people behind AI companies: where they came from, what they saw that others missed, and how they got started.',
   },

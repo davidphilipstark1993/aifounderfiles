@@ -23,7 +23,7 @@ const jsonLd = {
 ---
 <PageLayout
   noindex={files.length < HUB_MIN_FILES}
-  title={pillar.name}
+  title={('seoTitle' in pillar && pillar.seoTitle) || pillar.name}
   description={pillar.blurb}
   label="Topic"
   heading={pillar.name}

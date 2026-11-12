@@ -46,6 +46,8 @@ const blog = defineCollection({
     description: z.string(),
     // Search-result title override of about 60 characters. Falls back to title.
     seoTitle: z.string().optional(),
+    // Meta description override of about 160 characters. Falls back to description (the standfirst).
+    seoDescription: z.string().optional(),
     publishDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     author: z.string(),

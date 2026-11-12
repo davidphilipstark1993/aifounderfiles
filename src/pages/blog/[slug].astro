@@ -24,6 +24,7 @@ const minutes = readingTime(entry.body);
 const related = await resolveRelatedFiles(data.relatedFiles);
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const seoTitle = data.seoTitle ?? data.title;
+const metaDescription = data.seoDescription ?? data.description;
 const withBrand = `${seoTitle} | ${SITE.name}`;
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 
@@ -71,7 +72,7 @@ const jsonLd = [articleLd, breadcrumbLd];
 <BaseLayout
   title={seoTitle}
   fullTitle={withBrand.length > 62}
-  description={data.description}
+  description={metaDescription}
   type="article"
   noindex={data.draft}
   adSlot={false}
