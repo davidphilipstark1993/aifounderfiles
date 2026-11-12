@@ -91,7 +91,7 @@ He started building in his spare time. He announced on 18 August 2021 that he ha
 
 Two of those early products are worth knowing about. DevUtils is a Mac app that bundles the small tools developers reach for all day, and he calls it his first successful indie product. Black Magic was stranger and more successful: a tool that let people dress up their Twitter profiles, most famously with a progress bar. In his own posts from late 2022 and early 2023 the monthly figure for Black Magic moves around in the low-to-mid teens of thousands of dollars.
 
-Black Magic depended entirely on Twitter's API, the gateway outside software uses to work with Twitter. In February 2023 Twitter announced that free access was ending, without saying what it would cost. In his newsletter of 5 March 2023, the day before TypingMind went on sale, Tony wrote that nobody knew the price yet, and that he would be happy to pay $100 a month. We'll come back to how that turned out.
+Black Magic depended entirely on Twitter's API, the gateway outside software uses to work with Twitter. In February 2023 Twitter announced that free access was ending, without making clear what it would cost. In his newsletter of 5 March 2023, the day before TypingMind went on sale, Tony wrote that nobody knew the price yet, and that he would be happy to pay $100 a month. We'll come back to how that turned out.
 
 One more thing about him. He is blunt about what he's bad at. "I really suck at marketing in general," he wrote in October 2025. What he had instead of marketing skill was an audience. By March 2023, after two years of sharing his work in public, about 76,000 people followed him on Twitter.
 
@@ -139,7 +139,7 @@ He could do that because of how the thing was built. The first version of Typing
 
 The pricing followed from the engineering. He could charge once because he'd built something that cost him nothing to keep running.
 
-His reasons, as he set them out, were that everyone else was charging monthly, that OpenAI might simply build his features into its own product, and that with no server he had no running costs to cover. So he built something with no ongoing bill, took the money up front, and made sure that if it all ended tomorrow he would owe nothing.
+His reasons, as he set them out, were that everyone else was charging monthly, that OpenAI's own updates, or other companies using its API, could make wrapper products redundant, and that with no server he had no running costs to cover. So he built something with no ongoing bill, took the money up front, and made sure that if it all ended tomorrow he would owe nothing.
 
 For the customer there was a bonus he hadn't had to invent. With no server in the middle, your conversations stay on your own device. For people nervous about pasting work into a chatbot, that mattered.
 
