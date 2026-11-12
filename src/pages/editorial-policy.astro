@@ -1,9 +1,31 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import { SITE } from '../lib/site';
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Editorial policy',
+    url: new URL('/editorial-policy/', SITE.url).href,
+    description: 'How AI Founder Files stays independent: coverage is never paid for, sponsored content is labelled, and how we fact-check and correct our work.',
+    inLanguage: 'en-GB',
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    about: { '@id': `${SITE.url}/#organization` },
+    publisher: { '@type': 'Organization', '@id': `${SITE.url}/#organization`, name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon-512.png` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', SITE.url).href },
+      { '@type': 'ListItem', position: 2, name: 'Editorial policy', item: new URL('/editorial-policy/', SITE.url).href },
+    ],
+  },
+];
 ---
 <PageLayout
   title="Editorial policy"
+  jsonLd={jsonLd}
   description="How AI Founder Files stays independent: coverage is never paid for, sponsored content is labelled, and how we fact-check and correct our work."
   label="Editorial policy"
   heading="How we keep this independent"
