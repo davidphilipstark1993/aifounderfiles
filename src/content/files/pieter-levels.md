@@ -1,5 +1,6 @@
 ---
 title: "Pieter Levels and the 40,870-line file"
+headline: "How Pieter Levels uses AI to run his businesses alone"
 standfirst: "A self-taught Dutch developer runs a portfolio of products alone, with no investors, no employees and a way of writing software that most professionals would call reckless. One of those products, he said in March 2026, made $80,000 of profit that month from a single file. Here is how he works, and what the numbers do and don't show."
 seoTitle: "How Pieter Levels Uses AI to Run Photo AI Alone"
 metaDescription: "Pieter Levels sells AI photos, builds games by prompting Cursor and has AI moderate his community. Three ways he uses AI, and what his numbers show."
@@ -181,7 +182,7 @@ From his interviews, it comes down to six habits.
 5. **Put the profit somewhere boring.** He recommends low-cost index funds and warns against spending everything you make.
 6. **Tell people.** Everything he launches is announced to a very large audience. About 187,000 people get his posts by email, and nearly a million follow him on X.
 
-## What made it possible
+## What made it possible: lessons for new founders
 
 - **Ten years of audience-building** before AI arrived. When he launched Photo AI, hundreds of thousands of people already knew his name.
 - **Older products that paid the bills,** so an AI experiment could fail without hurting him.

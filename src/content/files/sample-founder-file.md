@@ -3,6 +3,8 @@
 # Rename it to the slug you want in the URL (e.g. `acme-ai.md` → /files/acme-ai/),
 # replace every [bracketed placeholder], and set `draft: false` to publish.
 title: "How [Founder name] is building [Company]"
+# The H1 on the website: must include the founder's name and "AI". `title` stays the issue title (PDF, email, cards).
+headline: "How [Founder name] uses AI to build [Company]"
 standfirst: "[One-line standfirst: the problem, the product and what makes this company worth a file.]"
 # Search title, 60 characters or fewer: "How [Name] uses AI to build [Company]" where the file supports it. Avoid "AI founder" / "AI cofounder".
 seoTitle: "How [Founder name] uses AI to build [Company]"

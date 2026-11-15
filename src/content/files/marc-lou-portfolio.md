@@ -1,5 +1,6 @@
 ---
 title: "Marc Lou built 35 startups. About five of them worked"
+headline: "How Marc Lou uses AI to ship startups on his own"
 standfirst: "A French founder was fired in 2021, a month after returning to Bali, and started shipping small products in public. One of them made over a million dollars, by his own figures, and has since faded by more than 80 percent. By the time it faded, he had already built its replacements."
 seoTitle: "How Marc Lou Uses AI to Write 90% of His Code"
 metaDescription: "Marc Lou has shipped about 35 small products and says about five worked. He says AI now writes 90% of his code. How he builds, and when he moves on."
@@ -128,7 +129,7 @@ It wasn't an instant success in the usual sense. He has written that he tried te
 
 A third new line appeared in 2026. **Ship or Die** is a paid community he runs with another founder, Jack Friks. Members pay a one-time fee and commit to launching a startup every 30 days, or they're out. Remarkable Magazine, quoting his June 2026 revenue post, lists it at $15,000 that month.
 
-## How he builds now
+## How he builds with AI now
 
 He has been specific about how AI fits in.
 
@@ -173,7 +174,7 @@ On 22 October Marc said he had fixed the paywall, and on 24 October he apologise
 
 When you have no users you can get away with shipping fast and fixing later. Once thousands of people have paid, some of whom have built their own businesses on your code, you can't.
 
-## What made it possible
+## What made it possible: lessons for new founders
 
 - **An audience built over years.** Every launch starts with thousands of developers watching. He says his newsletter passed 51,000 readers in January 2026.
 - **Low costs.** He has no employees, and he restarted from Bali, on about $20,000 by Remarkable's account.

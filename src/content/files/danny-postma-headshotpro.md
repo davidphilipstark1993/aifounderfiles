@@ -1,5 +1,6 @@
 ---
 title: "Danny Postma tried four ideas in six months. One of them stuck"
+headline: "How Danny Postma built HeadshotPro on image AI"
 standfirst: "A Dutch founder who says he hates marketing checks what people are searching for before he builds anything. That habit led him to AI headshots, a business that now says it has taken more than $10 million. He stopped sharing his revenue in 2023, and in 2026 said a Google update and new rivals had cut its forecasts, so we have pieced together what can be known."
 seoTitle: "How Danny Postma Built HeadshotPro on Image AI"
 metaDescription: "Danny Postma checks what people search for before he builds. Four tries on new image AI led to HeadshotPro, which says it has taken over $10 million."
@@ -173,7 +174,7 @@ He has since cut costs, automated more of the business, launched a new website, 
 
 The product hasn't stood still. He has since added lifestyle photo shoots and a thumbnail editor. In July he said he had spent the previous six months on a new product, and that it had automated about 95 percent of his coding work. In November he was testing a course with beta users.
 
-## How the product works
+## The AI behind the product
 
 In early 2024, Danny said most rivals take Stable Diffusion and retrain it on each customer's photos, and leave it there. He said HeadshotPro ran "dozens" of additional models, some open-source and some its own, and that the team had spent about a year building custom ones. He named two. One checks the photos people upload and filters out anything inappropriate in the results. The other cleans up the warped eyes and odd skin that AI faces are prone to.
 
@@ -201,7 +202,7 @@ If $50,000 is 15 percent of monthly revenue, the total would be about $330,000 a
 
 These figures are consistent with each other, but they all come from the company, a vendor or an estimate built on public posts, and they predate the fall in revenue forecasts Danny described in July 2026. His only recent word on revenue is that it is "stable at still a beautiful number".
 
-## What made it possible
+## What made it possible: lessons for new founders
 
 - **A sale behind him.** The Headlime money meant he could try four ideas without worrying about rent.
 - **Years of SEO practice.** Landingfolio, his first site, was itself an exercise in getting found on Google.

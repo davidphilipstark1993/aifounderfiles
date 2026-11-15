@@ -7,6 +7,9 @@ const files = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      // The H1 on the website: the founder's name and "AI", e.g. "How Maarten used AI to rebuild his business".
+      // `title` stays the issue title used in the PDF, email, cards and share image. Falls back to title.
+      headline: z.string().optional(),
       standfirst: z.string(),
       // Search-result overrides: a title of about 60 characters and a description of about 160. Both fall back to title/standfirst.
       seoTitle: z.string().optional(),

@@ -1,5 +1,6 @@
 ---
 title: "Hassan El Mghari builds an app in a weekend, gives it away, and millions of people turn up"
+headline: "How Hassan El Mghari builds AI apps in a weekend"
 standfirst: "A New York developer has a habit of building a small AI app the moment a new model makes it possible, publishing the code for free and watching it spread. His apps have reached millions of visitors. He never built a company around them, and that choice is the interesting part."
 seoTitle: "How Hassan El Mghari Builds AI Apps in a Weekend"
 metaDescription: "Hassan El Mghari builds an AI app in a weekend, gives the code away and lets users market it. roomGPT drew 12 million visitors. His five-step method."
@@ -92,7 +93,7 @@ So when Hassan builds a free app that runs on Together's models and two million 
 
 Since 2025 he has worked on the apps with his brother, who is learning design.
 
-## The method
+## The method: an AI app in a weekend
 
 He has described how he works in enough talks that the steps are easy to set out.
 
@@ -153,11 +154,11 @@ In July 2026 he released AI Browser Games, in which open and closed AI models ea
 
 Hallmark is a shift worth noticing, and on the developer measure it is already his biggest project. His earlier apps were for the public. This one is for other builders who use AI to write their software. He has gone from making demos to making tools for people who make demos.
 
-## The stack
+## The AI models and tools he uses
 
 He's open about his tools and chooses them for speed. In a 2025 interview he listed TypeScript and Next.js for the app, a Postgres database, Together AI for the models, Vercel for hosting and Clerk for sign-in. By 2026 he said signing in with Google was "the only form of auth I use in my apps". Early versions of roomGPT used a different model host and some Python behind the scenes. If none of those names mean anything to you, the point is that every one of them is an off-the-shelf service. He builds almost nothing from scratch.
 
-## What made it possible
+## What made it possible: lessons for new founders
 
 - **Years of practice at building small web apps quickly.** A weekend is enough for him because he has done it about ten times a year for five years, by his own count.
 - **A job that rewards the work.** His employer benefits when his demos spread.

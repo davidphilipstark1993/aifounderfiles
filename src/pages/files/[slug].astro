@@ -43,6 +43,7 @@ const pillar = pillarOf(entry);
 const brief = shortVersion(entry);
 // Search-result title: the brand suffix is dropped when it would push the title past 60 characters.
 const seoTitle = data.seoTitle ?? data.title;
+const headline = data.headline ?? data.title;
 const withBrand = `${seoTitle} | ${SITE.name}`;
 const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -143,7 +144,7 @@ const jsonLd = [articleLd, breadcrumbLd];
             <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/topics/${pillar.slug}/`}>{pillar.name}</a>
           </nav>
           <p class="label label--signal">Founder File {fileNumberLabel(data.fileNumber)}</p>
-          <h1 class="display file-title">{data.title}</h1>
+          <h1 class="display file-title">{headline}</h1>
           <p class="file-standfirst">{data.standfirst}</p>
           <p class="byline label label--muted">
             <span>By {data.author}</span>

@@ -1,5 +1,6 @@
 ---
 title: "The Amodei siblings and the lab built on saying no"
+headline: "The Amodei siblings and Claude, the AI many founders build with"
 standfirst: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion, locked in a fight with the Pentagon, and heading for a stock-market listing that could be the largest ever."
 seoTitle: "The Amodeis and Anthropic: Who Runs Claude"
 metaDescription: "Anthropic makes Claude, the AI assistant many founders build and code with. Who runs it, how it makes money, and the line its founders won't cross."

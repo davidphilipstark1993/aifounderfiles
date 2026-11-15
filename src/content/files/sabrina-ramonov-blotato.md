@@ -1,5 +1,6 @@
 ---
 title: "Sabrina Ramonov says she hates making content. She publishes 250 pieces a week"
+headline: "How Sabrina Ramonov uses AI to publish 250 pieces a week"
 standfirst: "A founder who sold her first company built a tool to take the drudgery out of her own social media. She now says that tool earns millions a year, and that she got it there with no staff. The workflow is worth copying whatever you make of the numbers, and we have sorted her claims into what can be checked and what is only her word."
 seoTitle: "How Sabrina Ramonov Uses AI to Post 250 Times a Week"
 metaDescription: "Sabrina Ramonov says she publishes 250 pieces a week using Claude and her own tool, Blotato, and checks every one. Her six-step AI content workflow."
@@ -110,7 +111,7 @@ In the last year or so she has added something newer. Blotato now connects direc
 
 Pricing starts at $29 a month. Higher tiers go up to several hundred. One independent review, based on published evidence rather than testing, warns of a "credit catch": the $29 plan's 1,250 starter credits "run out fast on video". Read the plan details before you depend on any one feature.
 
-## The workflow
+## Her AI content workflow
 
 In April 2026 she walked through her method on a marketing podcast run by HubSpot, and a trade site summarised it the following month. We've restated it as six steps that you could follow with almost any tools.
 
