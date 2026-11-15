@@ -70,7 +70,15 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
-export type Founder = { name: string; role: string; company: string; entry: FileEntry };
+export type Founder = {
+  name: string;
+  role: string;
+  company: string;
+  sector: string;
+  aiUseCase?: string;
+  coverage: FileEntry['data']['coverage'];
+  entry: FileEntry;
+};
 export type Company = FileEntry['data']['company'] & { founder: string; entry: FileEntry };
 
 /** One row per founder. If a founder is covered twice, the newest file wins. */
@@ -83,6 +91,9 @@ export async function getFounders(): Promise<Founder[]> {
         name: entry.data.founder.name,
         role: entry.data.founder.role,
         company: entry.data.company.name,
+        sector: entry.data.company.sector,
+        aiUseCase: entry.data.aiUseCase,
+        coverage: entry.data.coverage,
         entry,
       });
     }

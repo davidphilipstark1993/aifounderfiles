@@ -4,6 +4,13 @@
 # replace every [bracketed placeholder], and set `draft: false` to publish.
 title: "How [Founder name] is building [Company]"
 standfirst: "[One-line standfirst: the problem, the product and what makes this company worth a file.]"
+# Search title, 60 characters or fewer: "How [Name] uses AI to build [Company]" where the file supports it. Avoid "AI founder" / "AI cofounder".
+seoTitle: "How [Founder name] uses AI to build [Company]"
+# Meta description, 155 characters or fewer, unique to this file.
+metaDescription: "[What they built, how AI helps, and the one number or lesson that makes someone click.]"
+# One line for /founders/: how this founder uses AI, taken only from what the file says.
+aiUseCase: "[e.g. Built the app with Claude Code and answers customers with a chatbot.]"
+# coverage: behind-the-tools   # only for the people who make the AI tools (OpenAI, Anthropic)
 fileNumber: 1
 publishDate: 2026-10-04
 # updatedDate: 2026-10-11

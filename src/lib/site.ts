@@ -61,7 +61,7 @@ export const HUB_MIN_FILES = 3;
  * `slug` is the article's filename in src/content/files; the PDF is the same issue as emailed to subscribers.
  */
 export const SAMPLE_ISSUE = {
-  slug: 'sam-altman',
-  pdf: '/sample/founder-file-001-sam-altman.pdf',
-  pdfPages: 7,
+  slug: 'maarten-road-exemptions',
+  pdf: '/sample/founder-file-004-maarten-road-exemptions.pdf',
+  pdfPages: 8,
 } as const;

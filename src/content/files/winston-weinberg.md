@@ -3,6 +3,7 @@ title: "Winston Weinberg and the associate who cold-emailed Sam Altman"
 standfirst: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed the results to OpenAI. Four years later Harvey is valued at $15.5 billion, and the roommates still share the flat."
 seoTitle: "How Winston Weinberg Used AI to Start Harvey"
 metaDescription: "A first-year lawyer tested GPT-3 on 100 Reddit legal questions, then emailed OpenAI. How Winston Weinberg built Harvey on someone else's AI model."
+aiUseCase: "A litigator who tested GPT-3 on 100 real legal questions, then built Harvey, AI for law firms, on OpenAI's models."
 fileNumber: 3
 publishDate: 2026-10-18
 author: "AI Founder Files"

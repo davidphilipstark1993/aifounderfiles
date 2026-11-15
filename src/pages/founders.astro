@@ -2,21 +2,30 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import { SITE } from '../lib/site';
-import { fileNumberLabel, fileUrl, formatDate, getFounders, isoDate, shortVersion } from '../lib/files';
+import { fileNumberLabel, fileUrl, formatDate, getFounders, isoDate, type Founder } from '../lib/files';
+
 const founders = await getFounders();
+// Founders who use AI in their own business come first; the people who make the AI tools are listed after them.
+const builders = founders.filter((f) => f.coverage === 'built-with-ai');
+const toolmakers = founders.filter((f) => f.coverage === 'behind-the-tools');
+const ordered = [...builders, ...toolmakers];
+
 const url = `${SITE.url}/founders/`;
+const description =
+  'Every founder we have profiled and how they use AI in their business: the industry, the AI tools and the use case, each linked to a full, sourced file.';
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Founders',
+    name: 'Founders who use AI to build their business',
     url,
-    description: 'Every founder we have profiled and how they use AI in their business: the industry, the AI tools and the use case, each linked to a full, sourced file.',
-    isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+    description,
+    inLanguage: 'en-GB',
+    isPartOf: { '@id': `${SITE.url}/#website` },
     mainEntity: {
       '@type': 'ItemList',
-      numberOfItems: founders.length,
-      itemListElement: founders.map((f, i) => ({
+      numberOfItems: ordered.length,
+      itemListElement: ordered.map((f, i) => ({
         '@type': 'ListItem',
         position: i + 1,
         url: new URL(fileUrl(f.entry), SITE.url).href,
@@ -33,37 +42,61 @@ const jsonLd = [
     ],
   },
 ];
+const groups: { id: string; heading: string; note: string; list: Founder[] }[] = [
+  {
+    id: 'built-with-ai',
+    heading: 'Founders building with AI',
+    note: 'People who use AI to start, build or run their own business.',
+    list: builders,
+  },
+  {
+    id: 'behind-the-tools',
+    heading: 'Behind the tools',
+    note: 'The people who run the companies that make the AI models many founders build on.',
+    list: toolmakers,
+  },
+];
 ---
 <PageLayout
   noindex={founders.length === 0}
   title="Founders Who Use AI to Build Their Business"
   description="Every founder we’ve profiled and how they use AI in their business: the industry, the AI tools and the use case, each linked to a full, sourced file."
-  label="The index"
-  heading="Founders"
-  lede="Every founder we’ve profiled, with a link to their file."
+  label="The founders"
+  heading="Founders who use AI to build their business"
+  lede="Real people using AI to start, build and run real businesses, and what you can learn from each of them."
   prose={false}
   jsonLd={jsonLd}
 >
   {founders.length > 0 ? (
     <>
-    <p class="hub-intro">{founders.length} {founders.length === 1 ? 'founder' : 'founders'} profiled so far. Each entry links to the full, sourced file. See also <a href="/companies/">the companies</a> and <a href="/archive/">the archive</a>.</p>
-    <h2 class="index__year">Founders profiled</h2>
-    <ul class="index" role="list">
-      {founders.map((f) => (
-        <li>
-          <a class="index__row" href={fileUrl(f.entry)}>
-            <span class="index__num label label--muted">{fileNumberLabel(f.entry.data.fileNumber)}</span>
-            <span class="index__main">
-              <span class="index__title">{f.name}</span>
-              <span class="index__sub">{f.role}, {f.company}</span>
-              {shortVersion(f.entry).who && <span class="index__sub">{shortVersion(f.entry).who}</span>}
-            </span>
-            <span class="index__meta label label--muted">{f.entry.data.company.sector} · <time datetime={isoDate(f.entry.data.publishDate)}>{formatDate(f.entry.data.publishDate, 'short')}</time></span>
-            <span class="index__go" aria-hidden="true"><Arrow /></span>
-          </a>
-        </li>
+      <p class="hub-intro">
+        Each founder below has a full, sourced Founder File: what the business does, which AI tools they use and how, what it
+        earns, and what a new founder can copy. Every line here comes from that file. {builders.length}
+        {builders.length === 1 ? ' founder' : ' founders'} profiled so far, with a new one every Sunday. See also
+        <a href="/companies/">the companies</a> and <a href="/archive/">the archive</a>.
+      </p>
+      {groups.filter((g) => g.list.length > 0).map((g) => (
+        <section aria-labelledby={`${g.id}-title`}>
+          <h2 id={`${g.id}-title`} class="index__year">{g.heading}</h2>
+          <p class="hub-intro">{g.note}</p>
+          <ul class="index" role="list">
+            {g.list.map((f) => (
+              <li>
+                <a class="index__row" href={fileUrl(f.entry)}>
+                  <span class="index__num label label--muted">{fileNumberLabel(f.entry.data.fileNumber)}</span>
+                  <span class="index__main">
+                    <span class="index__title">{f.name}</span>
+                    <span class="index__sub">{f.role}, {f.company}</span>
+                    {f.aiUseCase && <span class="index__sub"><strong>How they use AI:</strong> {f.aiUseCase}</span>}
+                  </span>
+                  <span class="index__meta label label--muted">{f.sector} · <time datetime={isoDate(f.entry.data.publishDate)}>{formatDate(f.entry.data.publishDate, 'short')}</time></span>
+                  <span class="index__go" aria-hidden="true"><Arrow /></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
-    </ul>
     </>
   ) : (
     <div class="empty-state">

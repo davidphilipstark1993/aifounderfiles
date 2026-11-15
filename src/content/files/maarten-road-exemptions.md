@@ -3,6 +3,7 @@ title: "The man who laminated every card at his kitchen table"
 seoTitle: "How Maarten Used Claude Code to Rebuild His Business"
 standfirst: "A Dutch founder with a day job, a mortgage and two kids ran his business on Google Forms for five years. Then he rebuilt it with Claude Code, took a month on a boat, and says the hard part was understanding the process first."
 metaDescription: "A Dutch solo founder with a day job ran his business on Google Forms for five years, then rebuilt it with Claude Code. His tools, costs and rules."
+aiUseCase: "A non-developer who rebuilt the software that runs his one-person business with Claude Code."
 fileNumber: 4
 publishDate: 2026-10-25
 author: "AI Founder Files"

@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-import cover from '../assets/sample-issue-001-page-1.png';
+import cover from '../assets/sample-issue-004-page-1.png';
 import Arrow from './Arrow.astro';
 import { fileNumberLabel, fileUrl, getPublishedFiles } from '../lib/files';
 import { SAMPLE_ISSUE } from '../lib/site';
@@ -33,7 +33,7 @@ const pdfKb = (() => {
     <div class="wrap sample__grid">
       <div class="sample__copy">
         <p class="label label--signal">See what you get</p>
-        <h2 id={`${id}-title`} class="display sample__title">Every Sunday, one file. Here’s the first.</h2>
+        <h2 id={`${id}-title`} class="display sample__title">Every Sunday, one file. Here’s one in full.</h2>
         <p class="sample__text">
           Each week we send one Founder File as a branded PDF you can read, save or forward. Founder File {fileNumberLabel(entry.data.fileNumber)},
           on {entry.data.founder.name} and {entry.data.company.name}, runs to {SAMPLE_ISSUE.pdfPages} pages: a fact box up front, the whole

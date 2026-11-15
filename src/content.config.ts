@@ -11,6 +11,11 @@ const files = defineCollection({
       // Search-result overrides: a title of about 60 characters and a description of about 160. Both fall back to title/standfirst.
       seoTitle: z.string().optional(),
       metaDescription: z.string().optional(),
+      // One line on how the founder uses AI, shown on /founders/. Only what the file itself says.
+      aiUseCase: z.string().optional(),
+      // 'behind-the-tools' marks profiles of the people who make the AI tools founders use (OpenAI, Anthropic).
+      // They are listed separately on /founders/ and the home page.
+      coverage: z.enum(['built-with-ai', 'behind-the-tools']).default('built-with-ai'),
       fileNumber: z.number().int().positive(),
       publishDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
