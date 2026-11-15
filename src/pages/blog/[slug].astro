@@ -30,7 +30,7 @@ const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 
 const authorLd =
   data.author === SITE.name
-    ? { '@type': 'Organization', name: SITE.name, url: SITE.url }
+    ? { '@type': 'Organization', '@id': `${SITE.url}/#organization`, name: SITE.name, url: SITE.url }
     : { '@type': 'Person', name: data.author };
 
 const breadcrumbLd = {
@@ -54,6 +54,7 @@ const articleLd = {
   author: authorLd,
   publisher: {
     '@type': 'Organization',
+    '@id': `${SITE.url}/#organization`,
     name: SITE.name,
     url: SITE.url,
     logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },

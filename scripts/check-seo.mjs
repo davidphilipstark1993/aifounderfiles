@@ -60,10 +60,25 @@ for (const file of pages.sort()) {
   for (const k of ['og:title', 'og:description', 'og:url', 'og:image', 'og:type']) if (!meta(html, 'property', k)) err(`no ${k}`);
   for (const k of ['twitter:card', 'twitter:title', 'twitter:description', 'twitter:image']) if (!meta(html, 'name', k)) err(`no ${k}`);
   for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let ld;
     try {
-      JSON.parse(m[1]);
+      ld = JSON.parse(m[1]);
     } catch (e) {
       err(`JSON-LD does not parse: ${e.message}`);
+      continue;
+    }
+    if (ld['@context'] !== 'https://schema.org') err(`JSON-LD ${ld['@type']} has no schema.org @context`);
+    // Google's Article and BreadcrumbList requirements (recommended Article fields treated as required here).
+    if (['Article', 'NewsArticle', 'BlogPosting'].includes(ld['@type'])) {
+      for (const k of ['headline', 'image', 'datePublished', 'dateModified', 'author', 'publisher']) if (!ld[k]) err(`${ld['@type']} has no ${k}`);
+      if (ld.headline?.length > 110) err(`${ld['@type']} headline is over 110 characters`);
+      if (!ld.author?.name) err(`${ld['@type']} author has no name`);
+    }
+    if (ld['@type'] === 'Person' && !ld.name) err('Person has no name');
+    if (ld['@type'] === 'BreadcrumbList') {
+      ld.itemListElement.forEach((li, i) => {
+        if (li.position !== i + 1 || !li.name || !li.item) err(`BreadcrumbList item ${i + 1} is incomplete`);
+      });
     }
   }
 }

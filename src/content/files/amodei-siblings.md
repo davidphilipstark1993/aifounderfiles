@@ -12,6 +12,11 @@ author: "AI Founder Files"
 founder:
   name: "Dario and Daniela Amodei"
   role: "CEO and President"
+  people:
+    - name: "Dario Amodei"
+      jobTitle: "Co-founder and CEO"
+    - name: "Daniela Amodei"
+      jobTitle: "Co-founder and President"
 company:
   name: "Anthropic"
   website: "https://www.anthropic.com"

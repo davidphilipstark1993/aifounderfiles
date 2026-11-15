@@ -27,6 +27,8 @@ const files = defineCollection({
         name: z.string(),
         role: z.string(),
         linkedin: z.url().optional(),
+        // When a file covers more than one founder, list each person for structured data (Person markup).
+        people: z.array(z.object({ name: z.string(), jobTitle: z.string() })).optional(),
       }),
       company: z.object({
         name: z.string(),

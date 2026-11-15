@@ -37,7 +37,8 @@ const jsonLd = [
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/icon-512.png`,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png`, width: 512, height: 512 },
+    image: `${SITE.url}/og-default.png`,
     description: SITE.description,
   },
   {
