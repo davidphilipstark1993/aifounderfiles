@@ -1,8 +1,8 @@
 ---
 title: "Hassan El Mghari builds an app in a weekend, gives it away, and millions of people turn up"
 standfirst: "A New York developer has a habit of building a small AI app the moment a new model makes it possible, publishing the code for free and watching it spread. His apps have reached millions of visitors. He never built a company around them, and that choice is the interesting part."
-seoTitle: "Hassan El Mghari: Weekend AI Apps, Millions of Visitors"
-metaDescription: "Hassan El Mghari builds an AI app in a weekend, gives the code away and watches it spread. roomGPT drew 12 million visitors. His five-step method."
+seoTitle: "How Hassan El Mghari Builds AI Apps in a Weekend"
+metaDescription: "Hassan El Mghari builds an AI app in a weekend, gives the code away and lets users market it. roomGPT drew 12 million visitors. His five-step method."
 fileNumber: 11
 publishDate: 2026-12-27
 author: "AI Founder Files"

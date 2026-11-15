@@ -1,8 +1,8 @@
 ---
 title: "$401 million in sales, two employees, and what the headline left out"
 standfirst: "Matthew Gallagher built Medvi in two months with $20,000 and a stack of AI tools. The New York Times reviewed financials showing $401 million of sales in 2025. It is the best-documented revenue in this series, and it comes with the biggest warning."
-seoTitle: "Matthew Gallagher, Medvi: $401M in Sales, Two Employees"
-metaDescription: "Matthew Gallagher built Medvi with $20,000 and AI tools. The Times says it verified $401M of 2025 sales. It also drew an FDA warning letter. Both sides, sourced."
+seoTitle: "How Matthew Gallagher Used AI to Build Medvi"
+metaDescription: "ChatGPT, Claude and Grok wrote the code; Midjourney and Runway made the ads. The Times put Medvi's 2025 sales at $401M. It also drew an FDA warning."
 fileNumber: 6
 publishDate: 2026-11-22
 author: "AI Founder Files"

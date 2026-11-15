@@ -41,7 +41,7 @@ const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
 const pillar = pillarOf(entry);
 const brief = shortVersion(entry);
-// Search-result title: the brand suffix is dropped when it would push the title past about 60 characters.
+// Search-result title: the brand suffix is dropped when it would push the title past 60 characters.
 const seoTitle = data.seoTitle ?? data.title;
 const withBrand = `${seoTitle} | ${SITE.name}`;
 const ogPath = `/og/${entry.id}.png`;
@@ -110,7 +110,7 @@ const jsonLd = [articleLd, breadcrumbLd];
 ---
 <BaseLayout
   title={seoTitle}
-  fullTitle={withBrand.length > 62}
+  fullTitle={withBrand.length > 60}
   description={data.metaDescription ?? data.standfirst}
   type="article"
   image={ogPath}

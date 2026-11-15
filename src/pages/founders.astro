@@ -11,7 +11,7 @@ const jsonLd = [
     '@type': 'CollectionPage',
     name: 'Founders',
     url,
-    description: 'Every AI founder profiled in an AI Founder Files deep dive, with their company, role and a link to the full, sourced file. A new founder every week.',
+    description: 'Every founder we have profiled and how they use AI in their business: the industry, the AI tools and the use case, each linked to a full, sourced file.',
     isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
     mainEntity: {
       '@type': 'ItemList',
@@ -36,8 +36,8 @@ const jsonLd = [
 ---
 <PageLayout
   noindex={founders.length === 0}
-  title="Founders: Every AI Founder We’ve Profiled"
-  description="Every AI founder profiled in an AI Founder Files deep dive, with their company, role and a link to the full, sourced file. A new founder every week."
+  title="Founders Who Use AI to Build Their Business"
+  description="Every founder we’ve profiled and how they use AI in their business: the industry, the AI tools and the use case, each linked to a full, sourced file."
   label="The index"
   heading="Founders"
   lede="Every founder we’ve profiled, with a link to their file."

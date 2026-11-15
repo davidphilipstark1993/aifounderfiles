@@ -1,8 +1,8 @@
 ---
 title: "Five days in March: how Tony Dinh built TypingMind"
 standfirst: "A developer whose last two AI products earned about $100 between them built a better chat window in five days, charged for it once instead of monthly, and now says it brings in well over a million dollars a year. Here is what he did, why it worked, and what you can copy."
-seoTitle: "Tony Dinh, TypingMind: Built in Five Days"
-metaDescription: "On 1 March 2023 OpenAI opened ChatGPT to developers. Five days later Tony Dinh had TypingMind on sale. How he built it, priced it and grew it."
+seoTitle: "How Tony Dinh Built a Business on Other People's AI"
+metaDescription: "Five days after OpenAI opened ChatGPT to developers, Tony Dinh had TypingMind on sale. How he built, priced and grew a business on other firms' AI."
 fileNumber: 5
 publishDate: 2026-11-15
 author: "AI Founder Files"

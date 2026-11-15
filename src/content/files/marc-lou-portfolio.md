@@ -1,8 +1,8 @@
 ---
 title: "Marc Lou built 35 startups. About five of them worked"
 standfirst: "A French founder was fired in 2021, a month after returning to Bali, and started shipping small products in public. One of them made over a million dollars, by his own figures, and has since faded by more than 80 percent. By the time it faded, he had already built its replacements."
-seoTitle: "Marc Lou: 35 Startups, About Five That Worked"
-metaDescription: "Fired in 2021, Marc Lou has shipped about 35 small products. ShipFast made over $1M by his figures, then faded. What replaced it."
+seoTitle: "How Marc Lou Uses AI to Write 90% of His Code"
+metaDescription: "Marc Lou has shipped about 35 small products and says about five worked. He says AI now writes 90% of his code. How he builds, and when he moves on."
 fileNumber: 7
 publishDate: 2026-11-29
 author: "AI Founder Files"

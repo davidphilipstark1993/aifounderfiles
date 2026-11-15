@@ -4,7 +4,9 @@ export const SITE = {
   domain: 'aifounderfiles.com',
   tagline: 'One founder. One company. One deep dive.',
   description:
-    'A weekly publication profiling one AI founder and their company in depth: the founder, the product, the funding and the business model, told in full.',
+    'Weekly case studies of founders who use AI to start and run their businesses: the tools, the workflow, the numbers and what you can copy.',
+  /** Home page search title (used as is, without the brand suffix). */
+  homeTitle: 'How Founders Use AI to Start a Business | AI Founder Files',
   // Set these up as real mailboxes before launch (see README).
   contactEmail: 'info@aifounderfiles.com',
   correctionsEmail: 'info@aifounderfiles.com',
@@ -23,27 +25,30 @@ export const PILLARS = [
     slug: 'founder-files',
     name: 'AI Founder Files',
     // Search title. The pillar name matches the site name, so "AI Founder Files | AI Founder Files" would repeat itself.
-    seoTitle: 'The People Behind AI Companies',
+    seoTitle: 'Founder Profiles: How People Build With AI',
     short: 'Founders',
-    blurb: 'The people behind AI companies: where they came from, what they saw that others missed, and how they got started.',
+    blurb: 'Profiles of founders who build with AI, and of the people behind the AI tools they use: where they came from and how they got started.',
   },
   {
     slug: 'company-files',
-    name: 'AI Company Files',
+    name: 'Company Files',
+    seoTitle: 'Company Files: Businesses Built With AI',
     short: 'Companies',
-    blurb: 'How individual AI companies operate and compete: product, funding, rivals and what protects them.',
+    blurb: 'How individual businesses built with AI operate and compete: product, funding, rivals and what protects them.',
   },
   {
     slug: 'how-they-built-it',
     name: 'How They Built It',
+    seoTitle: 'How They Built It: Founders Who Build With AI',
     short: 'How they built it',
-    blurb: 'Customer acquisition, distribution, product and operations: the practical choices behind AI businesses that work.',
+    blurb: 'The practical choices behind businesses built with AI: the tools, the workflow, how they find customers and what it all costs.',
   },
   {
     slug: 'business-models',
-    name: 'AI Business Models',
+    name: 'Business Models',
+    seoTitle: 'Business Models: How AI-Built Businesses Earn',
     short: 'Business models',
-    blurb: 'Pricing, monetisation, automation and the economics of AI businesses.',
+    blurb: 'How businesses built with AI make money: pricing, costs, automation and the numbers behind them.',
   },
 ] as const;
 export type PillarSlug = (typeof PILLARS)[number]['slug'];

@@ -1,8 +1,8 @@
 ---
 title: "Maor Shlomo, Base44 and the $80 million headline"
 standfirst: "An Israeli founder came home from military reserve duty, built an AI app builder on his own, and sold it to Wix a few months after launch. The headline said $80 million. The detail is stranger, and more useful: a small cheque up front, and a great deal more for what happened next."
-seoTitle: "Maor Shlomo, Base44: Behind the $80M Wix Deal"
-metaDescription: "Maor Shlomo built Base44 alone and sold it to Wix within months. The headline said $80 million. Wix's filing shows about $18 million was paid in cash up front."
+seoTitle: "How Maor Shlomo Used AI to Build and Sell Base44"
+metaDescription: "Maor Shlomo built Base44 alone, with AI writing much of the code, and sold it to Wix within months. The $80M headline, and what was paid up front."
 fileNumber: 9
 publishDate: 2026-12-13
 author: "AI Founder Files"

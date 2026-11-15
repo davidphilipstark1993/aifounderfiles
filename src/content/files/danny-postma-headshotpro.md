@@ -1,8 +1,8 @@
 ---
 title: "Danny Postma tried four ideas in six months. One of them stuck"
 standfirst: "A Dutch founder who says he hates marketing checks what people are searching for before he builds anything. That habit led him to AI headshots, a business that now says it has taken more than $10 million. He stopped sharing his revenue in 2023, and in 2026 said a Google update and new rivals had cut its forecasts, so we have pieced together what can be known."
-seoTitle: "Danny Postma, HeadshotPro: Four Ideas, One Hit"
-metaDescription: "Danny Postma checks what people search for before he builds. It led to HeadshotPro, an AI headshot business that says it has taken over $10 million."
+seoTitle: "How Danny Postma Built HeadshotPro on Image AI"
+metaDescription: "Danny Postma checks what people search for before he builds. Four tries on new image AI led to HeadshotPro, which says it has taken over $10 million."
 fileNumber: 10
 publishDate: 2026-12-20
 author: "AI Founder Files"

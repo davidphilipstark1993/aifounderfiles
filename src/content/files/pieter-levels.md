@@ -1,8 +1,8 @@
 ---
 title: "Pieter Levels and the 40,870-line file"
 standfirst: "A self-taught Dutch developer runs a portfolio of products alone, with no investors, no employees and a way of writing software that most professionals would call reckless. One of those products, he said in March 2026, made $80,000 of profit that month from a single file. Here is how he works, and what the numbers do and don't show."
-seoTitle: "Pieter Levels and Photo AI's 40,870-Line File"
-metaDescription: "Pieter Levels runs Photo AI from one 40,870-line file and said it made $80,000 of profit in March 2026. How he works alone, and what his numbers show."
+seoTitle: "How Pieter Levels Uses AI to Run Photo AI Alone"
+metaDescription: "Pieter Levels sells AI photos, builds games by prompting Cursor and has AI moderate his community. Three ways he uses AI, and what his numbers show."
 fileNumber: 8
 publishDate: 2026-12-06
 author: "AI Founder Files"
