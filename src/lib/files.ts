@@ -110,10 +110,15 @@ export async function getCompanies(): Promise<Company[]> {
   return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
 }
 
-/** Files that share tags or a sector with `current`, topped up with the newest others. */
+/**
+ * Related founders for the foot of a file: founders covered the same way (building with AI, or behind the tools) first,
+ * then those sharing a topic, tags or a sector, topped up with the newest others.
+ */
 export function relatedFiles(current: FileEntry, all: FileEntry[], count = 3): FileEntry[] {
   const others = all.filter((f) => f.id !== current.id);
   const score = (f: FileEntry) =>
+    (f.data.coverage === current.data.coverage ? 4 : 0) +
+    (f.data.pillar === current.data.pillar ? 1 : 0) +
     f.data.tags.filter((t) => current.data.tags.includes(t)).length +
     (f.data.company.sector === current.data.company.sector ? 2 : 0);
   return others

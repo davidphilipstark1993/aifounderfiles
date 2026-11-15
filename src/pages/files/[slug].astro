@@ -6,6 +6,7 @@ import FactBox from '../../components/FactBox.astro';
 import FileCard from '../../components/FileCard.astro';
 import NewsletterBand from '../../components/NewsletterBand.astro';
 import AdSlot from '../../components/AdSlot.astro';
+import Arrow from '../../components/Arrow.astro';
 import {
   factFields,
   fileNumberLabel,
@@ -234,7 +235,7 @@ const jsonLd = [
   {related.length > 0 && (
     <section class="section" aria-labelledby="related-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="related-title">Related files</h2></div>
+        <div class="section-head"><h2 id="related-title">Related founders</h2><a class="link-arrow" href="/founders/"><span>All founders</span><Arrow /></a></div>
         <ul class="related" role="list">
           {related.map((r) => <li><FileCard entry={r} /></li>)}
         </ul>
