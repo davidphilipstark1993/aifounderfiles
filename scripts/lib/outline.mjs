@@ -18,6 +18,20 @@ export function readFontBuffer(key) {
   return fs.readFileSync(path.join(ROOT, FONT_FILES[key]));
 }
 
+// Our own serialiser: opentype.js 2.0's toPathData() rounding sometimes emits "NaN" for valid coordinates,
+// which silently cuts off the rest of the path when rendered (seen on the default OG image).
+const num = (n) => String(Math.round(n * 100) / 100);
+function pathData(p) {
+  return p.commands
+    .map((c) => {
+      if (c.type === 'M' || c.type === 'L') return `${c.type}${num(c.x)} ${num(c.y)}`;
+      if (c.type === 'Q') return `Q${num(c.x1)} ${num(c.y1)} ${num(c.x)} ${num(c.y)}`;
+      if (c.type === 'C') return `C${num(c.x1)} ${num(c.y1)} ${num(c.x2)} ${num(c.y2)} ${num(c.x)} ${num(c.y)}`;
+      return 'Z';
+    })
+    .join('');
+}
+
 export function loadFont(key) {
   if (!cache.has(key)) {
     const b = readFontBuffer(key);
@@ -49,7 +63,7 @@ export function outline(fontKey, text, { x = 0, y = 0, size = 16, tracking = 0, 
   let cursor = anchor === 'middle' ? x - width / 2 : anchor === 'end' ? x - width : x;
   let d = '';
   glyphs.forEach((g, i) => {
-    d += g.getPath(cursor, y, size).toPathData(2);
+    d += pathData(g.getPath(cursor, y, size));
     cursor += advances[i];
   });
   return { d, width };
