@@ -3,6 +3,33 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
+import matter from 'gray-matter';
+
+const SITE_URL = 'https://aifounderfiles.com';
+
+// <lastmod> for the sitemap: each file and post's updatedDate (or publishDate); index pages take the newest of those.
+// Pages with no content date (about, privacy, etc.) get no lastmod rather than a made-up one.
+/** @type {Map<string, Date>} */
+const lastmod = new Map();
+const now = Date.now();
+for (const [dir, prefix] of [['src/content/files', '/files/'], ['src/content/blog', '/blog/']]) {
+  if (!fs.existsSync(dir)) continue;
+  for (const f of fs.readdirSync(dir).filter((f) => /\.mdx?$/.test(f))) {
+    const { data } = matter(fs.readFileSync(`${dir}/${f}`, 'utf8'));
+    if (data.draft) continue;
+    const d = new Date(data.updatedDate ?? data.publishDate);
+    if (Number.isNaN(d.getTime()) || d.getTime() > now) continue;
+    lastmod.set(`${SITE_URL}${prefix}${f.replace(/\.mdx?$/, '')}/`, d);
+  }
+}
+const newest = (/** @type {string} */ prefix) =>
+  [...lastmod].filter(([u]) => u.startsWith(`${SITE_URL}${prefix}`)).reduce((/** @type {Date | undefined} */ a, [, d]) => (!a || d > a ? d : a), undefined);
+const newestFile = newest('/files/');
+const newestAny = [newestFile, newest('/blog/')].reduce((a, d) => (d && (!a || d > a) ? d : a), undefined);
+for (const p of ['/founders/', '/companies/', '/archive/', '/topics/']) if (newestFile) lastmod.set(`${SITE_URL}${p}`, newestFile);
+if (newestAny) lastmod.set(`${SITE_URL}/`, newestAny);
+const blogNewest = newest('/blog/');
+if (blogNewest) lastmod.set(`${SITE_URL}/blog/`, blogNewest);
 
 // Founders, Companies and Archive are empty (and noindex) until an article is published, so keep them out of the sitemap.
 const hasPublishedFiles = fs
@@ -49,6 +76,10 @@ export default defineConfig({
         !isThinHub(page) &&
         (hasPublishedFiles || !emptyIndexes.some((p) => page.endsWith(p))) &&
         (hasPublishedPosts || !page.endsWith('/blog/')),
+      serialize: (item) => {
+        const d = lastmod.get(item.url) ?? (item.url.includes('/topics/') ? lastmod.get(`${SITE_URL}/topics/`) : undefined);
+        return d ? { ...item, lastmod: d.toISOString() } : item;
+      },
     }),
   ],
 });

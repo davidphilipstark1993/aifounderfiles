@@ -4,6 +4,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "statusCode": 301
+    }
+  ],
   "headers": [
     {
       "source": "/_astro/(.*)",
