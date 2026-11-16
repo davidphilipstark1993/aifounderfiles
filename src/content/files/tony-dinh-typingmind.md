@@ -1,8 +1,10 @@
 ---
 title: "Five days in March: how Tony Dinh built TypingMind"
+headline: "How Tony Dinh built TypingMind on other people's AI in five days"
 standfirst: "A developer whose last two AI products earned about $100 between them built a better chat window in five days, charged for it once instead of monthly, and now says it brings in well over a million dollars a year. Here is what he did, why it worked, and what you can copy."
-seoTitle: "Tony Dinh, TypingMind: Built in Five Days"
-metaDescription: "On 1 March 2023 OpenAI opened ChatGPT to developers. Five days later Tony Dinh had TypingMind on sale. How he built it, priced it and grew it."
+seoTitle: "How Tony Dinh Built a Business on Other People's AI"
+metaDescription: "Five days after OpenAI opened ChatGPT to developers, Tony Dinh had TypingMind on sale. How he built, priced and grew a business on other firms' AI."
+aiUseCase: "Sells TypingMind, a chat window for other companies' AI models, and builds side projects with Claude Code and Cursor."
 fileNumber: 5
 publishDate: 2026-11-15
 author: "AI Founder Files"
@@ -203,13 +205,13 @@ He hasn't stopped. He and his wife were on a round-the-world trip, trying to fin
 
 He also wrote this: for years, the pressure to keep earning meant he couldn't tell whether he loved coding or was just afraid of losing his income. Now that the pressure is gone, he has his answer. He says he is "in love with building with AI" and still writes code every day.
 
-## Where the AI is
+## Where AI fits in
 
 It would be easy to assume that AI built this business. Mostly it didn't. AI is what Tony sells access to. TypingMind is a front door to other companies' models, 18 providers of them by its own count this year.
 
 In 2026 his newsletter became much more specific about how he builds. He builds side projects with Claude Code, including iOS apps that an agent built and shipped to the App Store largely unattended, and he uses Cursor's cloud agents to tidy up code overnight. What it shows about TypingMind itself is a way of working: a small core, shipped fast and improved in public.
 
-## What made it possible
+## What made it possible: lessons for new founders
 
 It's worth being honest about what he had going for him, because not all of it can be copied.
 

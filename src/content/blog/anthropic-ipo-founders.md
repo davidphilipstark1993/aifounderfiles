@@ -1,7 +1,7 @@
 ---
 title: "Anthropic's IPO: the founders sell about 1.4% of their shares and keep the votes"
 seoTitle: "Anthropic IPO: What the 7 Co-Founders Sell and Keep"
-seoDescription: "Anthropic's seven co-founders each plan to sell about $250m of IPO shares, roughly 1.4% of their stakes, while one Class F share carries 50.1% of the votes."
+seoDescription: "Anthropic, maker of Claude, is going public. Each of its seven co-founders plans to sell about $250m of shares, about 1.4% of their stakes."
 description: "Each of Anthropic's seven co-founders plans to sell 3,378,378 shares in the IPO, about $250m at the $74 midpoint. A Class F share carries a fixed 50.1% of the votes; the filing says the co-founders will collectively hold about 61.3% of voting power after the offering including that share, or about 11.2% excluding it, based on beneficial ownership as of 30 September 2026."
 publishDate: 2026-11-12
 author: "AI Founder Files"

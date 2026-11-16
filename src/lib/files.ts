@@ -70,7 +70,15 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
-export type Founder = { name: string; role: string; company: string; entry: FileEntry };
+export type Founder = {
+  name: string;
+  role: string;
+  company: string;
+  sector: string;
+  aiUseCase?: string;
+  coverage: FileEntry['data']['coverage'];
+  entry: FileEntry;
+};
 export type Company = FileEntry['data']['company'] & { founder: string; entry: FileEntry };
 
 /** One row per founder. If a founder is covered twice, the newest file wins. */
@@ -83,6 +91,9 @@ export async function getFounders(): Promise<Founder[]> {
         name: entry.data.founder.name,
         role: entry.data.founder.role,
         company: entry.data.company.name,
+        sector: entry.data.company.sector,
+        aiUseCase: entry.data.aiUseCase,
+        coverage: entry.data.coverage,
         entry,
       });
     }
@@ -99,10 +110,15 @@ export async function getCompanies(): Promise<Company[]> {
   return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
 }
 
-/** Files that share tags or a sector with `current`, topped up with the newest others. */
+/**
+ * Related founders for the foot of a file: founders covered the same way (building with AI, or behind the tools) first,
+ * then those sharing a topic, tags or a sector, topped up with the newest others.
+ */
 export function relatedFiles(current: FileEntry, all: FileEntry[], count = 3): FileEntry[] {
   const others = all.filter((f) => f.id !== current.id);
   const score = (f: FileEntry) =>
+    (f.data.coverage === current.data.coverage ? 4 : 0) +
+    (f.data.pillar === current.data.pillar ? 1 : 0) +
     f.data.tags.filter((t) => current.data.tags.includes(t)).length +
     (f.data.company.sector === current.data.company.sector ? 2 : 0);
   return others

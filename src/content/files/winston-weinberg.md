@@ -1,8 +1,10 @@
 ---
 title: "Winston Weinberg and the associate who cold-emailed Sam Altman"
+headline: "How lawyer Winston Weinberg used AI to start Harvey"
 standfirst: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed the results to OpenAI. Four years later Harvey is valued at $15.5 billion, and the roommates still share the flat."
-seoTitle: "Winston Weinberg, Harvey: The Cold Email to Sam Altman"
-metaDescription: "A first-year lawyer and his roommate tested GPT-3 on a hundred Reddit questions and emailed OpenAI. Four years later Harvey is valued at $15.5 billion."
+seoTitle: "How Winston Weinberg Used AI to Start Harvey"
+metaDescription: "A first-year lawyer tested GPT-3 on 100 Reddit legal questions, then emailed OpenAI. How Winston Weinberg built Harvey on someone else's AI model."
+aiUseCase: "A litigator who tested GPT-3 on 100 real legal questions, then built Harvey, AI for law firms, on OpenAI's models."
 fileNumber: 3
 publishDate: 2026-10-18
 author: "AI Founder Files"
@@ -100,7 +102,7 @@ Legal work is, at its heart, reading and writing at scale: reading thousands of 
 
 That is also exactly why law firms had not embraced earlier AI tools. They have strict confidentiality duties, they are cautious by temperament, and they are very quick to say no. The problem Harvey set out to solve was therefore twofold: build something good enough to be trusted, and sell it to people whose entire profession is built around not trusting things.
 
-## The product
+## The GPT-3 test and the product
 
 The idea started with a test. Pereyra showed Weinberg GPT-3 at the end of 2021. They didn't write a pitch deck. They wrote a careful prompt around California landlord-tenant law, took 100 real questions from Reddit's r/legaladvice forum, and had the model answer them. Then they hid who had written the answers and asked three landlord-tenant lawyers to review them. According to Weinberg, for 86 of the 100 questions the lawyers said the answer was good enough to send to a client without changes.
 

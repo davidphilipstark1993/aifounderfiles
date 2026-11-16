@@ -59,7 +59,7 @@ write(
     {
       name: 'AI Founder Files',
       short_name: 'AI Founder Files',
-      description: 'One founder. One company. One deep dive.',
+      description: 'Real founders. Real businesses. Built with AI.',
       start_url: '/',
       display: 'browser',
       theme_color: INK,
@@ -75,7 +75,7 @@ write(
 );
 
 // ---- Default OG image, 1200×630 ----
-const lines = ['ONE FOUNDER.', 'ONE COMPANY.', 'ONE DEEP DIVE.'];
+const lines = ['REAL FOUNDERS.', 'REAL BUSINESSES.', 'BUILT WITH AI.'];
 const headSize = 108;
 const headline = lines
   .map((t, i) => {
@@ -84,7 +84,7 @@ const headline = lines
     return `<path d="${d}" fill="${i === 2 ? SIGNAL_LIGHT : PAPER}"/>`;
   })
   .join('');
-const eyebrow = outline('mono500', 'AI FOUNDER FILES  ·  WEEKLY', { x: 64, y: 100, size: 22, tracking: 4.4 });
+const eyebrow = outline('mono500', 'AI FOUNDER FILES  ·  WEEKLY CASE STUDIES', { x: 64, y: 100, size: 22, tracking: 4.4 });
 const domain = outline('mono500', 'aifounderfiles.com', { x: 150, y: 548, size: 26, tracking: 2.6 });
 write(
   'og-default.png',

@@ -1,8 +1,10 @@
 ---
 title: "The man who laminated every card at his kitchen table"
-seoTitle: "Maarten: From Google Forms to Claude Code"
+headline: "How Maarten used AI to rebuild his kitchen-table business"
+seoTitle: "How Maarten Used Claude Code to Rebuild His Business"
 standfirst: "A Dutch founder with a day job, a mortgage and two kids ran his business on Google Forms for five years. Then he rebuilt it with Claude Code, took a month on a boat, and says the hard part was understanding the process first."
-metaDescription: "A Dutch founder with a day job and two kids ran his business on Google Forms for five years, then rebuilt it with Claude Code and took a month on a boat."
+metaDescription: "A Dutch solo founder with a day job ran his business on Google Forms for five years, then rebuilt it with Claude Code. His tools, costs and rules."
+aiUseCase: "A non-developer who rebuilt the software that runs his one-person business with Claude Code."
 fileNumber: 4
 publishDate: 2026-10-25
 author: "AI Founder Files"
@@ -91,7 +93,7 @@ He also answered every request on the day it arrived, seven days a week. On one 
 
 He knew the set-up was wrong and had a growing backlog. He tried a no-code tool, did two courses, and struggled for months. Learning a new platform at ten at night after a full day's work, he found, didn't work.
 
-## The Thursday
+## The Thursday he started with Claude Code
 
 Then came Claude Code, Anthropic's coding assistant. He installed it on a Thursday. By the end of that day, it had built the things he had been stuck on for months. Within a week, everything on his backlog board was working code.
 
@@ -125,7 +127,7 @@ One detail we liked. A client with a leased fleet asked him to stop drivers edit
 
 A note on that plate lookup, because it's smaller than it sounds. The Dutch vehicle authority publishes vehicle data as free open data, and the lookup returns make, model and similar details but not who owns the vehicle. That is exactly why the app asks the customer to confirm the car on screen: it can't tell you whose it is, but it can tell you whether the plate is real and what it belongs to.
 
-## What it runs on, and what it costs
+## The tools he uses, and what they cost
 
 | Tool | Job | What it replaced |
 |---|---|---|
@@ -158,7 +160,7 @@ The risk is real. The code was written by an AI that he can't fully judge himsel
 
 He isn't guessing, either. A decade of ISO 27001 means he knows what good practice looks like, which is an advantage most people building this way won't have. His advice to anyone holding sensitive data is to make the review a habit, and the first step is simple: point the AI at your own code and ask it to review for security problems. It takes an afternoon, and it's better done before you have customers than after.
 
-## His rules
+## His rules for new founders
 
 1. **Get the process right before you automate it.** He ran on Google Forms for five years on purpose. Automate a process you don't understand and you just make the wrong thing faster.
 2. **Don't build the spaceship.** If you keep adding features, it never flies. Start with the one process that costs you most.

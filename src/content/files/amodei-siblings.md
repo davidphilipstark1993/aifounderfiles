@@ -1,14 +1,22 @@
 ---
 title: "The Amodei siblings and the lab built on saying no"
+headline: "The Amodei siblings and Claude, the AI many founders build with"
 standfirst: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion, locked in a fight with the Pentagon, and heading for a stock-market listing that could be the largest ever."
-seoTitle: "Amodei Siblings, Anthropic: The Lab Built on Saying No"
-metaDescription: "A physicist and a literature graduate left OpenAI to build Anthropic. Five years on it is valued at $965 billion and heading for a stock-market listing."
+seoTitle: "The Amodeis and Anthropic: Who Runs Claude"
+metaDescription: "Anthropic makes Claude, the AI assistant many founders build and code with. Who runs it, how it makes money, and the line its founders won't cross."
+coverage: "behind-the-tools"
+aiUseCase: "Run Anthropic, the maker of Claude, the AI model and assistant used by businesses, developers and coders."
 fileNumber: 2
 publishDate: 2026-10-11
 author: "AI Founder Files"
 founder:
   name: "Dario and Daniela Amodei"
   role: "CEO and President"
+  people:
+    - name: "Dario Amodei"
+      jobTitle: "Co-founder and CEO"
+    - name: "Daniela Amodei"
+      jobTitle: "Co-founder and President"
 company:
   name: "Anthropic"
   website: "https://www.anthropic.com"

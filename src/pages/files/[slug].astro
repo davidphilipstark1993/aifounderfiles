@@ -6,6 +6,7 @@ import FactBox from '../../components/FactBox.astro';
 import FileCard from '../../components/FileCard.astro';
 import NewsletterBand from '../../components/NewsletterBand.astro';
 import AdSlot from '../../components/AdSlot.astro';
+import Arrow from '../../components/Arrow.astro';
 import {
   factFields,
   fileNumberLabel,
@@ -41,8 +42,9 @@ const upcoming = isUpcoming(entry);
 const related = relatedFiles(entry, files, 3);
 const pillar = pillarOf(entry);
 const brief = shortVersion(entry);
-// Search-result title: the brand suffix is dropped when it would push the title past about 60 characters.
+// Search-result title: the brand suffix is dropped when it would push the title past 60 characters.
 const seoTitle = data.seoTitle ?? data.title;
+const headline = data.headline ?? data.title;
 const withBrand = `${seoTitle} | ${SITE.name}`;
 const ogPath = `/og/${entry.id}.png`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -51,70 +53,93 @@ const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 const isRealYear = (v?: string) => (v && /^\d{4}$/.test(v.trim()) ? v.trim() : undefined);
 const isNamed = (v?: string) => (v && !/^undisclosed$/i.test(v.trim()) ? v : undefined);
 
-const founderLd = {
-  '@type': 'Person',
-  name: data.founder.name,
-  jobTitle: data.founder.role,
-  ...(data.founder.linkedin && { sameAs: [data.founder.linkedin] }),
-  worksFor: { '@type': 'Organization', name: data.company.name },
-};
-const companyLd = {
+// Structured data: an Article about the founder (Person) and, where there is one, their company (Organization).
+// Each entity has an @id so the Article can point at it; the publication's Organization is defined on the home page.
+const orgId = `${SITE.url}/#organization`;
+const publisherLd = {
   '@type': 'Organization',
+  '@id': orgId,
+  name: SITE.name,
+  url: SITE.url,
+  logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png`, width: 512, height: 512 },
+};
+// "Marc Lou (Marc Louvion)" → name "Marc Lou", alternateName "Marc Louvion"; "Maarten (surname withheld)" → "Maarten".
+const splitName = (raw: string) => {
+  const m = raw.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+  if (!m) return { name: raw };
+  return /withheld/i.test(m[2]) ? { name: m[1] } : { name: m[1], alternateName: m[2] };
+};
+// A company is only marked up as one Organization when it is a single named company
+// (not "Withheld at his request", and not a list such as "Photo AI, Interior AI and Remote OK").
+const singleCompany = !/^withheld/i.test(data.company.name) && !/,| and /.test(data.company.name);
+const companyId = `${canonical}#company`;
+const people = (data.founder.people ?? [{ name: data.founder.name, jobTitle: data.founder.role }]).map((p, i) => ({
+  '@type': 'Person',
+  '@id': `${canonical}#founder${i ? i + 1 : ''}`,
+  ...splitName(p.name),
+  jobTitle: p.jobTitle,
+  ...(data.founder.linkedin && !data.founder.people && { sameAs: [data.founder.linkedin] }),
+  ...(singleCompany && { worksFor: { '@id': companyId } }),
+}));
+const companyLd = singleCompany && {
+  '@type': 'Organization',
+  '@id': companyId,
   name: data.company.name,
   ...(data.company.website && { url: data.company.website }),
   ...(isRealYear(data.company.founded) && { foundingDate: isRealYear(data.company.founded) }),
   ...(isNamed(data.company.hq) && { location: { '@type': 'Place', name: data.company.hq } }),
-  founder: { '@type': 'Person', name: data.founder.name },
+  founder: people.map((p) => ({ '@id': p['@id'] })),
 };
 
 // The byline is the publication itself unless a named person wrote it.
-const authorLd =
-  data.author === SITE.name
-    ? { '@type': 'Organization', name: SITE.name, url: SITE.url }
-    : { '@type': 'Person', name: data.author };
+const authorLd = data.author === SITE.name ? { '@type': 'Organization', '@id': orgId, name: SITE.name, url: SITE.url } : { '@type': 'Person', name: data.author };
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
     { name: 'Home', path: '/' },
-    { name: pillar.name, path: `/topics/${pillar.slug}/` },
-    { name: data.title, path: Astro.url.pathname },
+    { name: 'Founders', path: '/founders/' },
+    { name: headline, path: Astro.url.pathname },
   ].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.path, SITE.url).href })),
 };
 
 const articleLd = {
   '@context': 'https://schema.org',
-  '@type': 'NewsArticle',
-  headline: data.title,
-  description: data.standfirst,
-  image: [new URL(ogPath, SITE.url).href],
+  '@type': 'Article',
+  '@id': `${canonical}#article`,
+  headline,
+  alternativeHeadline: data.title,
+  description: data.metaDescription ?? data.standfirst,
+  image: [{ '@type': 'ImageObject', url: new URL(ogPath, SITE.url).href, width: 1200, height: 630 }],
   datePublished: notAfterNow(data.publishDate).toISOString(),
   dateModified: notAfterNow(data.updatedDate ?? data.publishDate).toISOString(),
   author: authorLd,
-  publisher: {
-    '@type': 'Organization',
-    name: SITE.name,
-    url: SITE.url,
-    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },
-  },
+  publisher: publisherLd,
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-  about: [founderLd, companyLd],
+  isPartOf: { '@type': 'WebSite', '@id': `${SITE.url}/#website`, name: SITE.name, url: SITE.url },
+  about: [...people.map((p) => ({ '@id': p['@id'] })), ...(companyLd ? [{ '@id': companyId }] : [])],
   keywords: data.tags.join(', '),
   articleSection: pillar.name,
+  wordCount: (entry.body ?? '').split(/\s+/).filter(Boolean).length,
   inLanguage: 'en-GB',
   isAccessibleForFree: true,
   citation: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
 };
-const jsonLd = [articleLd, breadcrumbLd];
+const jsonLd = [
+  articleLd,
+  ...people.map((p) => ({ '@context': 'https://schema.org', ...p })),
+  ...(companyLd ? [{ '@context': 'https://schema.org', ...companyLd }] : []),
+  breadcrumbLd,
+];
 ---
 <BaseLayout
   title={seoTitle}
-  fullTitle={withBrand.length > 62}
+  fullTitle={withBrand.length > 60}
   description={data.metaDescription ?? data.standfirst}
   type="article"
   image={ogPath}
-  imageAlt={`${data.title} — Founder File ${fileNumberLabel(data.fileNumber)}`}
+  imageAlt={`${headline} — Founder File ${fileNumberLabel(data.fileNumber)}`}
   noindex={data.draft}
   adSlot={false}
   jsonLd={jsonLd}
@@ -140,10 +165,10 @@ const jsonLd = [articleLd, breadcrumbLd];
       <div class="wrap file-head__grid">
         <div>
           <nav class="crumbs label label--muted" aria-label="Breadcrumb">
-            <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/topics/${pillar.slug}/`}>{pillar.name}</a>
+            <a href="/">Home</a><span aria-hidden="true">/</span><a href="/founders/">Founders</a>
           </nav>
           <p class="label label--signal">Founder File {fileNumberLabel(data.fileNumber)}</p>
-          <h1 class="display file-title">{data.title}</h1>
+          <h1 class="display file-title">{headline}</h1>
           <p class="file-standfirst">{data.standfirst}</p>
           <p class="byline label label--muted">
             <span>By {data.author}</span>
@@ -210,7 +235,7 @@ const jsonLd = [articleLd, breadcrumbLd];
   {related.length > 0 && (
     <section class="section" aria-labelledby="related-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="related-title">Related files</h2></div>
+        <div class="section-head"><h2 id="related-title">Related founders</h2><a class="link-arrow" href="/founders/"><span>All founders</span><Arrow /></a></div>
         <ul class="related" role="list">
           {related.map((r) => <li><FileCard entry={r} /></li>)}
         </ul>

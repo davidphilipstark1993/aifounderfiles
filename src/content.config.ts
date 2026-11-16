@@ -7,10 +7,18 @@ const files = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      // The H1 on the website: the founder's name and "AI", e.g. "How Maarten used AI to rebuild his business".
+      // `title` stays the issue title used in the PDF, email, cards and share image. Falls back to title.
+      headline: z.string().optional(),
       standfirst: z.string(),
       // Search-result overrides: a title of about 60 characters and a description of about 160. Both fall back to title/standfirst.
       seoTitle: z.string().optional(),
       metaDescription: z.string().optional(),
+      // One line on how the founder uses AI, shown on /founders/. Only what the file itself says.
+      aiUseCase: z.string().optional(),
+      // 'behind-the-tools' marks profiles of the people who make the AI tools founders use (OpenAI, Anthropic).
+      // They are listed separately on /founders/ and the home page.
+      coverage: z.enum(['built-with-ai', 'behind-the-tools']).default('built-with-ai'),
       fileNumber: z.number().int().positive(),
       publishDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
@@ -19,6 +27,8 @@ const files = defineCollection({
         name: z.string(),
         role: z.string(),
         linkedin: z.url().optional(),
+        // When a file covers more than one founder, list each person for structured data (Person markup).
+        people: z.array(z.object({ name: z.string(), jobTitle: z.string() })).optional(),
       }),
       company: z.object({
         name: z.string(),

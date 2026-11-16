@@ -20,7 +20,7 @@ const jsonLd = listed.length
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
         name: 'Blog',
-        description: 'Shorter, sourced pieces on AI founders and their companies, published on weekdays alongside the weekly AI Founder Files deep dive.',
+        description: 'Shorter, sourced pieces on founders building with AI and the companies behind their tools, published on weekdays alongside the weekly file.',
         url: new URL('/blog/', SITE.url).href,
         isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
         inLanguage: 'en-GB',
@@ -42,8 +42,8 @@ const jsonLd = listed.length
 ---
 <PageLayout
   noindex={listed.length === 0}
-  title="Blog"
-  description="Shorter, sourced pieces on AI founders and their companies, published on weekdays alongside the weekly AI Founder Files deep dive."
+  title="Blog: Founders, AI Tools and the Companies Behind Them"
+  description="Shorter, sourced pieces on founders building with AI and the companies behind their tools, published on weekdays alongside the weekly file."
   label="The blog"
   heading="The blog"
   lede="Shorter pieces, published on weekdays, that sit alongside the weekly Founder File."

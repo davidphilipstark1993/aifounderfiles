@@ -15,7 +15,7 @@ import AdSlot from '../components/AdSlot.astro';
 import { SITE } from '../lib/site';
 
 interface Props {
-  /** Page title. " | AI Founder Files" is appended unless `fullTitle` is set. */
+  /** Page title. " | AI Founder Files" is appended unless `fullTitle` is set or the result would pass 60 characters. */
   title: string;
   fullTitle?: boolean;
   description: string;
@@ -35,7 +35,7 @@ const {
   fullTitle = false,
   description,
   image = '/og-default.png',
-  imageAlt = `${SITE.name} — ${SITE.tagline}`,
+  imageAlt = `${SITE.name}: real founders, real businesses, built with AI`,
   type = 'website',
   noindex = false,
   adSlot = true,
@@ -43,7 +43,8 @@ const {
   article,
 } = Astro.props;
 
-const pageTitle = fullTitle ? title : `${title} | ${SITE.name}`;
+const withBrand = `${title} | ${SITE.name}`;
+const pageTitle = fullTitle || withBrand.length > 60 ? title : withBrand;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const imageUrl = new URL(image, SITE.url).href;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];

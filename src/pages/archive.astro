@@ -19,7 +19,7 @@ const jsonLd = files.length
         '@type': 'CollectionPage',
         name: 'Archive',
         url,
-        description: 'Every AI Founder Files deep dive, newest first.',
+        description: 'Every Founder File, newest first: one sourced case study a week on a founder using AI to start, build or run their business.',
         isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
         inLanguage: 'en-GB',
         mainEntity: {
@@ -47,8 +47,8 @@ const jsonLd = files.length
 ---
 <PageLayout
   noindex={files.length === 0}
-  title="Archive"
-  description="Every AI Founder Files deep dive, newest first: one sourced file a week on an AI founder, their company, who has funded it and how it makes money."
+  title="Archive: Every Founder File, Newest First"
+  description="Every Founder File, newest first: one sourced case study a week on a founder using AI to start, build or run their business, and what it earns."
   label="The archive"
   heading="All files"
   lede="Every Founder File, newest first."

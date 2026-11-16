@@ -6,7 +6,8 @@ export const getStaticPaths = (async () => {
   const files = await getPublishedFiles();
   return files.map((f) => ({
     params: { slug: f.id },
-    props: { title: f.data.title, fileNumber: f.data.fileNumber },
+    // The share image carries the web H1 (founder's name and how they use AI), not the issue title.
+    props: { title: f.data.headline ?? f.data.title, fileNumber: f.data.fileNumber },
   }));
 }) satisfies GetStaticPaths;
 

@@ -1,8 +1,10 @@
 ---
 title: "$401 million in sales, two employees, and what the headline left out"
+headline: "How Matthew Gallagher used AI to build Medvi with two employees"
 standfirst: "Matthew Gallagher built Medvi in two months with $20,000 and a stack of AI tools. The New York Times reviewed financials showing $401 million of sales in 2025. It is the best-documented revenue in this series, and it comes with the biggest warning."
-seoTitle: "Matthew Gallagher, Medvi: $401M in Sales, Two Employees"
-metaDescription: "Matthew Gallagher built Medvi with $20,000 and AI tools. The Times says it verified $401M of 2025 sales. It also drew an FDA warning letter. Both sides, sourced."
+seoTitle: "How Matthew Gallagher Used AI to Build Medvi"
+metaDescription: "ChatGPT, Claude and Grok wrote the code; Midjourney and Runway made the ads. The Times put Medvi's 2025 sales at $401M. It also drew an FDA warning."
+aiUseCase: "Built the site with ChatGPT, Claude and Grok, made the ads with Midjourney and Runway, and answers customers with a chatbot."
 fileNumber: 6
 publishDate: 2026-11-22
 author: "AI Founder Files"
@@ -91,7 +93,7 @@ So Medvi's own job is everything in front of the prescription: finding customers
 
 One more piece of context. Medvi sells compounded versions of two ingredients: tirzepatide, which is in Mounjaro and Zepbound, and semaglutide, which is in Ozempic and Wegovy. The regulator declared the tirzepatide shortage over in December 2024 and the semaglutide shortage over in February 2025. That narrowed the legal room for mass compounding, and the rules have been contested ever since. Medvi grew to $401 million during exactly that period.
 
-## Two months and $20,000
+## How AI helped him start: two months and $20,000
 
 Medvi opened for business in September 2024. He told the Times it took about two months and $20,000 to get the site live, a sum that covered the software and the first month of advertising.
 
@@ -165,7 +167,7 @@ Between Friday 3 and Monday 6 April, after Business Insider raised the profiles 
 
 In short, the revenue has been checked by the Times. The claim that it was won cleanly isn't. And the company has acknowledged, in writing, at least part of the marketing problem.
 
-## What to copy, and what not to
+## Lessons for new founders: what to copy, and what not to
 
 There are two stories in this file, and it matters to keep them apart.
 
